@@ -1,88 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, X, ChevronRight, CheckCircle2 } from "lucide-react";
+import { Plus, X, CheckCircle2, AlertTriangle, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { theme, tierConfig, type Tier } from "@/lib/theme/tokens";
 import SchoolSearch from "@/components/dashboard/SchoolSearch";
-import type { ProgramResult, SchoolGroup } from "@/components/dashboard/SchoolSearch";
-import { generateTasks, overallProgress, type TasksState } from "@/lib/tasks";
-
-// Temporary local state — will be replaced by database + React context
-interface AppProgram {
-  id: string;
-  schoolName: string;
-  schoolNameZh: string;
-  programName: string;
-  programNameZh: string;
-  degree: string;
-  tier: Tier;
-  deadline: string | null;
-  portalUrl: string | null;
-  toeflMin: number | null;
-  greRequired: boolean;
-  applicationFee: number | null;
-  tasksState: TasksState;
-}
+import { useApplications, type AppProgram } from "@/lib/context/applications";
+import { overallProgress } from "@/lib/tasks";
 
 export default function SchoolsPage() {
-  const [apps, setApps] = useState<AppProgram[]>([]);
+  const { apps, lang, addProgram, cycleTier, removeApp } = useApplications();
   const [showSearch, setShowSearch] = useState(false);
-  const [lang] = useState<"en" | "zh">("en"); // TODO: get from context
-
-  const addProgram = (progs: ProgramResult[], school: SchoolGroup) => {
-    for (const p of progs) {
-      if (apps.some((a) => a.id === p.id)) continue;
-
-      // Generate the full task checklist from program data
-      const tasksState = generateTasks({
-        wesRequired: p.wesRequired,
-        toeflMin: p.toeflMin,
-        greRequired: p.greRequired,
-        recsRequired: p.recsRequired,
-        applicationFee: p.applicationFee,
-        interviewReq: p.interviewReq,
-        deadline: p.deadline,
-        essays: p.essays,
-        portalUrl: p.portalUrl,
-        programUrl: p.programUrl,
-      });
-
-      setApps((prev) => [
-        ...prev,
-        {
-          id: p.id,
-          schoolName: school.schoolName,
-          schoolNameZh: school.schoolNameZh,
-          programName: p.name,
-          programNameZh: p.nameZh,
-          degree: p.degree,
-          tier: "target" as Tier,
-          deadline: p.deadline,
-          portalUrl: p.portalUrl,
-          toeflMin: p.toeflMin,
-          greRequired: p.greRequired,
-          applicationFee: p.applicationFee,
-          tasksState,
-        },
-      ]);
-    }
-  };
-
-  const cycleTier = (id: string) => {
-    const order: Tier[] = ["reach", "target", "safe"];
-    setApps((prev) =>
-      prev.map((a) => {
-        if (a.id !== id) return a;
-        const idx = order.indexOf(a.tier);
-        return { ...a, tier: order[(idx + 1) % 3] };
-      })
-    );
-  };
-
-  const removeApp = (id: string) => {
-    setApps((prev) => prev.filter((a) => a.id !== id));
-  };
+  const [deleteTarget, setDeleteTarget] = useState<AppProgram | null>(null);
 
   const existingIds = new Set(apps.map((a) => a.id));
 
@@ -205,7 +134,7 @@ export default function SchoolsPage() {
 
                     <div className="flex-1 px-4 py-3 flex items-center gap-3">
                       {/* School + program info */}
-                      <Link href={`/school/${app.id}`} className="flex-1 min-w-0">
+                      <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-semibold" style={{ color: theme.text }}>
                             {lang === "zh" ? app.schoolNameZh : app.schoolName}
@@ -216,7 +145,6 @@ export default function SchoolsPage() {
                         </div>
                         <div className="text-xs mt-0.5 flex items-center gap-2" style={{ color: theme.textSecondary }}>
                           <span>{lang === "zh" ? app.programNameZh : app.programName}</span>
-                          {/* Task progress indicator */}
                           <span
                             className="inline-flex items-center gap-0.5 text-[10px]"
                             style={{ color: theme.textMuted }}
@@ -224,8 +152,23 @@ export default function SchoolsPage() {
                             <CheckCircle2 size={10} />
                             {progress.done}/{progress.total}
                           </span>
+                          {/* Source badge */}
+                          {app.programUrl && (
+                            <a
+                              href={app.programUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-0.5 text-[10px] px-1.5 py-px rounded hover:underline"
+                              style={{ color: theme.accent, background: theme.accentBg }}
+                              onClick={(e) => e.stopPropagation()}
+                              title={app.programUrl}
+                            >
+                              <ExternalLink size={8} />
+                              .edu
+                            </a>
+                          )}
                         </div>
-                      </Link>
+                      </div>
 
                       {/* Deadline */}
                       {app.deadline && (
@@ -237,7 +180,7 @@ export default function SchoolsPage() {
                         </div>
                       )}
 
-                      {/* Tier badge (clickable to cycle) */}
+                      {/* Tier badge */}
                       <button
                         onClick={(e) => {
                           e.preventDefault();
@@ -253,11 +196,11 @@ export default function SchoolsPage() {
                         {lang === "zh" ? tierConfig[app.tier].zh : tierConfig[app.tier].en}
                       </button>
 
-                      {/* Remove */}
+                      {/* Remove — opens confirmation */}
                       <button
                         onClick={(e) => {
                           e.preventDefault();
-                          removeApp(app.id);
+                          setDeleteTarget(app);
                         }}
                         className="text-base leading-none p-1 transition-colors"
                         style={{ color: theme.textMuted }}
@@ -273,6 +216,97 @@ export default function SchoolsPage() {
           </div>
         );
       })}
+
+      {/* Delete confirmation modal */}
+      {deleteTarget && (
+        <DeleteModal
+          app={deleteTarget}
+          lang={lang}
+          onConfirm={() => {
+            removeApp(deleteTarget.id);
+            setDeleteTarget(null);
+          }}
+          onCancel={() => setDeleteTarget(null)}
+        />
+      )}
+    </div>
+  );
+}
+
+// ── Delete confirmation modal ─────────────────────────────
+
+function DeleteModal({
+  app,
+  lang,
+  onConfirm,
+  onCancel,
+}: {
+  app: AppProgram;
+  lang: string;
+  onConfirm: () => void;
+  onCancel: () => void;
+}) {
+  const progress = overallProgress(app.tasksState);
+  const hasProgress = progress.done > 0;
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center"
+      style={{ background: "rgba(0,0,0,0.3)" }}
+      onClick={onCancel}
+    >
+      <div
+        className="rounded-xl border shadow-lg max-w-sm w-full mx-4 p-5"
+        style={{ background: theme.card, borderColor: theme.border }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-start gap-3 mb-3">
+          <div
+            className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5"
+            style={{ background: "#FEF2F2" }}
+          >
+            <AlertTriangle size={16} color="#DC2626" />
+          </div>
+          <div>
+            <div className="text-sm font-semibold" style={{ color: theme.text }}>
+              {lang === "zh" ? "确认移除" : "Remove school?"}
+            </div>
+            <div className="text-xs mt-1" style={{ color: theme.textSecondary }}>
+              {lang === "zh" ? app.schoolNameZh : app.schoolName}
+              {" — "}
+              {lang === "zh" ? app.programNameZh : app.programName}
+            </div>
+          </div>
+        </div>
+
+        {hasProgress && (
+          <div
+            className="text-xs rounded-md px-3 py-2 mb-3"
+            style={{ background: theme.muted, color: theme.textSecondary }}
+          >
+            {lang === "zh"
+              ? `你已完成了 ${progress.done}/${progress.total} 项任务。移除后任务进度将丢失。`
+              : `You've completed ${progress.done} of ${progress.total} tasks. Removing will lose this progress.`}
+          </div>
+        )}
+
+        <div className="flex justify-end gap-2 mt-4">
+          <button
+            onClick={onCancel}
+            className="text-xs px-4 py-2 rounded-lg border transition-colors"
+            style={{ borderColor: theme.border, color: theme.textSecondary }}
+          >
+            {lang === "zh" ? "取消" : "Cancel"}
+          </button>
+          <button
+            onClick={onConfirm}
+            className="text-xs font-medium px-4 py-2 rounded-lg transition-colors"
+            style={{ background: "#DC2626", color: "#fff" }}
+          >
+            {lang === "zh" ? "确认移除" : "Remove"}
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

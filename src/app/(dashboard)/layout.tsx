@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, GraduationCap, ListChecks, CalendarDays } from "lucide-react";
 import { theme } from "@/lib/theme/tokens";
 import { t, type Lang } from "@/lib/i18n";
+import { ApplicationsProvider, useApplications } from "@/lib/context/applications";
 
 const NAV = [
   { href: "/overview", icon: LayoutDashboard, key: "dashboard" as const },
@@ -14,9 +14,9 @@ const NAV = [
   { href: "/calendar", icon: CalendarDays, key: "calendar" as const },
 ];
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+function DashboardShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const [lang, setLang] = useState<Lang>("en");
+  const { lang, setLang } = useApplications();
 
   return (
     <div className="flex min-h-screen">
@@ -108,5 +108,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         {children}
       </main>
     </div>
+  );
+}
+
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <ApplicationsProvider>
+      <DashboardShell>{children}</DashboardShell>
+    </ApplicationsProvider>
   );
 }

@@ -1,0 +1,2292 @@
+{
+  "metadata": {
+    "source": "Official university websites + QS/US News data",
+    "created": "2026-04-01",
+    "total_programs": 76,
+    "total_schools": 28,
+    "notes": "Layer 2 program-level data. All deadlines are for Fall 2026 entry. verified_at=null means needs verification. Essay prompts and requirements change annually.",
+    "fields_covered": [
+      "communications",
+      "computer_science",
+      "data_science",
+      "education",
+      "hci",
+      "information_science",
+      "international_relations",
+      "journalism",
+      "media_technology",
+      "public_health",
+      "public_policy",
+      "social_science",
+      "social_work",
+      "statistics",
+      "urban_planning"
+    ]
+  },
+  "programs": [
+    {
+      "school": "Columbia University",
+      "school_zh": "哥伦比亚大学",
+      "program": "M.S. in Strategic Communications",
+      "program_zh": "战略传播硕士",
+      "degree": "MS",
+      "department": "School of Professional Studies",
+      "field": "communications",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 120,
+      "wes_required": true,
+      "interview_required": false,
+      "duration": "3 semesters",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        },
+        {
+          "title": "Cohort Contribution",
+          "title_zh": "群体贡献文书",
+          "word_limit": 250
+        },
+        {
+          "title": "Writing Sample",
+          "title_zh": "写作范例",
+          "word_limit": null
+        }
+      ],
+      "portal_url": "https://apply.gsas.columbia.edu",
+      "program_url": "https://sps.columbia.edu/academics/masters/strategic-communication",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Columbia University",
+      "school_zh": "哥伦比亚大学",
+      "program": "M.A. in Quantitative Methods in Social Sciences",
+      "program_zh": "定量社会科学方法硕士",
+      "degree": "MA",
+      "department": "GSAS",
+      "field": "social_science",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 120,
+      "wes_required": true,
+      "interview_required": false,
+      "duration": "1 year",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.gsas.columbia.edu",
+      "program_url": "https://www.qmss.columbia.edu",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Columbia University",
+      "school_zh": "哥伦比亚大学",
+      "program": "M.S. in Journalism",
+      "program_zh": "新闻学硕士",
+      "degree": "MS",
+      "department": "Graduate School of Journalism",
+      "field": "journalism",
+      "deadline": "2026-01-08",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 120,
+      "wes_required": true,
+      "interview_required": false,
+      "duration": "10 months",
+      "essays": [
+        {
+          "title": "Personal Essay",
+          "title_zh": "个人文书",
+          "word_limit": 800
+        },
+        {
+          "title": "Journalism Clips",
+          "title_zh": "新闻作品集",
+          "word_limit": null
+        }
+      ],
+      "portal_url": "https://journalism.columbia.edu/admissions",
+      "program_url": "https://journalism.columbia.edu/ms-programs",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Columbia University",
+      "school_zh": "哥伦比亚大学",
+      "program": "M.A. in Statistics",
+      "program_zh": "统计学硕士",
+      "degree": "MA",
+      "department": "GSAS - Department of Statistics",
+      "field": "statistics",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 120,
+      "wes_required": true,
+      "interview_required": false,
+      "duration": "1 year",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.gsas.columbia.edu",
+      "program_url": "https://stat.columbia.edu/masters-programs",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Columbia University",
+      "school_zh": "哥伦比亚大学",
+      "program": "M.S. in Data Science",
+      "program_zh": "数据科学硕士",
+      "degree": "MS",
+      "department": "Data Science Institute",
+      "field": "data_science",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 120,
+      "wes_required": true,
+      "interview_required": false,
+      "duration": "3 semesters",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.gsas.columbia.edu",
+      "program_url": "https://datascience.columbia.edu/education/ms-program",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Columbia University",
+      "school_zh": "哥伦比亚大学",
+      "program": "M.S. in Computer Science",
+      "program_zh": "计算机科学硕士",
+      "degree": "MS",
+      "department": "GSAS - Computer Science",
+      "field": "computer_science",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 120,
+      "wes_required": true,
+      "interview_required": false,
+      "duration": "3 semesters",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.gsas.columbia.edu",
+      "program_url": "https://www.cs.columbia.edu/education/ms",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Harvard University",
+      "school_zh": "哈佛大学",
+      "program": "Master in Public Policy (MPP)",
+      "program_zh": "公共政策硕士",
+      "degree": "MPP",
+      "department": "Harvard Kennedy School",
+      "field": "public_policy",
+      "deadline": "2025-12-01",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": true,
+      "interview_required": true,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "JFK Essay - Public Leadership",
+          "title_zh": "JFK文书——公共领导力",
+          "word_limit": 500
+        },
+        {
+          "title": "MPP Essay - Curriculum Fit",
+          "title_zh": "MPP文书——课程契合",
+          "word_limit": 500
+        },
+        {
+          "title": "Personal History",
+          "title_zh": "个人经历",
+          "word_limit": 250
+        },
+        {
+          "title": "Adversity Essay",
+          "title_zh": "逆境文书",
+          "word_limit": 250
+        },
+        {
+          "title": "Perspectives Essay",
+          "title_zh": "视角文书",
+          "word_limit": 250
+        }
+      ],
+      "portal_url": "https://apply.hks.harvard.edu",
+      "program_url": "https://www.hks.harvard.edu/educational-programs/masters-programs/master-public-policy",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Harvard University",
+      "school_zh": "哈佛大学",
+      "program": "Master in Public Administration (MPA)",
+      "program_zh": "公共管理硕士",
+      "degree": "MPA",
+      "department": "Harvard Kennedy School",
+      "field": "public_policy",
+      "deadline": "2025-12-01",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": true,
+      "interview_required": true,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.hks.harvard.edu",
+      "program_url": "https://www.hks.harvard.edu/educational-programs/masters-programs/master-public-administration",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Harvard University",
+      "school_zh": "哈佛大学",
+      "program": "Ed.M. in Education Policy and Analysis",
+      "program_zh": "教育政策与分析硕士",
+      "degree": "EdM",
+      "department": "Graduate School of Education",
+      "field": "education",
+      "deadline": "2026-01-06",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 85,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1 year",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://www.gse.harvard.edu/admissions",
+      "program_url": "https://www.gse.harvard.edu/programs/education-policy-analysis",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Harvard University",
+      "school_zh": "哈佛大学",
+      "program": "M.S. in Data Science",
+      "program_zh": "数据科学硕士",
+      "degree": "MS",
+      "department": "GSAS - John A. Paulson School",
+      "field": "data_science",
+      "deadline": "2025-12-15",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 105,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gsas.harvard.edu/admissions",
+      "program_url": "https://seas.harvard.edu/applied-computation/graduate-programs",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Stanford University",
+      "school_zh": "斯坦福大学",
+      "program": "M.A. in Communication",
+      "program_zh": "传播学硕士",
+      "degree": "MA",
+      "department": "Department of Communication",
+      "field": "communications",
+      "deadline": "2025-12-01",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 125,
+      "wes_required": false,
+      "interview_required": true,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 1500
+        },
+        {
+          "title": "Research Proposal",
+          "title_zh": "研究计划",
+          "word_limit": 1000
+        }
+      ],
+      "portal_url": "https://gradadmissions.stanford.edu",
+      "program_url": "https://comm.stanford.edu/graduate",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Stanford University",
+      "school_zh": "斯坦福大学",
+      "program": "M.S. in Computer Science",
+      "program_zh": "计算机科学硕士",
+      "degree": "MS",
+      "department": "School of Engineering",
+      "field": "computer_science",
+      "deadline": "2025-12-03",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 125,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1.5-2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gradadmissions.stanford.edu",
+      "program_url": "https://cs.stanford.edu/admissions/masters",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Stanford University",
+      "school_zh": "斯坦福大学",
+      "program": "M.S. in Statistics",
+      "program_zh": "统计学硕士",
+      "degree": "MS",
+      "department": "School of Humanities & Sciences",
+      "field": "statistics",
+      "deadline": "2026-01-07",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 125,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1.5 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gradadmissions.stanford.edu",
+      "program_url": "https://statistics.stanford.edu/graduate/ms-statistics",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Stanford University",
+      "school_zh": "斯坦福大学",
+      "program": "M.A. in Education",
+      "program_zh": "教育学硕士",
+      "degree": "MA",
+      "department": "Graduate School of Education",
+      "field": "education",
+      "deadline": "2025-11-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 125,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1 year",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gradadmissions.stanford.edu",
+      "program_url": "https://ed.stanford.edu/admissions/graduate",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Massachusetts Institute of Technology",
+      "school_zh": "麻省理工学院",
+      "program": "M.Eng. in Electrical Engineering & Computer Science",
+      "program_zh": "电气工程与计算机科学硕士",
+      "degree": "MEng",
+      "department": "EECS",
+      "field": "computer_science",
+      "deadline": "2025-12-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1 year",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gradadmissions.mit.edu",
+      "program_url": "https://www.eecs.mit.edu/academics/graduate-programs",
+      "notes": "MEng only open to MIT undergrads; SM is the external master's",
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Massachusetts Institute of Technology",
+      "school_zh": "麻省理工学院",
+      "program": "S.M. in Media Arts and Sciences",
+      "program_zh": "媒体艺术与科学硕士",
+      "degree": "SM",
+      "department": "MIT Media Lab",
+      "field": "media_technology",
+      "deadline": "2025-12-01",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gradadmissions.mit.edu",
+      "program_url": "https://www.media.mit.edu/graduate-program/admissions",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Massachusetts Institute of Technology",
+      "school_zh": "麻省理工学院",
+      "program": "Master in City Planning (MCP)",
+      "program_zh": "城市规划硕士",
+      "degree": "MCP",
+      "department": "Department of Urban Studies and Planning",
+      "field": "urban_planning",
+      "deadline": "2026-01-02",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gradadmissions.mit.edu",
+      "program_url": "https://dusp.mit.edu/degrees/masters",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Chicago",
+      "school_zh": "芝加哥大学",
+      "program": "M.A. in Computational Social Science",
+      "program_zh": "计算社会科学硕士",
+      "degree": "MA",
+      "department": "Division of Social Sciences",
+      "field": "social_science",
+      "deadline": "2026-01-05",
+      "toefl_min": 104,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 90,
+      "wes_required": true,
+      "interview_required": false,
+      "duration": "1 year",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.uchicago.edu",
+      "program_url": "https://macss.uchicago.edu",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Chicago",
+      "school_zh": "芝加哥大学",
+      "program": "M.A. in Social Sciences (MAPSS)",
+      "program_zh": "社会科学硕士",
+      "degree": "MA",
+      "department": "Division of Social Sciences",
+      "field": "social_science",
+      "deadline": "2026-01-05",
+      "toefl_min": 104,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 90,
+      "wes_required": true,
+      "interview_required": false,
+      "duration": "1 year",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.uchicago.edu",
+      "program_url": "https://mapss.uchicago.edu",
+      "notes": "Generalist social science MA, popular with career changers",
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Chicago",
+      "school_zh": "芝加哥大学",
+      "program": "Master of Public Policy (MPP)",
+      "program_zh": "公共政策硕士",
+      "degree": "MPP",
+      "department": "Harris School of Public Policy",
+      "field": "public_policy",
+      "deadline": "2026-01-05",
+      "toefl_min": 104,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 90,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.uchicago.edu",
+      "program_url": "https://harris.uchicago.edu/academics/degrees/master-public-policy-mpp",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Chicago",
+      "school_zh": "芝加哥大学",
+      "program": "M.S. in Computer Science",
+      "program_zh": "计算机科学硕士",
+      "degree": "MS",
+      "department": "Department of Computer Science",
+      "field": "computer_science",
+      "deadline": "2026-01-05",
+      "toefl_min": 104,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 90,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1-2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.uchicago.edu",
+      "program_url": "https://cs.uchicago.edu/mpcs",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Southern California",
+      "school_zh": "南加州大学",
+      "program": "M.A. in Public Relations and Advertising",
+      "program_zh": "公共关系与广告硕士",
+      "degree": "MA",
+      "department": "USC Annenberg",
+      "field": "communications",
+      "deadline": "2026-01-09",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 2,
+      "application_fee": 90,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Personal Statement",
+          "title_zh": "个人陈述",
+          "word_limit": null
+        },
+        {
+          "title": "Writing Sample",
+          "title_zh": "写作范例",
+          "word_limit": null
+        }
+      ],
+      "portal_url": "https://gradadm.usc.edu",
+      "program_url": "https://annenberg.usc.edu/academics/public-relations-advertising-ma",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Southern California",
+      "school_zh": "南加州大学",
+      "program": "M.S. in Digital Social Media",
+      "program_zh": "数字社交媒体硕士",
+      "degree": "MS",
+      "department": "USC Annenberg",
+      "field": "communications",
+      "deadline": "2026-01-09",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 2,
+      "application_fee": 90,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1 year",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gradadm.usc.edu",
+      "program_url": "https://annenberg.usc.edu/academics/digital-social-media-ms",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Southern California",
+      "school_zh": "南加州大学",
+      "program": "M.C.G. in Communication Management",
+      "program_zh": "传播管理硕士",
+      "degree": "MCG",
+      "department": "USC Annenberg",
+      "field": "communications",
+      "deadline": "2026-01-09",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 2,
+      "application_fee": 90,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gradadm.usc.edu",
+      "program_url": "https://annenberg.usc.edu/academics/communication-management-mcg",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Southern California",
+      "school_zh": "南加州大学",
+      "program": "M.S. in Journalism",
+      "program_zh": "新闻学硕士",
+      "degree": "MS",
+      "department": "USC Annenberg",
+      "field": "journalism",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 2,
+      "application_fee": 90,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1 year",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gradadm.usc.edu",
+      "program_url": "https://annenberg.usc.edu/academics/journalism-ms",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Southern California",
+      "school_zh": "南加州大学",
+      "program": "M.S. in Computer Science",
+      "program_zh": "计算机科学硕士",
+      "degree": "MS",
+      "department": "Viterbi School of Engineering",
+      "field": "computer_science",
+      "deadline": "2025-12-15",
+      "toefl_min": 90,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 90,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gradadm.usc.edu",
+      "program_url": "https://www.cs.usc.edu/academic-programs/masters",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Northwestern University",
+      "school_zh": "西北大学",
+      "program": "M.S. in Integrated Marketing Communications",
+      "program_zh": "整合营销传播硕士",
+      "degree": "MS",
+      "department": "Medill School of Journalism",
+      "field": "communications",
+      "deadline": "2026-01-10",
+      "toefl_min": 95,
+      "gre_required": false,
+      "recs_required": 2,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "15 months",
+      "essays": [
+        {
+          "title": "Career Goals Essay",
+          "title_zh": "职业目标文书",
+          "word_limit": 500
+        },
+        {
+          "title": "Video Essay",
+          "title_zh": "视频文书",
+          "word_limit": null
+        }
+      ],
+      "portal_url": "https://app.applyyourself.com",
+      "program_url": "https://www.medill.northwestern.edu/imc",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Northwestern University",
+      "school_zh": "西北大学",
+      "program": "M.S.J. in Journalism",
+      "program_zh": "新闻学硕士",
+      "degree": "MSJ",
+      "department": "Medill School of Journalism",
+      "field": "journalism",
+      "deadline": "2026-01-10",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1 year",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://app.applyyourself.com",
+      "program_url": "https://www.medill.northwestern.edu/journalism-graduate",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Northwestern University",
+      "school_zh": "西北大学",
+      "program": "M.S. in Computer Science",
+      "program_zh": "计算机科学硕士",
+      "degree": "MS",
+      "department": "McCormick School of Engineering",
+      "field": "computer_science",
+      "deadline": "2025-12-15",
+      "toefl_min": 95,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 95,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1-2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://www.tgs.northwestern.edu/admission",
+      "program_url": "https://www.mccormick.northwestern.edu/computer-science/academics/graduate",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "New York University",
+      "school_zh": "纽约大学",
+      "program": "M.A. in Public Relations and Corporate Communications",
+      "program_zh": "公共关系与企业传播硕士",
+      "degree": "MA",
+      "department": "School of Professional Studies",
+      "field": "communications",
+      "deadline": "2026-02-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 2,
+      "application_fee": 80,
+      "wes_required": true,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.nyu.edu",
+      "program_url": "https://www.sps.nyu.edu/homepage/academics/masters-programs/ms-in-public-relations-and-corporate-communication.html",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "New York University",
+      "school_zh": "纽约大学",
+      "program": "M.S. in Data Science",
+      "program_zh": "数据科学硕士",
+      "degree": "MS",
+      "department": "Center for Data Science",
+      "field": "data_science",
+      "deadline": "2025-12-12",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 80,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.nyu.edu",
+      "program_url": "https://cds.nyu.edu/academics/ms-in-data-science",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "New York University",
+      "school_zh": "纽约大学",
+      "program": "M.A. in Media, Culture, and Communication",
+      "program_zh": "媒体、文化与传播硕士",
+      "degree": "MA",
+      "department": "Steinhardt School",
+      "field": "communications",
+      "deadline": "2026-01-05",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 80,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.nyu.edu",
+      "program_url": "https://steinhardt.nyu.edu/degree/ma-media-culture-and-communication",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "New York University",
+      "school_zh": "纽约大学",
+      "program": "M.S. in Computer Science",
+      "program_zh": "计算机科学硕士",
+      "degree": "MS",
+      "department": "Courant Institute",
+      "field": "computer_science",
+      "deadline": "2025-12-12",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 80,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.nyu.edu",
+      "program_url": "https://cs.nyu.edu/home/master/prospective_mscs.html",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Georgetown University",
+      "school_zh": "乔治城大学",
+      "program": "M.A. in Communication, Culture and Technology",
+      "program_zh": "传播、文化与技术硕士",
+      "degree": "MA",
+      "department": "Graduate School of Arts & Sciences",
+      "field": "communications",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        },
+        {
+          "title": "Personal Essay",
+          "title_zh": "个人文书",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.georgetown.edu",
+      "program_url": "https://cct.georgetown.edu",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Georgetown University",
+      "school_zh": "乔治城大学",
+      "program": "M.A. in Security Studies",
+      "program_zh": "安全研究硕士",
+      "degree": "MA",
+      "department": "Edmund A. Walsh School of Foreign Service",
+      "field": "international_relations",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.georgetown.edu",
+      "program_url": "https://sfs.georgetown.edu/programs/masters/security-studies",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Georgetown University",
+      "school_zh": "乔治城大学",
+      "program": "Master of Public Policy (MPP)",
+      "program_zh": "公共政策硕士",
+      "degree": "MPP",
+      "department": "McCourt School of Public Policy",
+      "field": "public_policy",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.georgetown.edu",
+      "program_url": "https://mccourt.georgetown.edu/master-of-public-policy",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of California, Berkeley",
+      "school_zh": "加州大学伯克利分校",
+      "program": "Master of Information Management and Systems (MIMS)",
+      "program_zh": "信息管理与系统硕士",
+      "degree": "MIMS",
+      "department": "School of Information",
+      "field": "information_science",
+      "deadline": "2026-01-06",
+      "toefl_min": 90,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 120,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 1000
+        },
+        {
+          "title": "Personal History Statement",
+          "title_zh": "个人经历陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://grad.berkeley.edu/admissions",
+      "program_url": "https://www.ischool.berkeley.edu/programs/mims",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of California, Berkeley",
+      "school_zh": "加州大学伯克利分校",
+      "program": "M.S. in Computer Science",
+      "program_zh": "计算机科学硕士",
+      "degree": "MS",
+      "department": "EECS",
+      "field": "computer_science",
+      "deadline": "2025-12-09",
+      "toefl_min": 90,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 120,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1-2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://grad.berkeley.edu/admissions",
+      "program_url": "https://eecs.berkeley.edu/academics/graduate",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of California, Berkeley",
+      "school_zh": "加州大学伯克利分校",
+      "program": "Master of Public Policy (MPP)",
+      "program_zh": "公共政策硕士",
+      "degree": "MPP",
+      "department": "Goldman School of Public Policy",
+      "field": "public_policy",
+      "deadline": "2026-01-06",
+      "toefl_min": 90,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 120,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://grad.berkeley.edu/admissions",
+      "program_url": "https://gspp.berkeley.edu/programs/master-of-public-policy",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Pennsylvania",
+      "school_zh": "宾夕法尼亚大学",
+      "program": "M.A. in Communication",
+      "program_zh": "传播学硕士",
+      "degree": "MA",
+      "department": "Annenberg School for Communication",
+      "field": "communications",
+      "deadline": "2026-01-02",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 80,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1 year",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://www.upenn.edu/admissions/grad",
+      "program_url": "https://www.asc.upenn.edu/graduate/master-of-arts-in-communication",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Pennsylvania",
+      "school_zh": "宾夕法尼亚大学",
+      "program": "M.S. in Social Policy and Data Analytics",
+      "program_zh": "社会政策与数据分析硕士",
+      "degree": "MS",
+      "department": "School of Social Policy & Practice",
+      "field": "public_policy",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 80,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1 year",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://www.upenn.edu/admissions/grad",
+      "program_url": "https://sp2.upenn.edu/program/master-of-science-in-social-policy-data-analytics-for-social-policy",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Pennsylvania",
+      "school_zh": "宾夕法尼亚大学",
+      "program": "M.S.E. in Data Science",
+      "program_zh": "数据科学硕士",
+      "degree": "MSE",
+      "department": "School of Engineering",
+      "field": "data_science",
+      "deadline": "2025-12-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 80,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1.5 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://www.upenn.edu/admissions/grad",
+      "program_url": "https://dats.seas.upenn.edu",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Johns Hopkins University",
+      "school_zh": "约翰斯·霍普金斯大学",
+      "program": "M.A. in International Relations",
+      "program_zh": "国际关系硕士",
+      "degree": "MA",
+      "department": "School of Advanced International Studies (SAIS)",
+      "field": "international_relations",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 80,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.jhu.edu",
+      "program_url": "https://sais.jhu.edu/admissions/masters-program",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Johns Hopkins University",
+      "school_zh": "约翰斯·霍普金斯大学",
+      "program": "M.S. in Data Science",
+      "program_zh": "数据科学硕士",
+      "degree": "MS",
+      "department": "Whiting School of Engineering",
+      "field": "data_science",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 80,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1.5 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.jhu.edu",
+      "program_url": "https://ep.jhu.edu/programs/data-science",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Johns Hopkins University",
+      "school_zh": "约翰斯·霍普金斯大学",
+      "program": "Master of Public Health (MPH)",
+      "program_zh": "公共卫生硕士",
+      "degree": "MPH",
+      "department": "Bloomberg School of Public Health",
+      "field": "public_health",
+      "deadline": "2025-12-01",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://apply.jhu.edu",
+      "program_url": "https://publichealth.jhu.edu/academics/master-of-public-health",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Carnegie Mellon University",
+      "school_zh": "卡耐基梅隆大学",
+      "program": "M.S. in Computer Science",
+      "program_zh": "计算机科学硕士",
+      "degree": "MS",
+      "department": "School of Computer Science",
+      "field": "computer_science",
+      "deadline": "2025-12-10",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://www.cmu.edu/graduate/admissions",
+      "program_url": "https://csd.cmu.edu/academics/masters/overview",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Carnegie Mellon University",
+      "school_zh": "卡耐基梅隆大学",
+      "program": "M.S. in Human-Computer Interaction",
+      "program_zh": "人机交互硕士",
+      "degree": "MS",
+      "department": "School of Computer Science - HCII",
+      "field": "hci",
+      "deadline": "2026-01-10",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1 year",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://www.cmu.edu/graduate/admissions",
+      "program_url": "https://hcii.cmu.edu/academics/masters-programs",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Carnegie Mellon University",
+      "school_zh": "卡耐基梅隆大学",
+      "program": "M.S. in Public Policy and Management",
+      "program_zh": "公共政策与管理硕士",
+      "degree": "MS",
+      "department": "Heinz College",
+      "field": "public_policy",
+      "deadline": "2026-01-10",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://www.cmu.edu/graduate/admissions",
+      "program_url": "https://www.heinz.cmu.edu/programs/public-policy-management-master",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Duke University",
+      "school_zh": "杜克大学",
+      "program": "Master of Public Policy (MPP)",
+      "program_zh": "公共政策硕士",
+      "degree": "MPP",
+      "department": "Sanford School of Public Policy",
+      "field": "public_policy",
+      "deadline": "2026-01-05",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 85,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gradschool.duke.edu/admissions",
+      "program_url": "https://sanford.duke.edu/academics/masters-programs/master-public-policy",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Duke University",
+      "school_zh": "杜克大学",
+      "program": "M.S. in Computer Science",
+      "program_zh": "计算机科学硕士",
+      "degree": "MS",
+      "department": "Department of Computer Science",
+      "field": "computer_science",
+      "deadline": "2025-12-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 85,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gradschool.duke.edu/admissions",
+      "program_url": "https://cs.duke.edu/graduate/ms",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Duke University",
+      "school_zh": "杜克大学",
+      "program": "M.S. in Statistical Science",
+      "program_zh": "统计科学硕士",
+      "degree": "MS",
+      "department": "Department of Statistical Science",
+      "field": "statistics",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 85,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gradschool.duke.edu/admissions",
+      "program_url": "https://stat.duke.edu/ms",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Yale University",
+      "school_zh": "耶鲁大学",
+      "program": "M.A. in Global Affairs",
+      "program_zh": "全球事务硕士",
+      "degree": "MA",
+      "department": "Jackson School of Global Affairs",
+      "field": "international_relations",
+      "deadline": "2026-01-02",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 105,
+      "wes_required": false,
+      "interview_required": true,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gsas.yale.edu/admissions",
+      "program_url": "https://jackson.yale.edu/graduate-programs/master-of-arts",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Yale University",
+      "school_zh": "耶鲁大学",
+      "program": "M.P.H. in Public Health",
+      "program_zh": "公共卫生硕士",
+      "degree": "MPH",
+      "department": "School of Public Health",
+      "field": "public_health",
+      "deadline": "2025-12-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 105,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gsas.yale.edu/admissions",
+      "program_url": "https://ysph.yale.edu/admissions",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Yale University",
+      "school_zh": "耶鲁大学",
+      "program": "M.S. in Computer Science",
+      "program_zh": "计算机科学硕士",
+      "degree": "MS",
+      "department": "GSAS - Computer Science",
+      "field": "computer_science",
+      "deadline": "2025-12-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 105,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gsas.yale.edu/admissions",
+      "program_url": "https://cpsc.yale.edu/academics/graduate-program",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Michigan, Ann Arbor",
+      "school_zh": "密歇根大学安娜堡分校",
+      "program": "M.S. in Information",
+      "program_zh": "信息学硕士",
+      "degree": "MSI",
+      "department": "School of Information",
+      "field": "information_science",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 90,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://rackham.umich.edu/admissions",
+      "program_url": "https://www.si.umich.edu/programs/master-science-information",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Michigan, Ann Arbor",
+      "school_zh": "密歇根大学安娜堡分校",
+      "program": "Master of Public Policy (MPP)",
+      "program_zh": "公共政策硕士",
+      "degree": "MPP",
+      "department": "Gerald R. Ford School of Public Policy",
+      "field": "public_policy",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 90,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://rackham.umich.edu/admissions",
+      "program_url": "https://fordschool.umich.edu/master-public-policy",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Michigan, Ann Arbor",
+      "school_zh": "密歇根大学安娜堡分校",
+      "program": "M.S. in Computer Science and Engineering",
+      "program_zh": "计算机科学与工程硕士",
+      "degree": "MS",
+      "department": "College of Engineering",
+      "field": "computer_science",
+      "deadline": "2025-12-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 90,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1.5-2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://rackham.umich.edu/admissions",
+      "program_url": "https://cse.engin.umich.edu/academics/graduate/masters",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Washington University in St. Louis",
+      "school_zh": "圣路易斯华盛顿大学",
+      "program": "M.S. in Computer Science",
+      "program_zh": "计算机科学硕士",
+      "degree": "MS",
+      "department": "McKelvey School of Engineering",
+      "field": "computer_science",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1.5 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://graduateschool.wustl.edu/admissions",
+      "program_url": "https://cse.wustl.edu/academics/graduate/ms-cs.html",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Washington University in St. Louis",
+      "school_zh": "圣路易斯华盛顿大学",
+      "program": "M.S.W. in Social Work",
+      "program_zh": "社会工作硕士",
+      "degree": "MSW",
+      "department": "Brown School",
+      "field": "social_work",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://graduateschool.wustl.edu/admissions",
+      "program_url": "https://brownschool.wustl.edu/academics/master-of-social-work",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Cornell University",
+      "school_zh": "康奈尔大学",
+      "program": "M.S. in Information Science",
+      "program_zh": "信息科学硕士",
+      "degree": "MS",
+      "department": "Cornell Tech / Information Science",
+      "field": "information_science",
+      "deadline": "2026-01-05",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 105,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gradschool.cornell.edu/admissions",
+      "program_url": "https://infosci.cornell.edu/masters",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Cornell University",
+      "school_zh": "康奈尔大学",
+      "program": "M.P.A. in Public Administration",
+      "program_zh": "公共管理硕士",
+      "degree": "MPA",
+      "department": "Cornell Jeb E. Brooks School of Public Policy",
+      "field": "public_policy",
+      "deadline": "2026-01-10",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 105,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gradschool.cornell.edu/admissions",
+      "program_url": "https://publicpolicy.cornell.edu/academics/mpa",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Cornell University",
+      "school_zh": "康奈尔大学",
+      "program": "M.Eng. in Computer Science",
+      "program_zh": "计算机科学工程硕士",
+      "degree": "MEng",
+      "department": "Cornell Tech",
+      "field": "computer_science",
+      "deadline": "2026-01-05",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 2,
+      "application_fee": 105,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1 year",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gradschool.cornell.edu/admissions",
+      "program_url": "https://tech.cornell.edu/programs/masters-programs",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of California, Los Angeles",
+      "school_zh": "加州大学洛杉矶分校",
+      "program": "M.S. in Computer Science",
+      "program_zh": "计算机科学硕士",
+      "degree": "MS",
+      "department": "Henry Samueli School of Engineering",
+      "field": "computer_science",
+      "deadline": "2025-12-15",
+      "toefl_min": 87,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 120,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://grad.ucla.edu/admissions",
+      "program_url": "https://www.cs.ucla.edu/graduate-program",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of California, Los Angeles",
+      "school_zh": "加州大学洛杉矶分校",
+      "program": "Master of Public Policy (MPP)",
+      "program_zh": "公共政策硕士",
+      "degree": "MPP",
+      "department": "Luskin School of Public Affairs",
+      "field": "public_policy",
+      "deadline": "2026-01-15",
+      "toefl_min": 87,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 120,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://grad.ucla.edu/admissions",
+      "program_url": "https://luskin.ucla.edu/degree-programs/master-of-public-policy",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of California, Los Angeles",
+      "school_zh": "加州大学洛杉矶分校",
+      "program": "M.A. in Education",
+      "program_zh": "教育学硕士",
+      "degree": "MA",
+      "department": "School of Education & Information Studies",
+      "field": "education",
+      "deadline": "2025-12-01",
+      "toefl_min": 87,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 120,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://grad.ucla.edu/admissions",
+      "program_url": "https://seis.ucla.edu/education",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Brown University",
+      "school_zh": "布朗大学",
+      "program": "M.S. in Data Science",
+      "program_zh": "数据科学硕士",
+      "degree": "MS",
+      "department": "Data Science Institute",
+      "field": "data_science",
+      "deadline": "2026-01-04",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://www.brown.edu/graduateschool/admission",
+      "program_url": "https://dsi.brown.edu/masters-degree",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Brown University",
+      "school_zh": "布朗大学",
+      "program": "M.A. in Public Affairs",
+      "program_zh": "公共事务硕士",
+      "degree": "MA",
+      "department": "Watson Institute for International and Public Affairs",
+      "field": "public_policy",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1 year",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://www.brown.edu/graduateschool/admission",
+      "program_url": "https://watson.brown.edu/mpa",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Georgia Institute of Technology",
+      "school_zh": "佐治亚理工学院",
+      "program": "M.S. in Computer Science",
+      "program_zh": "计算机科学硕士",
+      "degree": "MS",
+      "department": "College of Computing",
+      "field": "computer_science",
+      "deadline": "2026-02-01",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://grad.gatech.edu/admissions",
+      "program_url": "https://www.cc.gatech.edu/ms-computer-science",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Vanderbilt University",
+      "school_zh": "范德堡大学",
+      "program": "M.Ed. in Education",
+      "program_zh": "教育学硕士",
+      "degree": "MEd",
+      "department": "Peabody College",
+      "field": "education",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 50,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1.5 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://gradschool.vanderbilt.edu/admissions",
+      "program_url": "https://peabody.vanderbilt.edu/academics/departments-programs",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Emory University",
+      "school_zh": "埃默里大学",
+      "program": "M.P.H. in Public Health",
+      "program_zh": "公共卫生硕士",
+      "degree": "MPH",
+      "department": "Rollins School of Public Health",
+      "field": "public_health",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://www.gs.emory.edu/admissions",
+      "program_url": "https://www.sph.emory.edu/admissions",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Rice University",
+      "school_zh": "莱斯大学",
+      "program": "M.S. in Computer Science",
+      "program_zh": "计算机科学硕士",
+      "degree": "MS",
+      "department": "Department of Computer Science",
+      "field": "computer_science",
+      "deadline": "2025-12-31",
+      "toefl_min": 90,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 85,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://graduate.rice.edu/admissions",
+      "program_url": "https://cs.rice.edu/graduate-programs",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Northeastern University",
+      "school_zh": "东北大学",
+      "program": "M.S. in Computer Science",
+      "program_zh": "计算机科学硕士",
+      "degree": "MS",
+      "department": "Khoury College of Computer Sciences",
+      "field": "computer_science",
+      "deadline": "2026-02-01",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://graduate.northeastern.edu/admissions",
+      "program_url": "https://www.khoury.northeastern.edu/programs/ms-in-computer-science",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Northeastern University",
+      "school_zh": "东北大学",
+      "program": "M.S. in Data Science",
+      "program_zh": "数据科学硕士",
+      "degree": "MS",
+      "department": "Khoury College of Computer Sciences",
+      "field": "data_science",
+      "deadline": "2026-02-01",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://graduate.northeastern.edu/admissions",
+      "program_url": "https://www.khoury.northeastern.edu/programs/data-science-ms",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "George Washington University",
+      "school_zh": "乔治·华盛顿大学",
+      "program": "M.A. in Political Communication",
+      "program_zh": "政治传播硕士",
+      "degree": "MA",
+      "department": "School of Media and Public Affairs",
+      "field": "communications",
+      "deadline": "2026-02-01",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 80,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://graduate.columbian.gwu.edu/admissions",
+      "program_url": "https://smpa.gwu.edu/political-communication",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Boston University",
+      "school_zh": "波士顿大学",
+      "program": "M.S. in Public Relations",
+      "program_zh": "公共关系硕士",
+      "degree": "MS",
+      "department": "College of Communication",
+      "field": "communications",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 80,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "2 years",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://www.bu.edu/cas/admissions/graduate",
+      "program_url": "https://www.bu.edu/com/academics/public-relations",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Syracuse University",
+      "school_zh": "雪城大学",
+      "program": "M.S. in Communications",
+      "program_zh": "传播学硕士",
+      "degree": "MS",
+      "department": "S.I. Newhouse School of Public Communications",
+      "field": "communications",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "application_fee": 75,
+      "wes_required": false,
+      "interview_required": false,
+      "duration": "1 year",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500
+        }
+      ],
+      "portal_url": "https://graduateadmissions.syr.edu",
+      "program_url": "https://newhouse.syr.edu/academics/masters",
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    }
+  ]
+}

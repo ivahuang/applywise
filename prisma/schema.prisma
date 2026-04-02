@@ -1,0 +1,106 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================
+// USERS & AUTH
+// ============================================================
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  lang      String   @default("en") // "en" or "zh"
+  degree    String?  // "bachelor", "master", "phd"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  applications UserApplication[]
+}
+
+// ============================================================
+// SCHOOLS & PROGRAMS
+// ============================================================
+
+model School {
+  id        String  @id @default(cuid())
+  name      String  @unique
+  nameZh    String?
+  shortName String?
+  city      String
+  state     String
+  region    String  // NE, WC, MW, MA, SW, SE, RM
+  country   String  @default("US")
+  ranking   Int?
+  website   String?
+  latitude  Float?
+  longitude Float?
+
+  programs   Program[]
+  verifiedAt DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Program {
+  id             String  @id @default(cuid())
+  schoolId       String
+  school         School  @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  name           String
+  nameZh         String?
+  degree         String  // MS, MA, MPP, PhD, etc.
+  department     String?
+  field          String  // communications, computer_science, etc.
+  duration       String?
+  toeflMin       Int?
+  greRequired    Boolean @default(false)
+  recsRequired   Int     @default(3)
+  applicationFee Float?
+  wesRequired    Boolean @default(false)
+  interviewReq   Boolean @default(false)
+  deadline       DateTime?
+  essayPrompts   Json?   // [{title, title_zh, word_limit}]
+  portalUrl      String?
+  programUrl     String?
+  notes          String? @db.Text
+  verifiedAt     DateTime?
+  sourceUrl      String?
+
+  applications UserApplication[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@unique([schoolId, name])
+}
+
+// ============================================================
+// USER'S APPLICATION LIST
+// ============================================================
+
+model UserApplication {
+  id        String @id @default(cuid())
+  userId    String
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  programId String
+  program   Program @relation(fields: [programId], references: [id], onDelete: Cascade)
+
+  tier   String @default("target") // reach, target, safe
+  status String @default("not_started")
+  // not_started, in_progress, materials_ready, submitted,
+  // under_review, interview, accepted, rejected, waitlisted
+
+  // Task completion stored as JSON for flexibility
+  // { scores: [bool], essays: [bool], recs: [bool], fees: [bool], postOffer: [bool], visa: [bool] }
+  tasksState Json?
+
+  notes     String? @db.Text
+  addedAt   DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, programId])
+}

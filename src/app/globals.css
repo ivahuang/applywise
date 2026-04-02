@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+:root {
+  --aw-bg: #F8F9F6;
+  --aw-card: #FFFFFF;
+  --aw-muted: #EFF1EC;
+  --aw-text: #262E26;
+  --aw-text2: #6E7C6E;
+  --aw-text3: #A3AEA3;
+  --aw-border: #DDE3DB;
+  --aw-border-hover: #C4CEC2;
+  --aw-accent: #4A7258;
+  --aw-accent-bg: #EDF5F0;
+  --aw-reach-fg: #B44D2E;
+  --aw-reach-bg: #FFF2ED;
+  --aw-reach-bar: #D4673F;
+  --aw-target-fg: #3D6B8E;
+  --aw-target-bg: #EDF4F9;
+  --aw-target-bar: #5892BD;
+  --aw-safe-fg: #3D7250;
+  --aw-safe-bg: #EDF6F0;
+  --aw-safe-bar: #4A7258;
+}
+
+body {
+  background: var(--aw-bg);
+  color: var(--aw-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "PingFang SC", sans-serif;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--aw-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--aw-border-hover); }
+
+*:focus-visible {
+  outline: 2px solid var(--aw-accent);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: var(--aw-accent-bg);
+  color: var(--aw-text);
+}

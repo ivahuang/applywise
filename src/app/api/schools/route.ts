@@ -23,6 +23,11 @@ interface SearchResult {
     applicationFee: number | null;
     portalUrl: string | null;
     programUrl: string | null;
+    // ── Added for task generation ──
+    wesRequired: boolean;
+    recsRequired: number;
+    interviewReq: boolean;
+    essays: { title: string; title_zh: string; word_limit: number | null }[] | null;
   }[];
 }
 
@@ -80,6 +85,11 @@ export async function GET(request: Request) {
       applicationFee: p.application_fee,
       portalUrl: p.portal_url,
       programUrl: p.program_url,
+      // ── Added for task generation ──
+      wesRequired: p.wes_required ?? false,
+      recsRequired: p.recs_required ?? 3,
+      interviewReq: p.interview_required ?? false,
+      essays: p.essays ?? null,
     });
   }
 

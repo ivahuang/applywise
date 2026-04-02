@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, X, ChevronRight } from "lucide-react";
+import { Plus, X, ChevronRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { theme, tierConfig, type Tier } from "@/lib/theme/tokens";
 import SchoolSearch from "@/components/dashboard/SchoolSearch";
+import type { ProgramResult, SchoolGroup } from "@/components/dashboard/SchoolSearch";
+import { generateTasks, overallProgress, type TasksState } from "@/lib/tasks";
 
 // Temporary local state — will be replaced by database + React context
 interface AppProgram {
@@ -20,6 +22,7 @@ interface AppProgram {
   toeflMin: number | null;
   greRequired: boolean;
   applicationFee: number | null;
+  tasksState: TasksState;
 }
 
 export default function SchoolsPage() {
@@ -27,9 +30,24 @@ export default function SchoolsPage() {
   const [showSearch, setShowSearch] = useState(false);
   const [lang] = useState<"en" | "zh">("en"); // TODO: get from context
 
-  const addProgram = (progs: any[], school: any) => {
+  const addProgram = (progs: ProgramResult[], school: SchoolGroup) => {
     for (const p of progs) {
       if (apps.some((a) => a.id === p.id)) continue;
+
+      // Generate the full task checklist from program data
+      const tasksState = generateTasks({
+        wesRequired: p.wesRequired,
+        toeflMin: p.toeflMin,
+        greRequired: p.greRequired,
+        recsRequired: p.recsRequired,
+        applicationFee: p.applicationFee,
+        interviewReq: p.interviewReq,
+        deadline: p.deadline,
+        essays: p.essays,
+        portalUrl: p.portalUrl,
+        programUrl: p.programUrl,
+      });
+
       setApps((prev) => [
         ...prev,
         {
@@ -45,6 +63,7 @@ export default function SchoolsPage() {
           toeflMin: p.toeflMin,
           greRequired: p.greRequired,
           applicationFee: p.applicationFee,
+          tasksState,
         },
       ]);
     }
@@ -169,75 +188,87 @@ export default function SchoolsPage() {
             </div>
 
             <div className="flex flex-col gap-2">
-              {list.map((app) => (
-                <div
-                  key={app.id}
-                  className="flex items-stretch rounded-[10px] overflow-hidden border transition-all hover:shadow-sm hover:-translate-y-px"
-                  style={{ background: theme.card, borderColor: theme.border }}
-                >
-                  {/* Tier color bar */}
+              {list.map((app) => {
+                const progress = overallProgress(app.tasksState);
+
+                return (
                   <div
-                    className="w-1 flex-shrink-0"
-                    style={{ background: tierConfig[app.tier].bar }}
-                  />
+                    key={app.id}
+                    className="flex items-stretch rounded-[10px] overflow-hidden border transition-all hover:shadow-sm hover:-translate-y-px"
+                    style={{ background: theme.card, borderColor: theme.border }}
+                  >
+                    {/* Tier color bar */}
+                    <div
+                      className="w-1 flex-shrink-0"
+                      style={{ background: tierConfig[app.tier].bar }}
+                    />
 
-                  <div className="flex-1 px-4 py-3 flex items-center gap-3">
-                    {/* School + program info */}
-                    <Link href={`/school/${app.id}`} className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-semibold" style={{ color: theme.text }}>
-                          {lang === "zh" ? app.schoolNameZh : app.schoolName}
-                        </span>
-                        <span className="text-xs" style={{ color: theme.textMuted }}>
-                          {lang === "zh" ? app.schoolName : app.schoolNameZh}
-                        </span>
-                      </div>
-                      <div className="text-xs mt-0.5" style={{ color: theme.textSecondary }}>
-                        {lang === "zh" ? app.programNameZh : app.programName}
-                      </div>
-                    </Link>
+                    <div className="flex-1 px-4 py-3 flex items-center gap-3">
+                      {/* School + program info */}
+                      <Link href={`/school/${app.id}`} className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <span className="text-sm font-semibold" style={{ color: theme.text }}>
+                            {lang === "zh" ? app.schoolNameZh : app.schoolName}
+                          </span>
+                          <span className="text-xs" style={{ color: theme.textMuted }}>
+                            {lang === "zh" ? app.schoolName : app.schoolNameZh}
+                          </span>
+                        </div>
+                        <div className="text-xs mt-0.5 flex items-center gap-2" style={{ color: theme.textSecondary }}>
+                          <span>{lang === "zh" ? app.programNameZh : app.programName}</span>
+                          {/* Task progress indicator */}
+                          <span
+                            className="inline-flex items-center gap-0.5 text-[10px]"
+                            style={{ color: theme.textMuted }}
+                          >
+                            <CheckCircle2 size={10} />
+                            {progress.done}/{progress.total}
+                          </span>
+                        </div>
+                      </Link>
 
-                    {/* Deadline */}
-                    {app.deadline && (
-                      <div className="text-xs text-right min-w-[60px]" style={{ color: theme.textSecondary }}>
-                        {new Date(app.deadline).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                        })}
-                      </div>
-                    )}
+                      {/* Deadline */}
+                      {app.deadline && (
+                        <div className="text-xs text-right min-w-[60px]" style={{ color: theme.textSecondary }}>
+                          {new Date(app.deadline).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                          })}
+                        </div>
+                      )}
 
-                    {/* Tier badge (clickable to cycle) */}
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        cycleTier(app.id);
-                      }}
-                      className="text-[10px] font-semibold px-2 py-0.5 rounded uppercase tracking-wider transition-colors"
-                      style={{
-                        color: tierConfig[app.tier].fg,
-                        background: tierConfig[app.tier].bg,
-                      }}
-                      title="Click to change tier"
-                    >
-                      {lang === "zh" ? tierConfig[app.tier].zh : tierConfig[app.tier].en}
-                    </button>
+                      {/* Tier badge (clickable to cycle) */}
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          cycleTier(app.id);
+                        }}
+                        className="text-[10px] font-semibold px-2 py-0.5 rounded uppercase tracking-wider transition-colors"
+                        style={{
+                          color: tierConfig[app.tier].fg,
+                          background: tierConfig[app.tier].bg,
+                        }}
+                        title="Click to change tier"
+                      >
+                        {lang === "zh" ? tierConfig[app.tier].zh : tierConfig[app.tier].en}
+                      </button>
 
-                    {/* Remove */}
-                    <button
-                      onClick={(e) => {
-                        e.preventDefault();
-                        removeApp(app.id);
-                      }}
-                      className="text-base leading-none p-1 transition-colors"
-                      style={{ color: theme.textMuted }}
-                      title="Remove"
-                    >
-                      <X size={14} />
-                    </button>
+                      {/* Remove */}
+                      <button
+                        onClick={(e) => {
+                          e.preventDefault();
+                          removeApp(app.id);
+                        }}
+                        className="text-base leading-none p-1 transition-colors"
+                        style={{ color: theme.textMuted }}
+                        title="Remove"
+                      >
+                        <X size={14} />
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         );

@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Search, Plus, Check, ExternalLink } from "lucide-react";
 import { theme } from "@/lib/theme/tokens";
 
-interface ProgramResult {
+export interface ProgramResult {
   id: string;
   name: string;
   nameZh: string;
@@ -16,9 +16,14 @@ interface ProgramResult {
   applicationFee: number | null;
   portalUrl: string | null;
   programUrl: string | null;
+  // ── Added for task generation ──
+  wesRequired: boolean;
+  recsRequired: number;
+  interviewReq: boolean;
+  essays: { title: string; title_zh: string; word_limit: number | null }[] | null;
 }
 
-interface SchoolGroup {
+export interface SchoolGroup {
   schoolName: string;
   schoolNameZh: string;
   schoolRank: number | null;

@@ -57,17 +57,28 @@ export function ApplicationsProvider({ children }: { children: ReactNode }) {
       for (const p of progs) {
         if (next.some((a) => a.id === p.id)) continue;
 
+        // Pass both school-level and program-level data to generateTasks
         const tasksState = generateTasks({
-          wesRequired: p.wesRequired,
+          schoolName: school.schoolName,
+          schoolNameZh: school.schoolNameZh,
+          toeflCode: school.toeflCode ?? undefined,
+          greCode: school.greCode ?? undefined,
+          intlAdmissionsUrl: school.intlAdmissionsUrl ?? undefined,
           toeflMin: p.toeflMin,
           greRequired: p.greRequired,
+          wesRequired: p.wesRequired,
+          wesEvalType: p.wesEvalType,
           recsRequired: p.recsRequired,
-          applicationFee: p.applicationFee,
+          recsAcademicMin: p.recsAcademicMin,
+          recsNotes: p.recsNotes,
           interviewReq: p.interviewReq,
+          interviewFormat: p.interviewFormat,
+          applicationFee: p.applicationFee,
           deadline: p.deadline,
           essays: p.essays,
           portalUrl: p.portalUrl,
           programUrl: p.programUrl,
+          admissionsUrl: p.admissionsUrl,
         });
 
         next.push({

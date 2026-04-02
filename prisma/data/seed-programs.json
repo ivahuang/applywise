@@ -2,9 +2,9 @@
   "metadata": {
     "source": "Official university websites + QS/US News data",
     "created": "2026-04-01",
-    "total_programs": 76,
-    "total_schools": 28,
-    "notes": "Layer 2 program-level data. All deadlines are for Fall 2026 entry. verified_at=null means needs verification. Essay prompts and requirements change annually.",
+    "total_programs": 102,
+    "total_schools": 33,
+    "notes": "Layer 2 program-level data. All deadlines are for Fall 2026 entry. verified_at=null means needs verification. Essay prompts and requirements change annually. Expanded on 2026-04-02 with 26 new programs.",
     "fields_covered": [
       "communications",
       "computer_science",
@@ -20,7 +20,11 @@
       "social_science",
       "social_work",
       "statistics",
-      "urban_planning"
+      "urban_planning",
+      "financial_engineering",
+      "business_analytics",
+      "electrical_engineering",
+      "economics"
     ]
   },
   "programs": [
@@ -44,24 +48,32 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         },
         {
           "title": "Cohort Contribution",
           "title_zh": "群体贡献文书",
-          "word_limit": 250
+          "word_limit": 250,
+          "type": "cohort"
         },
         {
           "title": "Writing Sample",
           "title_zh": "写作范例",
-          "word_limit": null
+          "word_limit": null,
+          "type": "writing_sample"
         }
       ],
       "portal_url": "https://apply.gsas.columbia.edu",
       "program_url": "https://sps.columbia.edu/academics/masters/strategic-communication",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": "course-by-course",
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Columbia University",
@@ -83,14 +95,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.gsas.columbia.edu",
       "program_url": "https://www.qmss.columbia.edu",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": "course-by-course",
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Columbia University",
@@ -112,19 +130,26 @@
         {
           "title": "Personal Essay",
           "title_zh": "个人文书",
-          "word_limit": 800
+          "word_limit": 800,
+          "type": "personal_statement"
         },
         {
           "title": "Journalism Clips",
           "title_zh": "新闻作品集",
-          "word_limit": null
+          "word_limit": null,
+          "type": "program_specific"
         }
       ],
       "portal_url": "https://journalism.columbia.edu/admissions",
       "program_url": "https://journalism.columbia.edu/ms-programs",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": "course-by-course",
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Columbia University",
@@ -146,14 +171,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.gsas.columbia.edu",
       "program_url": "https://stat.columbia.edu/masters-programs",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": "course-by-course",
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Columbia University",
@@ -175,14 +206,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.gsas.columbia.edu",
       "program_url": "https://datascience.columbia.edu/education/ms-program",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": "course-by-course",
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Columbia University",
@@ -204,14 +241,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.gsas.columbia.edu",
       "program_url": "https://www.cs.columbia.edu/education/ms",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": "course-by-course",
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Harvard University",
@@ -233,34 +276,44 @@
         {
           "title": "JFK Essay - Public Leadership",
           "title_zh": "JFK文书——公共领导力",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "program_specific"
         },
         {
           "title": "MPP Essay - Curriculum Fit",
           "title_zh": "MPP文书——课程契合",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "program_specific"
         },
         {
           "title": "Personal History",
           "title_zh": "个人经历",
-          "word_limit": 250
+          "word_limit": 250,
+          "type": "personal_statement"
         },
         {
           "title": "Adversity Essay",
           "title_zh": "逆境文书",
-          "word_limit": 250
+          "word_limit": 250,
+          "type": "program_specific"
         },
         {
           "title": "Perspectives Essay",
           "title_zh": "视角文书",
-          "word_limit": 250
+          "word_limit": 250,
+          "type": "program_specific"
         }
       ],
       "portal_url": "https://apply.hks.harvard.edu",
       "program_url": "https://www.hks.harvard.edu/educational-programs/masters-programs/master-public-policy",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": "course-by-course",
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Harvard University",
@@ -282,14 +335,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.hks.harvard.edu",
       "program_url": "https://www.hks.harvard.edu/educational-programs/masters-programs/master-public-administration",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": "course-by-course",
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Harvard University",
@@ -311,14 +370,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://www.gse.harvard.edu/admissions",
       "program_url": "https://www.gse.harvard.edu/programs/education-policy-analysis",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Harvard University",
@@ -340,14 +405,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gsas.harvard.edu/admissions",
       "program_url": "https://seas.harvard.edu/applied-computation/graduate-programs",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Stanford University",
@@ -369,19 +440,26 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 1500
+          "word_limit": 1500,
+          "type": "sop"
         },
         {
           "title": "Research Proposal",
           "title_zh": "研究计划",
-          "word_limit": 1000
+          "word_limit": 1000,
+          "type": "program_specific"
         }
       ],
       "portal_url": "https://gradadmissions.stanford.edu",
       "program_url": "https://comm.stanford.edu/graduate",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Stanford University",
@@ -403,14 +481,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gradadmissions.stanford.edu",
       "program_url": "https://cs.stanford.edu/admissions/masters",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Stanford University",
@@ -432,14 +516,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gradadmissions.stanford.edu",
       "program_url": "https://statistics.stanford.edu/graduate/ms-statistics",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Stanford University",
@@ -461,14 +551,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gradadmissions.stanford.edu",
       "program_url": "https://ed.stanford.edu/admissions/graduate",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Massachusetts Institute of Technology",
@@ -490,14 +586,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gradadmissions.mit.edu",
       "program_url": "https://www.eecs.mit.edu/academics/graduate-programs",
       "notes": "MEng only open to MIT undergrads; SM is the external master's",
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Massachusetts Institute of Technology",
@@ -519,14 +621,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gradadmissions.mit.edu",
       "program_url": "https://www.media.mit.edu/graduate-program/admissions",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Massachusetts Institute of Technology",
@@ -548,14 +656,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gradadmissions.mit.edu",
       "program_url": "https://dusp.mit.edu/degrees/masters",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of Chicago",
@@ -577,14 +691,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.uchicago.edu",
       "program_url": "https://macss.uchicago.edu",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": "course-by-course",
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of Chicago",
@@ -606,14 +726,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.uchicago.edu",
       "program_url": "https://mapss.uchicago.edu",
       "notes": "Generalist social science MA, popular with career changers",
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": "course-by-course",
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of Chicago",
@@ -635,14 +761,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.uchicago.edu",
       "program_url": "https://harris.uchicago.edu/academics/degrees/master-public-policy-mpp",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of Chicago",
@@ -664,14 +796,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.uchicago.edu",
       "program_url": "https://cs.uchicago.edu/mpcs",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of Southern California",
@@ -693,19 +831,26 @@
         {
           "title": "Personal Statement",
           "title_zh": "个人陈述",
-          "word_limit": null
+          "word_limit": null,
+          "type": "personal_statement"
         },
         {
           "title": "Writing Sample",
           "title_zh": "写作范例",
-          "word_limit": null
+          "word_limit": null,
+          "type": "writing_sample"
         }
       ],
       "portal_url": "https://gradadm.usc.edu",
       "program_url": "https://annenberg.usc.edu/academics/public-relations-advertising-ma",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of Southern California",
@@ -727,14 +872,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gradadm.usc.edu",
       "program_url": "https://annenberg.usc.edu/academics/digital-social-media-ms",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of Southern California",
@@ -756,14 +907,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gradadm.usc.edu",
       "program_url": "https://annenberg.usc.edu/academics/communication-management-mcg",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of Southern California",
@@ -785,14 +942,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gradadm.usc.edu",
       "program_url": "https://annenberg.usc.edu/academics/journalism-ms",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of Southern California",
@@ -814,14 +977,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gradadm.usc.edu",
       "program_url": "https://www.cs.usc.edu/academic-programs/masters",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Northwestern University",
@@ -843,19 +1012,26 @@
         {
           "title": "Career Goals Essay",
           "title_zh": "职业目标文书",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "program_specific"
         },
         {
           "title": "Video Essay",
           "title_zh": "视频文书",
-          "word_limit": null
+          "word_limit": null,
+          "type": "program_specific"
         }
       ],
       "portal_url": "https://app.applyyourself.com",
       "program_url": "https://www.medill.northwestern.edu/imc",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Northwestern University",
@@ -877,14 +1053,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://app.applyyourself.com",
       "program_url": "https://www.medill.northwestern.edu/journalism-graduate",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Northwestern University",
@@ -906,14 +1088,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://www.tgs.northwestern.edu/admission",
       "program_url": "https://www.mccormick.northwestern.edu/computer-science/academics/graduate",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "New York University",
@@ -935,14 +1123,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.nyu.edu",
       "program_url": "https://www.sps.nyu.edu/homepage/academics/masters-programs/ms-in-public-relations-and-corporate-communication.html",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": "course-by-course",
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "New York University",
@@ -964,14 +1158,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.nyu.edu",
       "program_url": "https://cds.nyu.edu/academics/ms-in-data-science",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "New York University",
@@ -993,14 +1193,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.nyu.edu",
       "program_url": "https://steinhardt.nyu.edu/degree/ma-media-culture-and-communication",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "New York University",
@@ -1022,14 +1228,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.nyu.edu",
       "program_url": "https://cs.nyu.edu/home/master/prospective_mscs.html",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Georgetown University",
@@ -1051,19 +1263,26 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         },
         {
           "title": "Personal Essay",
           "title_zh": "个人文书",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "personal_statement"
         }
       ],
       "portal_url": "https://apply.georgetown.edu",
       "program_url": "https://cct.georgetown.edu",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Georgetown University",
@@ -1085,14 +1304,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.georgetown.edu",
       "program_url": "https://sfs.georgetown.edu/programs/masters/security-studies",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Georgetown University",
@@ -1114,14 +1339,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.georgetown.edu",
       "program_url": "https://mccourt.georgetown.edu/master-of-public-policy",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of California, Berkeley",
@@ -1143,19 +1374,26 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 1000
+          "word_limit": 1000,
+          "type": "sop"
         },
         {
           "title": "Personal History Statement",
           "title_zh": "个人经历陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "personal_statement"
         }
       ],
       "portal_url": "https://grad.berkeley.edu/admissions",
       "program_url": "https://www.ischool.berkeley.edu/programs/mims",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of California, Berkeley",
@@ -1177,14 +1415,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://grad.berkeley.edu/admissions",
       "program_url": "https://eecs.berkeley.edu/academics/graduate",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of California, Berkeley",
@@ -1206,14 +1450,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://grad.berkeley.edu/admissions",
       "program_url": "https://gspp.berkeley.edu/programs/master-of-public-policy",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of Pennsylvania",
@@ -1235,14 +1485,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://www.upenn.edu/admissions/grad",
       "program_url": "https://www.asc.upenn.edu/graduate/master-of-arts-in-communication",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of Pennsylvania",
@@ -1264,14 +1520,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://www.upenn.edu/admissions/grad",
       "program_url": "https://sp2.upenn.edu/program/master-of-science-in-social-policy-data-analytics-for-social-policy",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of Pennsylvania",
@@ -1293,14 +1555,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://www.upenn.edu/admissions/grad",
       "program_url": "https://dats.seas.upenn.edu",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Johns Hopkins University",
@@ -1322,14 +1590,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.jhu.edu",
       "program_url": "https://sais.jhu.edu/admissions/masters-program",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Johns Hopkins University",
@@ -1351,14 +1625,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.jhu.edu",
       "program_url": "https://ep.jhu.edu/programs/data-science",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Johns Hopkins University",
@@ -1380,14 +1660,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://apply.jhu.edu",
       "program_url": "https://publichealth.jhu.edu/academics/master-of-public-health",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Carnegie Mellon University",
@@ -1409,14 +1695,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://www.cmu.edu/graduate/admissions",
       "program_url": "https://csd.cmu.edu/academics/masters/overview",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Carnegie Mellon University",
@@ -1438,14 +1730,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://www.cmu.edu/graduate/admissions",
       "program_url": "https://hcii.cmu.edu/academics/masters-programs",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Carnegie Mellon University",
@@ -1467,14 +1765,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://www.cmu.edu/graduate/admissions",
       "program_url": "https://www.heinz.cmu.edu/programs/public-policy-management-master",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Duke University",
@@ -1496,14 +1800,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gradschool.duke.edu/admissions",
       "program_url": "https://sanford.duke.edu/academics/masters-programs/master-public-policy",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Duke University",
@@ -1525,14 +1835,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gradschool.duke.edu/admissions",
       "program_url": "https://cs.duke.edu/graduate/ms",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Duke University",
@@ -1554,14 +1870,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gradschool.duke.edu/admissions",
       "program_url": "https://stat.duke.edu/ms",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Yale University",
@@ -1583,14 +1905,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gsas.yale.edu/admissions",
       "program_url": "https://jackson.yale.edu/graduate-programs/master-of-arts",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Yale University",
@@ -1612,14 +1940,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gsas.yale.edu/admissions",
       "program_url": "https://ysph.yale.edu/admissions",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Yale University",
@@ -1641,14 +1975,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gsas.yale.edu/admissions",
       "program_url": "https://cpsc.yale.edu/academics/graduate-program",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of Michigan, Ann Arbor",
@@ -1670,14 +2010,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://rackham.umich.edu/admissions",
       "program_url": "https://www.si.umich.edu/programs/master-science-information",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of Michigan, Ann Arbor",
@@ -1699,14 +2045,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://rackham.umich.edu/admissions",
       "program_url": "https://fordschool.umich.edu/master-public-policy",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of Michigan, Ann Arbor",
@@ -1728,14 +2080,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://rackham.umich.edu/admissions",
       "program_url": "https://cse.engin.umich.edu/academics/graduate/masters",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Washington University in St. Louis",
@@ -1757,14 +2115,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://graduateschool.wustl.edu/admissions",
       "program_url": "https://cse.wustl.edu/academics/graduate/ms-cs.html",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Washington University in St. Louis",
@@ -1786,14 +2150,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://graduateschool.wustl.edu/admissions",
       "program_url": "https://brownschool.wustl.edu/academics/master-of-social-work",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Cornell University",
@@ -1815,14 +2185,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gradschool.cornell.edu/admissions",
       "program_url": "https://infosci.cornell.edu/masters",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Cornell University",
@@ -1844,14 +2220,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gradschool.cornell.edu/admissions",
       "program_url": "https://publicpolicy.cornell.edu/academics/mpa",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Cornell University",
@@ -1873,14 +2255,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gradschool.cornell.edu/admissions",
       "program_url": "https://tech.cornell.edu/programs/masters-programs",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of California, Los Angeles",
@@ -1902,14 +2290,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://grad.ucla.edu/admissions",
       "program_url": "https://www.cs.ucla.edu/graduate-program",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of California, Los Angeles",
@@ -1931,14 +2325,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://grad.ucla.edu/admissions",
       "program_url": "https://luskin.ucla.edu/degree-programs/master-of-public-policy",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "University of California, Los Angeles",
@@ -1960,14 +2360,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://grad.ucla.edu/admissions",
       "program_url": "https://seis.ucla.edu/education",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Brown University",
@@ -1989,14 +2395,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://www.brown.edu/graduateschool/admission",
       "program_url": "https://dsi.brown.edu/masters-degree",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Brown University",
@@ -2018,14 +2430,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://www.brown.edu/graduateschool/admission",
       "program_url": "https://watson.brown.edu/mpa",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Georgia Institute of Technology",
@@ -2047,14 +2465,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://grad.gatech.edu/admissions",
       "program_url": "https://www.cc.gatech.edu/ms-computer-science",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Vanderbilt University",
@@ -2076,14 +2500,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://gradschool.vanderbilt.edu/admissions",
       "program_url": "https://peabody.vanderbilt.edu/academics/departments-programs",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Emory University",
@@ -2105,14 +2535,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://www.gs.emory.edu/admissions",
       "program_url": "https://www.sph.emory.edu/admissions",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Rice University",
@@ -2134,14 +2570,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://graduate.rice.edu/admissions",
       "program_url": "https://cs.rice.edu/graduate-programs",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Northeastern University",
@@ -2163,14 +2605,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://graduate.northeastern.edu/admissions",
       "program_url": "https://www.khoury.northeastern.edu/programs/ms-in-computer-science",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Northeastern University",
@@ -2192,14 +2640,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://graduate.northeastern.edu/admissions",
       "program_url": "https://www.khoury.northeastern.edu/programs/data-science-ms",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "George Washington University",
@@ -2221,14 +2675,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://graduate.columbian.gwu.edu/admissions",
       "program_url": "https://smpa.gwu.edu/political-communication",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Boston University",
@@ -2250,14 +2710,20 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://www.bu.edu/cas/admissions/graduate",
       "program_url": "https://www.bu.edu/com/academics/public-relations",
       "notes": null,
       "verified_at": null,
-      "country": "US"
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
     },
     {
       "school": "Syracuse University",
@@ -2279,11 +2745,943 @@
         {
           "title": "Statement of Purpose",
           "title_zh": "学术目标陈述",
-          "word_limit": 500
+          "word_limit": 500,
+          "type": "sop"
         }
       ],
       "portal_url": "https://graduateadmissions.syr.edu",
       "program_url": "https://newhouse.syr.edu/academics/masters",
+      "notes": null,
+      "verified_at": null,
+      "country": "US",
+      "wes_eval_type": null,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "interview_format": null,
+      "admissions_url": null
+    },
+    {
+      "school": "Carnegie Mellon University",
+      "school_zh": "卡内基梅隆大学",
+      "program": "M.S. in Machine Learning",
+      "program_zh": "机器学习硕士",
+      "degree": "MS",
+      "department": "School of Computer Science",
+      "field": "computer_science",
+      "deadline": "2025-12-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 100,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": null,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://www.ml.cmu.edu/academics/ms-program.html",
+      "portal_url": "https://applygrad.cs.cmu.edu/apply/",
+      "admissions_url": null,
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of California, Berkeley",
+      "school_zh": "加州大学伯克利分校",
+      "program": "M.Eng. in EECS",
+      "program_zh": "电子工程与计算机科学工程硕士",
+      "degree": "MEng",
+      "department": "College of Engineering",
+      "field": "computer_science",
+      "deadline": "2026-01-06",
+      "toefl_min": 90,
+      "gre_required": false,
+      "recs_required": 3,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 140,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Personal Statement",
+          "title_zh": "个人陈述",
+          "word_limit": null,
+          "type": "personal_statement"
+        }
+      ],
+      "program_url": "https://eecs.berkeley.edu/academics/graduate/industry-programs/meng",
+      "portal_url": "https://gradapp.berkeley.edu/apply/",
+      "admissions_url": null,
+      "notes": "Professional degree. 1-year program.",
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Illinois Urbana-Champaign",
+      "school_zh": "伊利诺伊大学厄巴纳-香槟分校",
+      "program": "M.S. in Computer Science",
+      "program_zh": "计算机科学硕士",
+      "degree": "MS",
+      "department": "Grainger College of Engineering",
+      "field": "computer_science",
+      "deadline": "2025-12-15",
+      "toefl_min": 103,
+      "gre_required": false,
+      "recs_required": 3,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 90,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": null,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://cs.illinois.edu/academics/graduate/ms-program",
+      "portal_url": "https://choose.illinois.edu/apply/",
+      "admissions_url": null,
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Washington",
+      "school_zh": "华盛顿大学",
+      "program": "M.S. in Computer Science & Engineering",
+      "program_zh": "计算机科学与工程硕士",
+      "degree": "MS",
+      "department": "Allen School of CSE",
+      "field": "computer_science",
+      "deadline": "2025-12-15",
+      "toefl_min": 92,
+      "gre_required": false,
+      "recs_required": 3,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 85,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": null,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://www.cs.washington.edu/academics/graduate",
+      "portal_url": "https://grad.uw.edu/admissions/applying/",
+      "admissions_url": null,
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Pennsylvania",
+      "school_zh": "宾夕法尼亚大学",
+      "program": "M.S.E. in Computer and Information Science",
+      "program_zh": "计算机与信息科学硕士",
+      "degree": "MSE",
+      "department": "School of Engineering",
+      "field": "computer_science",
+      "deadline": "2025-12-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 90,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": null,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://www.cis.upenn.edu/graduate/program-offerings/mse-in-cis/",
+      "portal_url": "https://grad.admissions.upenn.edu/apply/",
+      "admissions_url": null,
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of California, Berkeley",
+      "school_zh": "加州大学伯克利分校",
+      "program": "Master of Information and Data Science (MIDS)",
+      "program_zh": "信息与数据科学硕士",
+      "degree": "MIDS",
+      "department": "School of Information",
+      "field": "data_science",
+      "deadline": "2026-01-08",
+      "toefl_min": 90,
+      "gre_required": false,
+      "recs_required": 3,
+      "recs_academic_min": 1,
+      "recs_notes": "1 academic or professional who can speak to your analytical abilities",
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 140,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": null,
+          "type": "sop"
+        },
+        {
+          "title": "Personal History Statement",
+          "title_zh": "个人经历陈述",
+          "word_limit": null,
+          "type": "personal_statement"
+        }
+      ],
+      "program_url": "https://ischool.berkeley.edu/programs/mids",
+      "portal_url": "https://gradapp.berkeley.edu/apply/",
+      "admissions_url": null,
+      "notes": "Online format. Working professionals.",
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Michigan",
+      "school_zh": "密歇根大学",
+      "program": "M.S. in Applied Data Science",
+      "program_zh": "应用数据科学硕士",
+      "degree": "MS",
+      "department": "School of Information",
+      "field": "data_science",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "recs_academic_min": 1,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 90,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://www.si.umich.edu/programs/master-applied-data-science",
+      "portal_url": "https://rackham.umich.edu/admissions/applying/",
+      "admissions_url": null,
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Columbia University",
+      "school_zh": "哥伦比亚大学",
+      "program": "M.S. in Financial Engineering",
+      "program_zh": "金融工程硕士",
+      "degree": "MS",
+      "department": "Fu Foundation School of Engineering (IEOR)",
+      "field": "financial_engineering",
+      "deadline": "2026-01-05",
+      "toefl_min": 101,
+      "gre_required": true,
+      "recs_required": 3,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "wes_required": true,
+      "wes_eval_type": "course-by-course",
+      "application_fee": 120,
+      "interview_required": true,
+      "interview_format": "kira",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://msfe.ieor.columbia.edu/",
+      "portal_url": "https://apply.gsas.columbia.edu/apply/",
+      "admissions_url": null,
+      "notes": "3-semester program. Quantitative focus.",
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Carnegie Mellon University",
+      "school_zh": "卡内基梅隆大学",
+      "program": "M.S. in Computational Finance",
+      "program_zh": "计算金融硕士",
+      "degree": "MS",
+      "department": "Tepper School of Business",
+      "field": "financial_engineering",
+      "deadline": "2026-01-05",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 100,
+      "interview_required": true,
+      "interview_format": "zoom",
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500,
+          "type": "sop"
+        },
+        {
+          "title": "Video Essay",
+          "title_zh": "视频文书",
+          "word_limit": null,
+          "type": "program_specific"
+        }
+      ],
+      "program_url": "https://www.cmu.edu/mscf/",
+      "portal_url": "https://gradadmissions.cmu.edu/apply/",
+      "admissions_url": null,
+      "notes": "Pittsburgh + NYC campus option",
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "New York University",
+      "school_zh": "纽约大学",
+      "program": "M.S. in Financial Engineering",
+      "program_zh": "金融工程硕士",
+      "degree": "MS",
+      "department": "Tandon School of Engineering",
+      "field": "financial_engineering",
+      "deadline": "2026-02-01",
+      "toefl_min": 90,
+      "gre_required": true,
+      "recs_required": 3,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "wes_required": true,
+      "wes_eval_type": "course-by-course",
+      "application_fee": 110,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": null,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://engineering.nyu.edu/academics/programs/financial-engineering-ms",
+      "portal_url": "https://apply.engineering.nyu.edu/",
+      "admissions_url": null,
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Cornell University",
+      "school_zh": "康奈尔大学",
+      "program": "M.Eng. in Financial Engineering",
+      "program_zh": "金融工程工程硕士",
+      "degree": "MEng",
+      "department": "School of Operations Research (ORIE)",
+      "field": "financial_engineering",
+      "deadline": "2026-02-01",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 2,
+      "recs_academic_min": 1,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 105,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": null,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://www.orie.cornell.edu/orie/programs/meng/meng-financial-engineering",
+      "portal_url": "https://gradschool.cornell.edu/admissions/apply/",
+      "admissions_url": null,
+      "notes": "NYC Tech campus option available",
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of California, Berkeley",
+      "school_zh": "加州大学伯克利分校",
+      "program": "Master of Financial Engineering",
+      "program_zh": "金融工程硕士",
+      "degree": "MFE",
+      "department": "Haas School of Business",
+      "field": "financial_engineering",
+      "deadline": "2026-01-07",
+      "toefl_min": 90,
+      "gre_required": true,
+      "recs_required": 2,
+      "recs_academic_min": 0,
+      "recs_notes": "Professional recommenders preferred",
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 200,
+      "interview_required": true,
+      "interview_format": "zoom",
+      "essays": [
+        {
+          "title": "Short Answer Essays",
+          "title_zh": "简答文书",
+          "word_limit": 250,
+          "type": "program_specific"
+        }
+      ],
+      "program_url": "https://mfe.haas.berkeley.edu/",
+      "portal_url": "https://mfe.haas.berkeley.edu/admissions/how-to-apply",
+      "admissions_url": null,
+      "notes": "1-year program. Top-ranked MFE.",
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Chicago",
+      "school_zh": "芝加哥大学",
+      "program": "M.S. in Statistics",
+      "program_zh": "统计学硕士",
+      "degree": "MS",
+      "department": "Department of Statistics",
+      "field": "statistics",
+      "deadline": "2026-01-03",
+      "toefl_min": 104,
+      "gre_required": true,
+      "recs_required": 3,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 90,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": null,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://stat.uchicago.edu/academics/ms-program/",
+      "portal_url": "https://apply-psd.uchicago.edu/apply/",
+      "admissions_url": null,
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Columbia University",
+      "school_zh": "哥伦比亚大学",
+      "program": "Master of Public Administration (MPA)",
+      "program_zh": "公共管理硕士",
+      "degree": "MPA",
+      "department": "School of International and Public Affairs (SIPA)",
+      "field": "public_policy",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "recs_academic_min": 1,
+      "recs_notes": "Mix of academic and professional",
+      "wes_required": true,
+      "wes_eval_type": "course-by-course",
+      "application_fee": 110,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Policy Essay",
+          "title_zh": "政策文书",
+          "word_limit": 750,
+          "type": "sop"
+        },
+        {
+          "title": "Personal Essay",
+          "title_zh": "个人文书",
+          "word_limit": 500,
+          "type": "personal_statement"
+        }
+      ],
+      "program_url": "https://www.sipa.columbia.edu/admissions",
+      "portal_url": "https://apply.sipa.columbia.edu/",
+      "admissions_url": null,
+      "notes": "Multiple concentrations available",
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Georgetown University",
+      "school_zh": "乔治城大学",
+      "program": "M.S. in Foreign Service (MSFS)",
+      "program_zh": "外交事务硕士",
+      "degree": "MS",
+      "department": "Walsh School of Foreign Service",
+      "field": "international_relations",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "recs_academic_min": 1,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 95,
+      "interview_required": true,
+      "interview_format": "alumni",
+      "essays": [
+        {
+          "title": "Policy Memo",
+          "title_zh": "政策备忘录",
+          "word_limit": 1500,
+          "type": "sop"
+        },
+        {
+          "title": "Personal Statement",
+          "title_zh": "个人陈述",
+          "word_limit": 750,
+          "type": "personal_statement"
+        }
+      ],
+      "program_url": "https://msfs.georgetown.edu/",
+      "portal_url": "https://grad.georgetown.edu/admissions/apply/",
+      "admissions_url": null,
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Princeton University",
+      "school_zh": "普林斯顿大学",
+      "program": "Master in Public Affairs (MPA)",
+      "program_zh": "公共事务硕士",
+      "degree": "MPA",
+      "department": "School of Public and International Affairs (SPIA)",
+      "field": "public_policy",
+      "deadline": "2025-12-01",
+      "toefl_min": 108,
+      "gre_required": true,
+      "recs_required": 3,
+      "recs_academic_min": 1,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 90,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Policy Memo",
+          "title_zh": "政策备忘录",
+          "word_limit": null,
+          "type": "program_specific"
+        },
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": null,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://spia.princeton.edu/graduate-program/mpa",
+      "portal_url": "https://gradschool.princeton.edu/admission",
+      "admissions_url": null,
+      "notes": "Fully funded for many students",
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Michigan",
+      "school_zh": "密歇根大学",
+      "program": "Master of Science in Information",
+      "program_zh": "信息学硕士",
+      "degree": "MSI",
+      "department": "School of Information (UMSI)",
+      "field": "information_science",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "recs_academic_min": 1,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 90,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Personal Statement",
+          "title_zh": "个人陈述",
+          "word_limit": 500,
+          "type": "personal_statement"
+        },
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://www.si.umich.edu/programs/master-science-information",
+      "portal_url": "https://rackham.umich.edu/admissions/applying/",
+      "admissions_url": null,
+      "notes": "Multiple tracks: UX, Data Science, HCI, Info Policy",
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Columbia University",
+      "school_zh": "哥伦比亚大学",
+      "program": "M.A. in Education (Teachers College)",
+      "program_zh": "教育学硕士（师范学院）",
+      "degree": "MA",
+      "department": "Teachers College",
+      "field": "education",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "recs_academic_min": 1,
+      "recs_notes": null,
+      "wes_required": true,
+      "wes_eval_type": "course-by-course",
+      "application_fee": 75,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": 500,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://www.tc.columbia.edu/admissions/",
+      "portal_url": "https://apply.tc.columbia.edu/",
+      "admissions_url": null,
+      "notes": "Multiple specializations",
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Pennsylvania",
+      "school_zh": "宾夕法尼亚大学",
+      "program": "M.S.Ed. in Education",
+      "program_zh": "教育学硕士",
+      "degree": "MSEd",
+      "department": "Graduate School of Education",
+      "field": "education",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "recs_academic_min": 1,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 80,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": null,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://www.gse.upenn.edu/admissions",
+      "portal_url": "https://www.gse.upenn.edu/admissions/how-to-apply",
+      "admissions_url": null,
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Massachusetts Institute of Technology",
+      "school_zh": "麻省理工学院",
+      "program": "Master of Business Analytics (MBAn)",
+      "program_zh": "商业分析硕士",
+      "degree": "MBAn",
+      "department": "Sloan School of Management",
+      "field": "business_analytics",
+      "deadline": "2026-01-10",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 2,
+      "recs_academic_min": 0,
+      "recs_notes": "Professional recommenders preferred",
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 150,
+      "interview_required": true,
+      "interview_format": "zoom",
+      "essays": [
+        {
+          "title": "Cover Letter",
+          "title_zh": "求职信",
+          "word_limit": 500,
+          "type": "sop"
+        },
+        {
+          "title": "Video Statement",
+          "title_zh": "视频陈述",
+          "word_limit": null,
+          "type": "program_specific"
+        }
+      ],
+      "program_url": "https://mitsloan.mit.edu/master-of-business-analytics",
+      "portal_url": "https://mitsloan.mit.edu/master-of-business-analytics/apply",
+      "admissions_url": null,
+      "notes": "12-month program. Includes capstone project with company.",
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of Southern California",
+      "school_zh": "南加州大学",
+      "program": "M.S. in Business Analytics",
+      "program_zh": "商业分析硕士",
+      "degree": "MS",
+      "department": "Marshall School of Business",
+      "field": "business_analytics",
+      "deadline": "2026-01-15",
+      "toefl_min": 103,
+      "gre_required": true,
+      "recs_required": 2,
+      "recs_academic_min": 0,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 155,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": null,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://www.marshall.usc.edu/programs/specialized-masters/master-science-business-analytics",
+      "portal_url": "https://usc.liaisoncas.com/",
+      "admissions_url": null,
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of California, Los Angeles",
+      "school_zh": "加州大学洛杉矶分校",
+      "program": "Master of Quantitative Economics (MQE)",
+      "program_zh": "定量经济学硕士",
+      "degree": "MQE",
+      "department": "Department of Economics",
+      "field": "economics",
+      "deadline": "2026-01-15",
+      "toefl_min": 100,
+      "gre_required": true,
+      "recs_required": 3,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 140,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": null,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://economics.ucla.edu/graduate/mqe/",
+      "portal_url": "https://grad.ucla.edu/admissions/apply/",
+      "admissions_url": null,
+      "notes": "1-year professional degree",
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Columbia University",
+      "school_zh": "哥伦比亚大学",
+      "program": "M.S. in Electrical Engineering",
+      "program_zh": "电气工程硕士",
+      "degree": "MS",
+      "department": "Fu Foundation School of Engineering",
+      "field": "electrical_engineering",
+      "deadline": "2026-02-15",
+      "toefl_min": 101,
+      "gre_required": false,
+      "recs_required": 3,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "wes_required": true,
+      "wes_eval_type": "course-by-course",
+      "application_fee": 120,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": null,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://www.ee.columbia.edu/ms-degree-program",
+      "portal_url": "https://apply.gsas.columbia.edu/apply/",
+      "admissions_url": null,
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Stanford University",
+      "school_zh": "斯坦福大学",
+      "program": "M.S. in Electrical Engineering",
+      "program_zh": "电气工程硕士",
+      "degree": "MS",
+      "department": "School of Engineering",
+      "field": "electrical_engineering",
+      "deadline": "2025-12-02",
+      "toefl_min": 100,
+      "gre_required": false,
+      "recs_required": 3,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 125,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": null,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://ee.stanford.edu/admissions/ms",
+      "portal_url": "https://gradadmissions.stanford.edu/applying",
+      "admissions_url": null,
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "University of California, San Diego",
+      "school_zh": "加州大学圣迭戈分校",
+      "program": "M.S. in Electrical and Computer Engineering",
+      "program_zh": "电气与计算机工程硕士",
+      "degree": "MS",
+      "department": "Jacobs School of Engineering",
+      "field": "electrical_engineering",
+      "deadline": "2025-12-20",
+      "toefl_min": 85,
+      "gre_required": false,
+      "recs_required": 3,
+      "recs_academic_min": 2,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 140,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": null,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://ece.ucsd.edu/graduate/prospective-students",
+      "portal_url": "https://gradapp.ucsd.edu/apply/",
+      "admissions_url": null,
+      "notes": null,
+      "verified_at": null,
+      "country": "US"
+    },
+    {
+      "school": "Boston University",
+      "school_zh": "波士顿大学",
+      "program": "M.S. in Communication",
+      "program_zh": "传播学硕士",
+      "degree": "MS",
+      "department": "College of Communication",
+      "field": "communications",
+      "deadline": "2026-02-01",
+      "toefl_min": 91,
+      "gre_required": false,
+      "recs_required": 3,
+      "recs_academic_min": 1,
+      "recs_notes": null,
+      "wes_required": false,
+      "wes_eval_type": null,
+      "application_fee": 80,
+      "interview_required": false,
+      "interview_format": null,
+      "essays": [
+        {
+          "title": "Statement of Purpose",
+          "title_zh": "学术目标陈述",
+          "word_limit": null,
+          "type": "sop"
+        }
+      ],
+      "program_url": "https://www.bu.edu/com/academics/degree-programs/ms-communication/",
+      "portal_url": "https://www.bu.edu/cas/admissions/apply/",
+      "admissions_url": null,
       "notes": null,
       "verified_at": null,
       "country": "US"

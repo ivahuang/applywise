@@ -2,15 +2,16 @@ import { NextResponse } from "next/server";
 import schoolsData from "@/../prisma/data/seed-us-universities.json";
 import programsData from "@/../prisma/data/seed-programs.json";
 
-// In production, this queries the database via Prisma.
-// For MVP, we read directly from the seed JSON files.
-
 interface SearchResult {
   schoolName: string;
   schoolNameZh: string;
   schoolRank: number | null;
   city: string;
   state: string;
+  // School-level codes for score sending
+  toeflCode: number | null;
+  greCode: number | null;
+  intlAdmissionsUrl: string | null;
   programs: {
     id: string;
     name: string;
@@ -23,18 +24,23 @@ interface SearchResult {
     applicationFee: number | null;
     portalUrl: string | null;
     programUrl: string | null;
-    // ── Added for task generation ──
+    // Enriched fields
     wesRequired: boolean;
+    wesEvalType: string | null;
     recsRequired: number;
+    recsAcademicMin: number;
+    recsNotes: string | null;
     interviewReq: boolean;
-    essays: { title: string; title_zh: string; word_limit: number | null }[] | null;
+    interviewFormat: string | null;
+    admissionsUrl: string | null;
+    essays: { title: string; title_zh: string; word_limit: number | null; prompt?: string; type?: string }[] | null;
   }[];
 }
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const q = (searchParams.get("q") || "").toLowerCase().trim();
-  const degree = searchParams.get("degree"); // filter by degree level
+  const degree = searchParams.get("degree");
 
   if (q.length < 1) {
     return NextResponse.json({ results: [] });
@@ -49,7 +55,7 @@ export async function GET(request: Request) {
   }
 
   // Filter programs by search terms
-  const matchedPrograms = programsData.programs.filter((p) => {
+  const matchedPrograms = programsData.programs.filter((p: any) => {
     const haystack = `${p.school} ${p.school_zh} ${p.program} ${p.program_zh} ${p.field} ${p.department || ""}`.toLowerCase();
     const matchesTerms = terms.every((t) => haystack.includes(t));
     const matchesDegree = !degree || p.degree.toLowerCase() === degree.toLowerCase();
@@ -59,15 +65,18 @@ export async function GET(request: Request) {
   // Group by school
   const grouped = new Map<string, SearchResult>();
 
-  for (const p of matchedPrograms) {
+  for (const p of matchedPrograms as any[]) {
     if (!grouped.has(p.school)) {
-      const schoolInfo = schoolMap.get(p.school);
+      const schoolInfo = schoolMap.get(p.school) as any;
       grouped.set(p.school, {
         schoolName: p.school,
         schoolNameZh: p.school_zh,
         schoolRank: schoolInfo?.rank ?? null,
         city: schoolInfo?.city ?? "",
         state: schoolInfo?.state ?? "",
+        toeflCode: schoolInfo?.toefl_code ?? null,
+        greCode: schoolInfo?.gre_code ?? null,
+        intlAdmissionsUrl: schoolInfo?.intl_admissions_url ?? null,
         programs: [],
       });
     }
@@ -85,17 +94,22 @@ export async function GET(request: Request) {
       applicationFee: p.application_fee,
       portalUrl: p.portal_url,
       programUrl: p.program_url,
-      // ── Added for task generation ──
+      // Enriched fields
       wesRequired: p.wes_required ?? false,
+      wesEvalType: p.wes_eval_type ?? null,
       recsRequired: p.recs_required ?? 3,
+      recsAcademicMin: p.recs_academic_min ?? 2,
+      recsNotes: p.recs_notes ?? null,
       interviewReq: p.interview_required ?? false,
+      interviewFormat: p.interview_format ?? null,
+      admissionsUrl: p.admissions_url ?? null,
       essays: p.essays ?? null,
     });
   }
 
-  // Also search schools without program matches (for schools with no Layer 2 data yet)
+  // Also search schools without program matches
   if (matchedPrograms.length < 10) {
-    for (const s of schoolsData.schools) {
+    for (const s of schoolsData.schools as any[]) {
       const haystack = `${s.name} ${s.zh} ${s.short} ${s.city} ${s.state}`.toLowerCase();
       const matches = terms.every((t) => haystack.includes(t));
       if (matches && !grouped.has(s.name)) {
@@ -105,13 +119,15 @@ export async function GET(request: Request) {
           schoolRank: s.rank,
           city: s.city,
           state: s.state,
-          programs: [], // No Layer 2 data yet — will be fetched by AI on demand
+          toeflCode: s.toefl_code ?? null,
+          greCode: s.gre_code ?? null,
+          intlAdmissionsUrl: s.intl_admissions_url ?? null,
+          programs: [],
         });
       }
     }
   }
 
-  // Sort by rank
   const results = Array.from(grouped.values())
     .sort((a, b) => (a.schoolRank ?? 999) - (b.schoolRank ?? 999))
     .slice(0, 20);

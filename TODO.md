@@ -1,87 +1,111 @@
 # ApplyWise — TODO
 
-> Owner: Iva | Last updated: 2026-04-02
-> Rule: Every new conversation starts by reading this file.
+> Owner: Iva | Last updated: 2026-04-03
+> Rule: Every new conversation starts by reading this file + CONTEXT.md.
+
+---
+
+## DONE (completed 2026-04-02 ~ 04-03)
+
+### P0: Core App Logic ✅
+- [x] **generateTasks(program)** — 13 stages × 4 phases, granular tasks with action URLs + source URLs
+- [x] **Shared context** (ApplicationsProvider) — cross-page state for apps, lang, toggleTask
+- [x] **Stages page** — expandable stages, per-school task checkboxes, progress counts
+- [x] **Calendar page** — month grid, deadline dots (color-coded by tier), click to see tasks, "Upcoming" list
+- [x] **Delete school with confirmation modal** — warns if tasks have progress
+- [x] **.edu source badge** — every school card links to official program page
+- [x] **Overview page** — interactive flow chart mind map, hover shows per-school progress, click to stages
+- [x] **Enhanced data schema** — wes_eval_type, recs_academic_min, interview_format, essay prompts with full text
+- [x] **Enhanced task generation** — TOEFL code in task title, ETS/WES/SEVIS links, rec type labels, visa sub-steps
+
+### P0: Data Pipeline ✅
+- [x] **Jina Reader tested** — works, returns clean markdown from .edu URLs
+- [x] **AI extraction pipeline built** — Jina → regex (free) → Claude API (needs billing)
+  - `src/lib/extract/` — jina.ts, regex-extract.ts, claude-extract.ts, index.ts
+  - `src/app/api/extract/route.ts` — POST endpoint, .edu validation
+  - Regex extracts: TOEFL min, GRE required, fee, deadline, WES, recs count, degree, department
+  - Claude extracts: everything including essay prompts, interview format, Chinese translations
+- [x] **School data enriched** — ~50 schools have TOEFL/GRE institution codes
+- [x] **Programs expanded** — ~110 programs (76 original + ~35 new across CS, data science, fineng, stats, policy, HCI, education, business analytics)
+- [x] **Data audit script** — `npx tsx scripts/audit-seed-data.ts`
+
+### Architecture Decisions Made ✅
+- [x] **SaaS model**: ApplyWise controls the API (not BYOK)
+- [x] **Credits system**: free tier + paid upgrades (design later)
+- [x] **Cache mechanism**: one AI extraction serves all users who search same program
+- [x] **Hybrid data**: seed data + user-triggered AI extraction on demand
+- [x] **Anthropic API key obtained** — stored in .env.local (billing not yet enabled)
 
 ---
 
 ## NOW (this week)
 
-### P0: Core App Logic
-- [ ] **Port `generateTasks(program)` to Next.js** — when student adds a program, auto-generate checklist (scores/essays/recs/fees/postOffer/visa) based on program data. This is the #1 gap.
-  - Input: Program record (greRequired, wesRequired, recsRequired, essays[], fee, interviewReq)
-  - Output: Structured tasks object stored in UserApplication.tasksState
-  - Affects: Stages view, Calendar view, School detail page
-  - Reference: prototype `makeApp()` function in `applewise-v2.jsx` (project files)
+### P0: Activate AI Extraction
+- [ ] **Enable Anthropic billing** — console.anthropic.com → Billing → add $5
+- [ ] **Test full pipeline** — POST /api/extract with a real .edu URL, verify Claude output
+- [ ] **"Add by URL" UI** — in SchoolSearch, add input field for pasting program URLs → calls /api/extract → shows preview → confirm to add
+- [ ] **Extraction cache** — store extracted data in seed JSON or Supabase so repeat searches don't re-extract
 
-- [ ] **Stages page with real data** — port prototype's StagesView to Next.js. 13 stages across 4 phases, each with info guide + official reference links + per-school task checkboxes.
+### P0: Data Persistence (critical gap)
+- [ ] **Supabase Auth** — email login (currently no auth, all state is in-memory)
+- [ ] **Save apps to database** — UserApplication records in Supabase
+- [ ] **Save tasksState to database** — persist checkbox progress across sessions
+- [ ] Currently everything resets on page refresh — this is the #1 UX gap
 
-- [ ] **Calendar page with real data** — month grid with deadline dots from added programs.
-
-- [ ] **Delete school with confirmation modal** — "keep materials" vs "remove everything"
-
-### P0: Data Pipeline (Phase 1.5)
-- [ ] **Test Jina Reader** — fetch one .edu URL, verify output quality
-  - Try: `curl https://r.jina.ai/https://sps.columbia.edu/academics/masters/strategic-communication`
-- [ ] **Claude API extraction** — take Jina markdown output, extract structured program data matching Prisma schema
-- [ ] **Add to Prisma schema**: `rawContent`, `lastScrapedAt`, `isAutoVerified`, `sourceHash` fields on Program model
-- [ ] **"Source: [.edu link]" badge** on all program data in frontend
-
-### P1: Search Improvements
+### P1: Search & Data
 - [ ] Synonym mapping: "CS" → "Computer Science", "comm" → "Communications"
-- [ ] Show schools with no Layer 2 data (with "data pending" badge)
+- [ ] Show schools with no program data (with "data pending" badge)
+- [ ] Expand program database to ~200 (add more programs via AI extraction)
 
 ---
 
 ## NEXT (next 2 weeks)
 
-### P1: Data Pipeline Full
-- [ ] Cron job: daily scrape of 50 stalest program URLs
-- [ ] Priority queue: most-bookmarked programs scraped first
-- [ ] "Report inaccuracy" button → triggers re-scrape
-- [ ] Content hash comparison to skip unchanged pages
-
 ### P1: UI Polish
 - [ ] Mobile responsiveness pass
-- [ ] Loading states / skeleton screens
-- [ ] Error handling on API routes
+- [ ] Loading states / skeleton screens for extraction
+- [ ] Error handling on all API routes
+- [ ] "Report inaccuracy" button on program data
 
-### P2: Auth
-- [ ] Supabase Auth integration (email login)
-- [ ] User profile page
-- [ ] Data persistence (currently all client-side state)
+### P1: Overview Page Enhancements
+- [ ] Animated transitions on the flow chart
+- [ ] Click stage node → scroll to that stage in Stages page
+- [ ] Deadline countdown badges on urgent stages
+
+### P2: Business Logic
+- [ ] Credits/quota system design
+- [ ] Rate limiting on /api/extract
+- [ ] Extraction usage tracking per user
 
 ---
 
-## LATER (Phase 3-5, requires Track B knowledge docs)
+## LATER (Phase 3-5, requires Track B knowledge docs OR AI-native approach)
 
 ### Phase 3: AI Deep Interview
-- Requires: `02-background-mining-playbook.md` filled
 - [ ] Chat interface with structured interview flow
 - [ ] AI-generated student profile summary
+- Note: Can potentially skip Track B docs by using Claude API directly with good prompts
 
 ### Phase 4: School Selection Engine
-- Requires: `01-school-selection-framework.md` + `05-program-evaluations.md` filled
-- [ ] AI-powered school recommendations
+- [ ] AI-powered school recommendations based on student profile
 - [ ] Decision board with weight sliders
 
 ### Phase 5: Document Workspace
-- Requires: `03-essay-methodology.md` + `06-resume-rules.md` filled
 - [ ] Essay editor with AI review
 - [ ] Resume builder
 - [ ] Recommendation letter guidance
 
 ---
 
-## Track B: Knowledge Extraction (Iva's parallel work)
+## Track B: Knowledge Extraction
 
-| Doc | Status | Priority |
-|-----|--------|----------|
-| 01-school-selection-framework.md | Not started | P0 |
-| 02-background-mining-playbook.md | Not started | P0 |
-| 03-essay-methodology.md | Not started | P1 |
-| 04-recommendation-strategy.md | Not started | P1 |
-| 05-program-evaluations.md | Not started | P1 |
-| 06-resume-rules.md | Not started | P2 |
+| Doc | Status | Priority | Note |
+|-----|--------|----------|------|
+| 01-school-selection-framework.md | Not started | P1 | Can be partially replaced by AI |
+| 02-background-mining-playbook.md | Not started | P1 | Needed for deep interview |
+| 03-essay-methodology.md | Not started | P2 | Needed for essay review |
+| 04-recommendation-strategy.md | Not started | P2 | Needed for rec guidance |
+| 05-program-evaluations.md | Not started | P2 | Partially replaced by AI extraction |
+| 06-resume-rules.md | Not started | P2 | Needed for resume builder |
 
-Start in a separate chat: "Read 01-school-selection-framework.md from my project files and interview me to fill it out."
+Note: With AI-native approach, some of these can be reduced in priority. The AI extraction pipeline + Claude API can handle much of what was originally planned as manual knowledge docs.

@@ -1,3 +1,7 @@
+// ApplyWise — Prisma Schema
+// Updated: 2026-04-04
+// Includes: Auth, Schools, Applications, Tasks, Material Vault (Atoms)
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -5,102 +9,231 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+
 }
 
 // ============================================================
-// USERS & AUTH
+// USERS & AUTH (Supabase Auth handles actual auth — this syncs)
 // ============================================================
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String
-  lang      String   @default("en") // "en" or "zh"
-  degree    String?  // "bachelor", "master", "phd"
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id              String    @id // matches Supabase auth.users.id
+  email           String    @unique
+  name            String?
+  avatarUrl       String?
+  language        String    @default("zh")
+  appsData        Json?     @default("[]")
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
-  applications UserApplication[]
+  profile         StudentProfile?
+  applications    UserApplication[]
+  atoms           Atom[]
+  conversations   Conversation[]
+}
+
+model StudentProfile {
+  id              String    @id @default(cuid())
+  userId          String    @unique
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Academic background
+  undergradSchool     String?
+  undergradMajor      String?
+  gpa                 Float?
+  gpaScale            Float?    @default(4.0)
+  toeflScore          Int?
+  greVerbal           Int?
+  greQuant            Int?
+  greWriting          Float?
+
+  // Goals
+  targetDegree        String?   @default("MS")
+  targetFields        String[]
+  careerGoal          String?
+  preferredRegions    String[]
+  budgetRangeCny      Int?
+  targetYear          Int?
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
 
 // ============================================================
-// SCHOOLS & PROGRAMS
+// SCHOOLS & PROGRAMS (read-mostly, seeded + AI-extracted)
 // ============================================================
 
 model School {
-  id        String  @id @default(cuid())
-  name      String  @unique
-  nameZh    String?
-  shortName String?
-  city      String
-  state     String
-  region    String  // NE, WC, MW, MA, SW, SE, RM
-  country   String  @default("US")
-  ranking   Int?
-  website   String?
-  latitude  Float?
-  longitude Float?
+  id              String    @id @default(cuid())
+  name            String
+  nameZh          String?
+  shortName       String?
+  location        String?
+  region          String?
+  ranking         Int?
+  websiteUrl      String?
+  logoUrl         String?
+  toeflCode       String?
+  greCode         String?
 
-  programs   Program[]
-  verifiedAt DateTime?
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  programs        Program[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
 
 model Program {
-  id             String  @id @default(cuid())
-  schoolId       String
-  school         School  @relation(fields: [schoolId], references: [id], onDelete: Cascade)
-  name           String
-  nameZh         String?
-  degree         String  // MS, MA, MPP, PhD, etc.
-  department     String?
-  field          String  // communications, computer_science, etc.
-  duration       String?
-  toeflMin       Int?
-  greRequired    Boolean @default(false)
-  recsRequired   Int     @default(3)
-  applicationFee Float?
-  wesRequired    Boolean @default(false)
-  interviewReq   Boolean @default(false)
-  deadline       DateTime?
-  essayPrompts   Json?   // [{title, title_zh, word_limit}]
-  portalUrl      String?
-  programUrl     String?
-  notes          String? @db.Text
-  verifiedAt     DateTime?
-  sourceUrl      String?
+  id              String    @id @default(cuid())
+  schoolId        String
+  school          School    @relation(fields: [schoolId], references: [id])
 
-  applications UserApplication[]
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  name            String
+  nameZh          String?
+  department      String?
+  degree          String
+  field           String
+  duration        String?
+  totalCredits    Int?
+  costPerCredit   Float?
+  estimatedTotal  Float?
+  livingCostMonth Float?
 
-  @@unique([schoolId, name])
+  // Admissions
+  toeflMin        Int?
+  toeflMedian     Int?
+  greRequired     Boolean   @default(false)
+  greMin          Int?
+  applicationFee  Float?
+  deadlineEarly   DateTime?
+  deadlineRegular DateTime?
+  deadlineFinal   DateTime?
+  wesRequired     Boolean   @default(false)
+  wesEvalType     String?
+  recsRequired    Int?      @default(3)
+  recsAcademicMin Int?      @default(2)
+  interviewFormat String?
+
+  // Program details
+  programUrl      String?
+  portalUrl       String?
+  essayPrompts    Json?     // Array of {prompt, wordLimit, type}
+  requiredDocs    String[]
+
+  // AI extraction metadata
+  rawContent      String?   @db.Text
+  lastScrapedAt   DateTime?
+  isAutoVerified  Boolean   @default(false)
+  sourceHash      String?
+  verifiedAt      DateTime?
+  sourceUrl       String?
+  notes           String?   @db.Text
+
+  applications    UserApplication[]
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
 
 // ============================================================
-// USER'S APPLICATION LIST
+// APPLICATION TRACKING (persisted per user)
 // ============================================================
 
 model UserApplication {
-  id        String @id @default(cuid())
-  userId    String
-  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  programId String
-  program   Program @relation(fields: [programId], references: [id], onDelete: Cascade)
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  programId       String
+  program         Program   @relation(fields: [programId], references: [id])
 
-  tier   String @default("target") // reach, target, safe
-  status String @default("not_started")
-  // not_started, in_progress, materials_ready, submitted,
-  // under_review, interview, accepted, rejected, waitlisted
+  tier            String    @default("target") // "reach", "target", "safe"
+  status          String    @default("not_started")
+  // Statuses: not_started → in_progress → materials_ready →
+  //           submitted → under_review → interview →
+  //           accepted / rejected / waitlisted
 
-  // Task completion stored as JSON for flexibility
-  // { scores: [bool], essays: [bool], recs: [bool], fees: [bool], postOffer: [bool], visa: [bool] }
-  tasksState Json?
+  // Task state — stored as JSON blob for flexibility
+  // Keys are taskId strings, values are { completed: boolean, completedAt?: string }
+  tasksState      Json      @default("{}")
 
-  notes     String? @db.Text
-  addedAt   DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  submittedAt     DateTime?
+  decisionAt      DateTime?
+  result          String?
+  scholarshipInfo String?
+  notes           String?   @db.Text
+
+  addedAt         DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
   @@unique([userId, programId])
+}
+
+// ============================================================
+// MATERIAL VAULT — ATOMS (素材原子)
+// ============================================================
+
+model Atom {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Content
+  content         String    @db.Text    // Raw description (user's words)
+  summary         String?               // AI-generated one-line summary
+  contentEn       String?   @db.Text    // English version (for essay use)
+
+  // Classification
+  category        String                // "academic", "work", "extracurricular", "personal", "achievement"
+  abilityTags     String[]              // e.g., ["leadership", "technical", "communication"]
+  qualityTags     String[]              // e.g., ["shows_resilience", "quantifiable_impact"]
+  keywords        String[]              // free-form keywords for search
+
+  // Provenance
+  source          String    @default("manual") // "manual", "conversation", "resume_import", "essay_import"
+  sourceId        String?                       // conversation ID or document ID if imported
+  timeframe       String?                       // "2024 summer", "sophomore year", etc.
+
+  // Connections (which schools/essays use this atom)
+  linkedPrograms  String[]              // program IDs where this atom has been used
+  linkedEssays    String[]              // document IDs where this atom appears
+
+  // Ability dimension scores (0-5, AI-assessed)
+  // Dimensions TBD — Iva researching. These are placeholder columns.
+  // When dimensions are finalized, we'll add specific columns or use a JSON field.
+  dimensionScores Json?                 // e.g., { "academic_depth": 3, "leadership": 4, ... }
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([userId])
+  @@index([userId, category])
+}
+
+// ============================================================
+// AI CONVERSATIONS (Brain chat history)
+// ============================================================
+
+model Conversation {
+  id              String    @id @default(cuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type            String    // "brain_interview", "essay_review", "general"
+  title           String?
+  summary         String?   @db.Text
+  atomsExtracted  Int       @default(0) // count of atoms extracted from this conversation
+
+  messages        Message[]
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Message {
+  id              String    @id @default(cuid())
+  conversationId  String
+  conversation    Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  role            String    // "user", "assistant", "system"
+  content         String    @db.Text
+  metadata        Json?
+
+  createdAt       DateTime  @default(now())
 }

@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { LayoutDashboard, GraduationCap, ListChecks, CalendarDays } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { LayoutDashboard, GraduationCap, ListChecks, CalendarDays, LogOut } from "lucide-react";
 import { theme } from "@/lib/theme/tokens";
 import { t, type Lang } from "@/lib/i18n";
 import { ApplicationsProvider, useApplications } from "@/lib/context/applications";
+import { useAuth } from "@/hooks/useAuth";
 
 const NAV = [
   { href: "/overview", icon: LayoutDashboard, key: "dashboard" as const },
@@ -16,7 +17,18 @@ const NAV = [
 
 function DashboardShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
   const { lang, setLang } = useApplications();
+  const { user, signOut } = useAuth();
+
+  const displayName = user?.user_metadata?.name || user?.email?.split("@")[0] || "User";
+  const displayEmail = user?.email || "";
+  const initials = displayName.slice(0, 1).toUpperCase();
+
+  const handleSignOut = async () => {
+    await signOut();
+    router.push("/login");
+  };
 
   return (
     <div className="flex min-h-screen">
@@ -89,16 +101,24 @@ function DashboardShell({ children }: { children: React.ReactNode }) {
               className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-semibold"
               style={{ background: theme.accentBg, color: theme.accent }}
             >
-              U
+              {initials}
             </div>
-            <div>
-              <div className="text-xs font-medium" style={{ color: theme.text }}>
-                Student
+            <div className="flex-1 min-w-0">
+              <div className="text-xs font-medium truncate" style={{ color: theme.text }}>
+                {displayName}
               </div>
-              <div className="text-[10px]" style={{ color: theme.textMuted }}>
-                student@email.com
+              <div className="text-[10px] truncate" style={{ color: theme.textMuted }}>
+                {displayEmail}
               </div>
             </div>
+            <button
+              onClick={handleSignOut}
+              title="Sign out"
+              className="p-1 rounded-md transition-colors hover:opacity-70"
+              style={{ color: theme.textMuted }}
+            >
+              <LogOut size={14} />
+            </button>
           </div>
         </div>
       </aside>

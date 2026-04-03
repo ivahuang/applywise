@@ -1,6 +1,14 @@
 "use client";
 
-import { createContext, useContext, useState, useCallback, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+  useRef,
+  type ReactNode,
+} from "react";
 import type { Tier } from "@/lib/theme/tokens";
 import type { ProgramResult, SchoolGroup } from "@/components/dashboard/SchoolSearch";
 import { generateTasks, toggleTask as _toggleTask, type TasksState } from "@/lib/tasks";
@@ -28,6 +36,7 @@ export interface AppProgram {
 interface ApplicationsContextValue {
   apps: AppProgram[];
   lang: Lang;
+  loaded: boolean;
   setLang: (lang: Lang) => void;
   addProgram: (progs: ProgramResult[], school: SchoolGroup) => void;
   removeApp: (id: string) => void;
@@ -45,11 +54,57 @@ export function useApplications() {
   return ctx;
 }
 
+// ── Persistence helpers ───────────────────────────────────
+
+async function loadApps(): Promise<AppProgram[]> {
+  try {
+    const res = await fetch("/api/user-apps");
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
+  } catch {
+    return [];
+  }
+}
+
+async function saveApps(apps: AppProgram[]): Promise<void> {
+  try {
+    await fetch("/api/user-apps", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(apps),
+    });
+  } catch (err) {
+    console.error("Failed to save apps:", err);
+  }
+}
+
 // ── Provider ──────────────────────────────────────────────
 
 export function ApplicationsProvider({ children }: { children: ReactNode }) {
   const [apps, setApps] = useState<AppProgram[]>([]);
   const [lang, setLang] = useState<Lang>("en");
+  const [loaded, setLoaded] = useState(false);
+
+  // Track whether we've loaded from DB to avoid saving empty state on mount
+  const hasLoaded = useRef(false);
+
+  // Load apps from database on mount
+  useEffect(() => {
+    loadApps().then((saved) => {
+      if (saved.length > 0) {
+        setApps(saved);
+      }
+      hasLoaded.current = true;
+      setLoaded(true);
+    });
+  }, []);
+
+  // Save to database whenever apps change (after initial load)
+  useEffect(() => {
+    if (!hasLoaded.current) return;
+    saveApps(apps);
+  }, [apps]);
 
   const addProgram = useCallback((progs: ProgramResult[], school: SchoolGroup) => {
     setApps((prev) => {
@@ -57,7 +112,6 @@ export function ApplicationsProvider({ children }: { children: ReactNode }) {
       for (const p of progs) {
         if (next.some((a) => a.id === p.id)) continue;
 
-        // Pass both school-level and program-level data to generateTasks
         const tasksState = generateTasks({
           schoolName: school.schoolName,
           schoolNameZh: school.schoolNameZh,
@@ -128,7 +182,7 @@ export function ApplicationsProvider({ children }: { children: ReactNode }) {
 
   return (
     <ApplicationsContext.Provider
-      value={{ apps, lang, setLang, addProgram, removeApp, cycleTier, toggleTask }}
+      value={{ apps, lang, loaded, setLang, addProgram, removeApp, cycleTier, toggleTask }}
     >
       {children}
     </ApplicationsContext.Provider>

@@ -5,6 +5,7 @@ export const strings = {
     schools: "Schools",
     stages: "Stages",
     calendar: "Calendar",
+    vault: "Vault",
     settings: "Settings",
 
     // Dashboard
@@ -76,6 +77,7 @@ export const strings = {
     schools: "选校",
     stages: "进度",
     calendar: "日历",
+    vault: "素材库",
     settings: "设置",
     overview: "概览",
     totalSchools: "学校数",

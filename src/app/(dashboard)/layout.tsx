@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutDashboard, GraduationCap, ListChecks, CalendarDays, LogOut } from "lucide-react";
+import { LayoutDashboard, GraduationCap, ListChecks, CalendarDays, LogOut, Brain } from "lucide-react";
 import { theme } from "@/lib/theme/tokens";
 import { t, type Lang } from "@/lib/i18n";
 import { ApplicationsProvider, useApplications } from "@/lib/context/applications";
@@ -13,6 +13,7 @@ const NAV = [
   { href: "/schools", icon: GraduationCap, key: "schools" as const },
   { href: "/stages", icon: ListChecks, key: "stages" as const },
   { href: "/calendar", icon: CalendarDays, key: "calendar" as const },
+  { href: "/vault", icon: Brain, key: "vault" as const },
 ];
 
 function DashboardShell({ children }: { children: React.ReactNode }) {

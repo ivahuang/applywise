@@ -43,7 +43,6 @@ interface ApplicationsContextValue {
   cycleTier: (id: string) => void;
   toggleTask: (appId: string, taskId: string) => void;
   addRawApp: (app: AppProgram) => void;
-  addRawApp: (app: AppProgram) => void;
 }
 
 // ── Context ───────────────────────────────────────────────

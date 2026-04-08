@@ -73,7 +73,7 @@ export default function SchoolsPage() {
               })) || null,
               portalUrl: program.portalUrl ?? null,
               programUrl: program.programUrl,
-              admissionsUrl: program.admissionsUrl,
+              admissionsUrl: (program as any).admissionsUrl,
             });
             // Directly add to apps via the raw setter
             const newApp = {

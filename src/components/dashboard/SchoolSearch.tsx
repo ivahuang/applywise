@@ -52,7 +52,6 @@ export default function SchoolSearch({ lang, existingProgramIds, onSelect, mode 
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
-  // URL extraction state
   const [urlInput, setUrlInput] = useState("");
   const [extracting, setExtracting] = useState(false);
   const [extractResult, setExtractResult] = useState<any>(null);
@@ -99,21 +98,16 @@ export default function SchoolSearch({ lang, existingProgramIds, onSelect, mode 
 
   const isAlreadyAdded = (id: string) => existingProgramIds?.has(id) ?? false;
 
-  // ── URL extraction ────────────────────────────────────
-
   const extractFromUrl = async () => {
     const url = urlInput.trim();
     if (!url) return;
-
     if (!url.includes(".edu")) {
       setExtractError(lang === "zh" ? "请输入 .edu 官网链接" : "Please enter a .edu URL");
       return;
     }
-
     setExtracting(true);
     setExtractError("");
     setExtractResult(null);
-
     try {
       const res = await fetch("/api/extract", {
         method: "POST",
@@ -121,7 +115,6 @@ export default function SchoolSearch({ lang, existingProgramIds, onSelect, mode 
         body: JSON.stringify({ url }),
       });
       const data = await res.json();
-
       if (data.ok && data.program) {
         setExtractResult(data);
       } else {
@@ -137,7 +130,6 @@ export default function SchoolSearch({ lang, existingProgramIds, onSelect, mode 
   const addExtractedProgram = () => {
     if (!extractResult?.program) return;
     const p = extractResult.program;
-
     const prog: ProgramResult = {
       id: `extracted-${Date.now()}`,
       name: p.program || "Unknown Program",
@@ -160,7 +152,6 @@ export default function SchoolSearch({ lang, existingProgramIds, onSelect, mode 
       admissionsUrl: p.admissions_url || null,
       essays: p.essays || [],
     };
-
     const school: SchoolGroup = {
       schoolName: p.school || "Unknown School",
       schoolNameZh: p.school_zh || "",
@@ -172,17 +163,13 @@ export default function SchoolSearch({ lang, existingProgramIds, onSelect, mode 
       intlAdmissionsUrl: null,
       programs: [prog],
     };
-
     onSelect([prog], school);
     setExtractResult(null);
     setUrlInput("");
   };
 
-  // ── Render ────────────────────────────────────────────
-
   return (
     <div>
-      {/* Search input */}
       <div className="relative mb-3">
         <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2" style={{ color: theme.textMuted }} />
         <input
@@ -192,8 +179,6 @@ export default function SchoolSearch({ lang, existingProgramIds, onSelect, mode 
           autoFocus
           className="w-full pl-9 pr-4 py-2.5 rounded-lg border text-sm outline-none transition-colors"
           style={{ background: theme.card, borderColor: theme.border, color: theme.text }}
-          onFocus={(e) => (e.target.style.borderColor = theme.accent)}
-          onBlur={(e) => (e.target.style.borderColor = theme.border)}
         />
         {loading && (
           <div className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 border-2 rounded-full animate-spin"
@@ -201,11 +186,7 @@ export default function SchoolSearch({ lang, existingProgramIds, onSelect, mode 
         )}
       </div>
 
-      {/* URL extraction input */}
-      <div
-        className="flex gap-2 mb-4 p-2.5 rounded-lg border"
-        style={{ background: theme.card, borderColor: theme.border }}
-      >
+      <div className="flex gap-2 mb-4 p-2.5 rounded-lg border" style={{ background: theme.card, borderColor: theme.border }}>
         <Link2 size={14} style={{ color: theme.textMuted, marginTop: 6, flexShrink: 0 }} />
         <input
           value={urlInput}
@@ -219,76 +200,47 @@ export default function SchoolSearch({ lang, existingProgramIds, onSelect, mode 
           onClick={extractFromUrl}
           disabled={!urlInput.trim() || extracting}
           className="text-xs px-3 py-1 rounded-md transition-opacity flex items-center gap-1"
-          style={{
-            background: theme.accent,
-            color: "#fff",
-            opacity: !urlInput.trim() || extracting ? 0.4 : 1,
-          }}
+          style={{ background: theme.accent, color: "#fff", opacity: !urlInput.trim() || extracting ? 0.4 : 1 }}
         >
           {extracting ? <Loader2 size={12} className="animate-spin" /> : <Plus size={12} />}
           {extracting ? (lang === "zh" ? "提取中..." : "Extracting...") : (lang === "zh" ? "提取" : "Extract")}
         </button>
       </div>
 
-      {/* Extraction error */}
       {extractError && (
         <div className="text-xs mb-3 px-3 py-2 rounded-md" style={{ background: "#FCEBEB", color: "#A32D2D" }}>
           {extractError}
         </div>
       )}
 
-      {/* Extraction result preview */}
       {extractResult?.program && (
-        <div
-          className="mb-4 p-3 rounded-lg border"
-          style={{ borderColor: theme.accent, background: theme.accentBg }}
-        >
+        <div className="mb-4 p-3 rounded-lg border" style={{ borderColor: theme.accent, background: theme.accentBg }}>
           <div className="flex items-start justify-between gap-2 mb-2">
             <div>
-              <div className="text-sm font-medium" style={{ color: theme.text }}>
-                {extractResult.program.program}
-              </div>
+              <div className="text-sm font-medium" style={{ color: theme.text }}>{extractResult.program.program}</div>
               <div className="text-xs mt-0.5" style={{ color: theme.textSecondary }}>
                 {extractResult.program.department || extractResult.program.school}
                 {extractResult.program.degree && ` · ${extractResult.program.degree}`}
-                {extractResult.program.duration && ` · ${extractResult.program.duration}`}
               </div>
             </div>
-            
-              href={urlInput.trim()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-shrink-0 p-1"
-              style={{ color: theme.textMuted }}
-            >
+            <a href={urlInput.trim()} target="_blank" rel="noopener noreferrer" className="flex-shrink-0 p-1" style={{ color: theme.textMuted }}>
               <ExternalLink size={12} />
             </a>
           </div>
 
-          {/* Key details */}
           <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] mb-3" style={{ color: theme.textSecondary }}>
             {extractResult.program.toefl_min && <span>TOEFL {extractResult.program.toefl_min}+</span>}
             {extractResult.program.gre_required && <span>GRE required</span>}
-            {extractResult.program.application_fee && <span>Fee ${extractResult.program.application_fee}</span>}
             {extractResult.program.deadline && <span>DDL {extractResult.program.deadline}</span>}
-            {extractResult.program.wes_required && <span>WES required</span>}
-            {extractResult.program.essays?.length > 0 && <span>{extractResult.program.essays.length} essays</span>}
           </div>
 
-          {/* Extraction badge */}
           <div className="flex items-center justify-between">
             <div className="text-[10px] flex gap-2" style={{ color: theme.textMuted }}>
               {extractResult.methods?.map((m: string) => (
-                <span key={m} className="px-1.5 py-0.5 rounded" style={{ background: theme.muted }}>
-                  {m}
-                </span>
+                <span key={m} className="px-1.5 py-0.5 rounded" style={{ background: theme.muted }}>{m}</span>
               ))}
             </div>
-            <button
-              onClick={addExtractedProgram}
-              className="text-xs font-medium px-4 py-1.5 rounded-md transition-colors"
-              style={{ background: theme.accent, color: "#fff" }}
-            >
+            <button onClick={addExtractedProgram} className="text-xs font-medium px-4 py-1.5 rounded-md" style={{ background: theme.accent, color: "#fff" }}>
               <Plus size={12} className="inline -mt-px mr-0.5" />
               {lang === "zh" ? "添加此项目" : "Add this program"}
             </button>
@@ -296,74 +248,38 @@ export default function SchoolSearch({ lang, existingProgramIds, onSelect, mode 
         </div>
       )}
 
-      {/* Search results */}
       <div className="max-h-[400px] overflow-y-auto space-y-4">
-        {results.length === 0 && query.length > 0 && !loading && (
-          <div className="text-center py-8 text-sm" style={{ color: theme.textMuted }}>
-            {lang === "zh" ? "没有匹配结果" : "No matching results"}
-          </div>
-        )}
-
         {results.map((group) => (
           <div key={group.schoolName}>
-            <div className="flex items-baseline gap-2 pb-1.5 mb-2 border-b text-xs font-semibold"
-              style={{ color: theme.textSecondary, borderColor: theme.border }}>
+            <div className="flex items-baseline gap-2 pb-1.5 mb-2 border-b text-xs font-semibold" style={{ color: theme.textSecondary, borderColor: theme.border }}>
               <span>{group.schoolName}</span>
               <span className="font-normal" style={{ color: theme.textMuted }}>{group.schoolNameZh}</span>
-              {group.schoolRank && (
-                <span className="ml-auto font-normal" style={{ color: theme.textMuted }}>#{group.schoolRank}</span>
-              )}
             </div>
-
-            {group.programs.length > 0 ? (
-              group.programs.map((prog) => {
-                const added = isAlreadyAdded(prog.id);
-                const isSelected = selected.has(prog.id);
-                return (
-                  <div key={prog.id} onClick={() => !added && toggleProgram(prog.id)}
-                    className="flex items-center gap-3 px-2.5 py-2 rounded-md transition-colors"
-                    style={{ cursor: added ? "default" : "pointer", background: isSelected ? theme.accentBg : "transparent", opacity: added ? 0.5 : 1 }}
-                    onMouseEnter={(e) => { if (!added && !isSelected) e.currentTarget.style.background = theme.muted; }}
-                    onMouseLeave={(e) => { if (!added && !isSelected) e.currentTarget.style.background = "transparent"; }}>
-                    <div className="w-4 h-4 rounded flex-shrink-0 flex items-center justify-center transition-all"
-                      style={{ border: isSelected || added ? "none" : `1.5px solid ${theme.borderHover}`,
-                        background: added ? theme.textMuted : isSelected ? theme.accent : "transparent" }}>
-                      {(isSelected || added) && <Check size={10} color="#fff" strokeWidth={2.5} />}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="text-[13px] font-medium truncate" style={{ color: theme.text }}>
-                        {lang === "zh" ? prog.nameZh : prog.name}
-                      </div>
-                      <div className="text-[11px] mt-0.5 flex gap-2" style={{ color: theme.textMuted }}>
-                        <span>{prog.degree}</span><span>·</span>
-                        <span>{group.city}, {group.state}</span>
-                        {prog.deadline && (<><span>·</span><span>DDL {new Date(prog.deadline).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</span></>)}
-                        {prog.toeflMin && (<><span>·</span><span>TOEFL {prog.toeflMin}+</span></>)}
-                      </div>
-                    </div>
-                    {mode === "add" && !added && (
-                      <button className="text-xs font-medium px-3 py-1 rounded-md transition-colors flex-shrink-0"
-                        style={{ background: theme.accent, color: "#fff" }}>
-                        <Plus size={12} className="inline -mt-px mr-0.5" />Add
-                      </button>
-                    )}
-                    {added && <span className="text-[10px]" style={{ color: theme.textMuted }}>{lang === "zh" ? "已添加" : "Added"}</span>}
+            {group.programs.map((prog) => {
+              const added = isAlreadyAdded(prog.id);
+              const isSelected = selected.has(prog.id);
+              return (
+                <div key={prog.id} onClick={() => !added && toggleProgram(prog.id)} className="flex items-center gap-3 px-2.5 py-2 rounded-md transition-colors" style={{ cursor: added ? "default" : "pointer", background: isSelected ? theme.accentBg : "transparent", opacity: added ? 0.5 : 1 }}>
+                  <div className="w-4 h-4 rounded flex-shrink-0 flex items-center justify-center" style={{ border: isSelected || added ? "none" : `1.5px solid ${theme.borderHover}`, background: added ? theme.textMuted : isSelected ? theme.accent : "transparent" }}>
+                    {(isSelected || added) && <Check size={10} color="#fff" strokeWidth={2.5} />}
                   </div>
-                );
-              })
-            ) : (
-              <div className="px-2.5 py-2 text-xs" style={{ color: theme.textMuted }}>
-                {lang === "zh" ? "暂无项目数据" : "No program data yet"}
-              </div>
-            )}
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[13px] font-medium truncate" style={{ color: theme.text }}>{lang === "zh" ? prog.nameZh : prog.name}</div>
+                    <div className="text-[11px] mt-0.5 flex gap-2" style={{ color: theme.textMuted }}>
+                      <span>{prog.degree}</span><span>·</span><span>{group.city}, {group.state}</span>
+                    </div>
+                  </div>
+                  {mode === "add" && !added && <button className="text-xs font-medium px-3 py-1 rounded-md" style={{ background: theme.accent, color: "#fff" }}>Add</button>}
+                </div>
+              );
+            })}
           </div>
         ))}
       </div>
 
       {mode === "onboarding" && selected.size > 0 && (
         <div className="flex justify-end gap-2 mt-4 pt-4 border-t" style={{ borderColor: theme.border }}>
-          <button onClick={confirmSelection} className="text-sm font-medium px-5 py-2 rounded-lg transition-colors"
-            style={{ background: theme.buttonBg, color: theme.buttonFg }}>
+          <button onClick={confirmSelection} className="text-sm font-medium px-5 py-2 rounded-lg" style={{ background: theme.buttonBg, color: theme.buttonFg }}>
             {lang === "zh" ? "添加所选" : "Add selected"} ({selected.size})
           </button>
         </div>

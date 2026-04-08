@@ -1,7 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
-export async function middleware(request: NextRequest) {
+export const proxy = async (request: NextRequest) => {
   let supabaseResponse = NextResponse.next({ request })
 
   const supabase = createServerClient(
@@ -25,10 +25,8 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // Refresh session
   const { data: { user } } = await supabase.auth.getUser()
 
-  // Redirect unauthenticated users to login
   if (
     !user &&
     !request.nextUrl.pathname.startsWith('/login') &&

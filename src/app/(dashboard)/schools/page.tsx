@@ -3,15 +3,21 @@
 import { useState } from "react";
 import { Plus, X, CheckCircle2, AlertTriangle, ExternalLink } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { theme, tierConfig, type Tier } from "@/lib/theme/tokens";
 import SchoolSearch from "@/components/dashboard/SchoolSearch";
+import SmartExtract from "@/components/dashboard/SmartExtract";
+import "@/components/dashboard/SmartExtract.css";
+import { extractedToProgram } from "@/lib/extract/bridge";
+import { generateTasks } from "@/lib/tasks";
 import { useApplications, type AppProgram } from "@/lib/context/applications";
 import { overallProgress } from "@/lib/tasks";
 
 export default function SchoolsPage() {
-  const { apps, lang, addProgram, cycleTier, removeApp } = useApplications();
+  const { apps, lang, addProgram, addRawApp, cycleTier, removeApp } = useApplications();
   const [showSearch, setShowSearch] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState<AppProgram | null>(null);
+  const router = useRouter();
 
   const existingIds = new Set(apps.map((a) => a.id));
 
@@ -41,6 +47,63 @@ export default function SchoolsPage() {
             {lang === "zh" ? "返回" : "Back"}
           </button>
         </div>
+        <SmartExtract
+          lang={lang}
+          onProgramExtracted={(extracted) => {
+            const program = extractedToProgram(extracted);
+            const tasksState = generateTasks({
+              schoolName: program.schoolName,
+              schoolNameZh: program.schoolNameZh,
+              toeflMin: program.toeflMin ?? null,
+              greRequired: program.greRequired,
+              wesRequired: program.wesRequired ?? false,
+              wesEvalType: program.wesEvalType,
+              recsRequired: program.recsRequired ?? 3,
+              recsAcademicMin: program.recsAcademicMin,
+              interviewReq: program.interviewRequired ?? false,
+              interviewFormat: program.interviewFormat,
+              applicationFee: program.applicationFee ?? null,
+              deadline: program.deadlineRegular || program.deadlineFinal || null,
+              essays: program.essayPrompts?.map(e => ({
+                title: e.prompt.slice(0, 60),
+                title_zh: e.prompt.slice(0, 60),
+                word_limit: e.wordLimit ?? null,
+                prompt: e.prompt,
+                type: e.type,
+              })) || null,
+              portalUrl: program.portalUrl ?? null,
+              programUrl: program.programUrl,
+              admissionsUrl: program.admissionsUrl,
+            });
+            // Directly add to apps via the raw setter
+            const newApp = {
+              id: program.id,
+              schoolName: program.schoolName,
+              schoolNameZh: program.schoolNameZh || program.schoolName,
+              programName: program.name,
+              programNameZh: program.nameZh || program.name,
+              degree: program.degree,
+              tier: "target" as const,
+              deadline: program.deadlineRegular || program.deadlineFinal || null,
+              portalUrl: program.portalUrl ?? null,
+              programUrl: program.programUrl,
+              toeflMin: program.toeflMin ?? null,
+              greRequired: program.greRequired,
+              applicationFee: program.applicationFee ?? null,
+              tasksState,
+            };
+            // Use addExtractedProgram if available, otherwise we need to expose it
+            addRawApp(newApp);
+            setShowSearch(false);
+          }}
+        />
+
+        <div style={{ margin: "20px 0 12px", display: "flex", alignItems: "center", gap: 12 }}>
+          <div style={{ flex: 1, height: 1, background: "#DDE3DB" }} />
+          <span style={{ fontSize: 12, color: "#A3AEA3" }}>{lang === "zh" ? "或从已有数据搜索" : "or search existing database"}</span>
+          <div style={{ flex: 1, height: 1, background: "#DDE3DB" }} />
+        </div>
+
         <SchoolSearch
           lang={lang}
           existingProgramIds={existingIds}
@@ -123,7 +186,8 @@ export default function SchoolsPage() {
                 return (
                   <div
                     key={app.id}
-                    className="flex items-stretch rounded-[10px] overflow-hidden border transition-all hover:shadow-sm hover:-translate-y-px"
+                    className="flex items-stretch rounded-[10px] overflow-hidden border transition-all hover:shadow-sm hover:-translate-y-px cursor-pointer"
+                    onClick={() => router.push(`/schools/${app.id}`)}
                     style={{ background: theme.card, borderColor: theme.border }}
                   >
                     {/* Tier color bar */}

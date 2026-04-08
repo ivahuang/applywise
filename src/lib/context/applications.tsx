@@ -42,6 +42,8 @@ interface ApplicationsContextValue {
   removeApp: (id: string) => void;
   cycleTier: (id: string) => void;
   toggleTask: (appId: string, taskId: string) => void;
+  addRawApp: (app: AppProgram) => void;
+  addRawApp: (app: AppProgram) => void;
 }
 
 // ── Context ───────────────────────────────────────────────
@@ -156,6 +158,13 @@ export function ApplicationsProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const addRawApp = useCallback((app: AppProgram) => {
+    setApps((prev) => {
+      if (prev.some((a) => a.id === app.id)) return prev;
+      return [...prev, app];
+    });
+  }, []);
+
   const removeApp = useCallback((id: string) => {
     setApps((prev) => prev.filter((a) => a.id !== id));
   }, []);
@@ -182,7 +191,7 @@ export function ApplicationsProvider({ children }: { children: ReactNode }) {
 
   return (
     <ApplicationsContext.Provider
-      value={{ apps, lang, loaded, setLang, addProgram, removeApp, cycleTier, toggleTask }}
+      value={{ apps, lang, loaded, setLang, addProgram, addRawApp, removeApp, cycleTier, toggleTask }}
     >
       {children}
     </ApplicationsContext.Provider>

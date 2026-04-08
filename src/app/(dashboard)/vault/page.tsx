@@ -43,8 +43,8 @@ const TAG_COLORS: Record<string, { bg: string; text: string }> = {
   achievement: { bg: "#EEEDFE", text: "#3C3489" },
 };
 
-function getTagColor(tag: string) {
-  return TAG_COLORS[tag] || { bg: "#F1EFE8", text: "#444441" };
+function getTagColor(tag: string): React.CSSProperties {
+  const c = TAG_COLORS[tag] || { bg: "#F1EFE8", text: "#444441" }; return { background: c.bg, color: c.text };
 }
 
 const CATEGORY_LABELS: Record<string, string> = {

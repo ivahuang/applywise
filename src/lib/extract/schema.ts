@@ -138,7 +138,6 @@ export const DOMAIN_TO_SCHOOL: Record<string, { name: string; nameZh: string }> 
   'virginia.edu':     { name: 'University of Virginia', nameZh: '弗吉尼亚大学' },
   'rochester.edu':    { name: 'University of Rochester', nameZh: '罗切斯特大学' },
   'brandeis.edu':     { name: 'Brandeis University', nameZh: '布兰迪斯大学' },
-  'nyu.edu':          { name: 'New York University', nameZh: '纽约大学' },
 };
 
 // Resolve school name from any .edu URL

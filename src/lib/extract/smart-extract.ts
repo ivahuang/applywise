@@ -2,14 +2,8 @@
 // SMART EXTRACTION ENGINE
 // The core intelligence: URL or keyword → complete program data
 // 
-// Flow:
-//   1. Input: URL or keyword
-//   2. If keyword → web search → find .edu program page
-//   3. Validate .edu domain → resolve school name
-//   4. Multi-page crawl (program + admissions + requirements)
-//   5. Claude extracts structured data from all pages
-//   6. Calculate confidence, flag missing fields
-//   7. Return ExtractedProgram ready for task generation
+// v3 (2026-04-09): Deadline cycle detection, slug helpers for
+// cache keying, bumped maxPages to 5 for two-pass crawler
 // ============================================================
 
 import Anthropic from '@anthropic-ai/sdk';
@@ -19,9 +13,36 @@ import {
   type EssayPrompt,
   resolveSchoolFromUrl,
   calculateConfidence,
+  validateExtraction,
 } from './schema';
 
 const anthropic = new Anthropic();
+
+// ---- Slug helpers (used for cache keys) ----
+
+export function toSlug(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/['']/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+export function getCurrentCycle(): string {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  // If we're past August, the current cycle is for next year's enrollment
+  // e.g. Sept 2026 → "2027" cycle (applying now for fall 2027)
+  // If before August, current cycle is this year
+  // e.g. April 2026 → "2026" cycle (deadlines were Jan-Mar 2026, enrolling fall 2026)
+  //   BUT most students in April are actually looking at NEXT cycle
+  // Simplest: if month >= 5 (May+), assume next year's cycle
+  if (month >= 5) {
+    return `${year + 1}`;
+  }
+  return `${year}`;
+}
 
 // ---- Step 1: Resolve input to a .edu URL ----
 
@@ -34,8 +55,6 @@ function isValidEduUrl(input: string): boolean {
   }
 }
 
-// If user typed a keyword like "Columbia strategic communications masters",
-// use Claude to generate the most likely .edu URL
 async function resolveKeywordToUrl(keyword: string): Promise<string> {
   const resp = await anthropic.messages.create({
     model: 'claude-sonnet-4-20250514',
@@ -44,7 +63,6 @@ async function resolveKeywordToUrl(keyword: string): Promise<string> {
     messages: [{ role: 'user', content: keyword }],
   });
   const text = resp.content[0].type === 'text' ? resp.content[0].text.trim() : '';
-  // Extract URL from response
   const urlMatch = text.match(/https?:\/\/[^\s"'<>]+\.edu[^\s"'<>]*/);
   if (urlMatch) return urlMatch[0];
   throw new Error(`Could not resolve "${keyword}" to a .edu URL. Try pasting the program URL directly.`);
@@ -52,46 +70,78 @@ async function resolveKeywordToUrl(keyword: string): Promise<string> {
 
 // ---- Step 2: Claude extraction prompt ----
 
-const EXTRACTION_SYSTEM_PROMPT = `You are a precise data extractor for US graduate program information. 
-You will receive content crawled from one or more .edu pages about a specific program.
+const EXTRACTION_SYSTEM_PROMPT = `You are a precise data extractor for US graduate program admissions information.
 
-Extract ALL available information into a JSON object. Be thorough — check every page for different pieces of info.
+You will receive content from MULTIPLE .edu pages about a specific program. Each page is marked with its URL and type (program, admissions, requirements, deadlines, financial, faq).
 
-CRITICAL RULES:
-- Only extract information explicitly stated on the pages. Never guess or infer.
-- For fields you cannot find, use null.
-- For essay prompts, extract the EXACT prompt text as written.
-- For deadlines, use ISO date format (YYYY-MM-DD). If only "January 15" with no year, assume the next upcoming cycle.
-- For costs, use USD numbers only (no $ sign, no commas).
-- For boolean fields, only set true/false if explicitly stated. Otherwise null.
-- Return ONLY valid JSON, no markdown fences, no explanation.
+YOUR TASK: Extract every available piece of information into a single JSON object. Be thorough.
 
-Required JSON structure:
+CRITICAL INSTRUCTIONS:
+1. READ ALL PAGES. Different pages contain different information:
+   - The main program page often has: program name, degree, duration, curriculum, faculty
+   - The admissions/requirements page has: TOEFL, GRE, recs, essays, deadlines
+   - The financial page has: tuition, fees, financial aid
+   - The FAQ page often clarifies: "Is GRE required?" "Can I apply with IELTS?" "Is WES required?"
+   You MUST cross-reference all pages. Do not stop after the first page.
+
+2. ONLY extract what is EXPLICITLY stated. Never guess. If a field isn't mentioned on any page, use null.
+
+3. ESSAY PROMPTS: Extract the EXACT text of every essay question. These are critical. Look for:
+   - "Statement of Purpose" or "Statement of Academic Purpose"
+   - "Personal Statement" or "Personal History"
+   - "Cohort essay" or "What will you contribute"
+   - "Writing sample" requirements
+   - "Video essay" requirements
+   - Any program-specific supplemental essays
+   Each essay should include: the full prompt text, word/page limit if stated, and whether it's required.
+
+4. DEADLINES: Use ISO format YYYY-MM-DD. Common patterns to handle:
+   - "January 15" with no year → assume the next upcoming January 15 (for 2025-26 cycle, that's 2026-01-15)
+   - "Priority deadline: November 1 / Final deadline: February 1" → put first in deadlineEarly, second in deadlineRegular
+   - "Rolling admissions" → set deadlineNotes to "Rolling admissions", leave date fields null
+   - If dates appear to be from a past application cycle, still extract them and note "Dates from [year] cycle" in deadlineNotes
+
+5. COSTS: Extract as USD numbers only. No $ sign, no commas.
+   - "tuition is $2,640 per credit" → costPerCredit: 2640
+   - "total program cost is approximately $95,000" → estimatedTotalTuition: 95000
+
+6. BOOLEAN FIELDS: 
+   - "GRE is required" → greRequired: true
+   - "GRE is optional" or "GRE is not required" → greRequired: false
+   - "GRE scores may be submitted" or "GRE waiver available" → greRequired: false, note in deadlineNotes
+   - No mention of GRE at all → greRequired: null
+
+7. WES: Look for "credential evaluation", "WES", "World Education Services", "course-by-course evaluation"
+
+8. URLS: If you find links to the application portal (often "Apply Now" buttons), admissions page, or financial aid page, include them.
+
+Return ONLY valid JSON matching this structure:
 {
   "schoolName": string,
   "schoolNameZh": string | null,
-  "programName": string (official program name as listed),
+  "programName": string (official name as listed on the page),
   "programNameZh": string | null,
-  "department": string | null,
-  "degree": "MS" | "MA" | "PhD" | "MBA" | "MPA" | "MPP" | "MFA" | ...,
-  "field": string (one of: communications, data_science, computer_science, public_policy, business, engineering, education, psychology, economics, statistics, information_science, other),
-  "duration": string | null,
+  "department": string | null (e.g. "School of Professional Studies"),
+  "degree": string (e.g. "MS", "MA", "PhD", "MBA", "MPA", "MPP", "MFA", "MEng", "MFin"),
+  "field": string (one of: "communications", "data_science", "computer_science", "public_policy", "business", "engineering", "education", "psychology", "economics", "statistics", "information_science", "law", "health", "finance", "arts", "other"),
+  "duration": string | null (e.g. "3 semesters", "2 years", "18 months"),
   "totalCredits": number | null,
   "format": "full-time" | "part-time" | "hybrid" | null,
-  "curriculum": [string] | null (list key courses, concentrations, or tracks),
+  "curriculum": [string] | null (list of key courses, concentrations, tracks, or specializations),
   "costPerCredit": number | null,
   "estimatedTotalTuition": number | null,
   "applicationFee": number | null,
-  "toeflMin": number | null,
+  "toeflRequired": boolean | null (false if explicitly waived or not required),
+  "toeflMin": number | null (the minimum score, typically 79-110),
   "toeflMedian": number | null,
-  "ieltsMin": number | null,
+  "ieltsMin": number | null (typically 6.0-7.5),
   "greRequired": boolean | null,
   "greMin": number | null,
   "gmatAccepted": boolean | null,
-  "gpaMin": number | null,
+  "gpaMin": number | null (typically on 4.0 scale),
   "wesRequired": boolean | null,
   "wesEvalType": "course-by-course" | "document-by-document" | null,
-  "recsRequired": number | null,
+  "recsRequired": number | null (typically 2-3),
   "recsAcademicMin": number | null,
   "recsProfessionalOk": boolean | null,
   "deadlineEarly": "YYYY-MM-DD" | null,
@@ -102,7 +152,7 @@ Required JSON structure:
     {
       "type": "sop" | "personal_statement" | "cohort" | "writing_sample" | "program_specific" | "video_essay" | "other",
       "typeZh": string,
-      "prompt": string (exact text),
+      "prompt": string (the EXACT prompt text as written on the site),
       "promptZh": string | null,
       "wordLimit": number | null,
       "required": boolean
@@ -118,12 +168,64 @@ Required JSON structure:
   "videoEssayDetails": string | null,
   "transcriptsRequired": boolean | null,
   "careerOutcomes": string | null,
-  "employmentRate": number | null,
+  "employmentRate": number | null (as percentage, e.g. 95),
   "avgStartingSalary": number | null,
-  "admissionsUrl": string | null (the "how to apply" page URL if found),
-  "portalUrl": string | null (the actual application portal URL),
+  "admissionsUrl": string | null,
+  "portalUrl": string | null,
   "financialAidUrl": string | null
-}`;
+}
+
+EXAMPLE of expected output quality:
+{
+  "schoolName": "Columbia University",
+  "schoolNameZh": "哥伦比亚大学",
+  "programName": "M.S. in Strategic Communications",
+  "department": "School of Professional Studies",
+  "degree": "MS",
+  "field": "communications",
+  "duration": "3 semesters",
+  "totalCredits": 36,
+  "costPerCredit": 2640,
+  "estimatedTotalTuition": 95040,
+  "applicationFee": 95,
+  "toeflMin": 100,
+  "ieltsMin": 7.0,
+  "greRequired": false,
+  "gpaMin": 3.0,
+  "wesRequired": true,
+  "wesEvalType": "course-by-course",
+  "recsRequired": 2,
+  "recsProfessionalOk": true,
+  "deadlineEarly": "2026-01-15",
+  "deadlineRegular": "2026-03-15",
+  "deadlineNotes": "Priority deadline January 15 for scholarship consideration",
+  "essays": [
+    {
+      "type": "sop",
+      "typeZh": "学术目标陈述",
+      "prompt": "What do you hope to gain from the Strategic Communication program and where would you like to be professionally in five years? (500 word limit)",
+      "wordLimit": 500,
+      "required": true
+    },
+    {
+      "type": "cohort",
+      "typeZh": "群体贡献文书",
+      "prompt": "What unique contributions will you bring to the program and to your fellow students? (250 word max)",
+      "wordLimit": 250,
+      "required": true
+    }
+  ],
+  "resumeRequired": true,
+  "writingSampleRequired": true,
+  "writingSampleDetails": "A report, press release, news article, or academic paper. Max 10 pages.",
+  "videoEssayRequired": true,
+  "videoEssayDetails": "One-minute video answering a randomized prompt",
+  "careerOutcomes": "PR, corporate communications, media strategy at agencies and Fortune 500 companies",
+  "admissionsUrl": "https://sps.columbia.edu/academics/masters/strategic-communication/admissions",
+  "portalUrl": "https://apply.sps.columbia.edu"
+}
+
+Return ONLY valid JSON. No markdown fences, no explanation.`;
 
 async function extractWithClaude(context: string, programUrl: string): Promise<Partial<ExtractedProgram>> {
   const resp = await anthropic.messages.create({
@@ -132,14 +234,13 @@ async function extractWithClaude(context: string, programUrl: string): Promise<P
     system: EXTRACTION_SYSTEM_PROMPT,
     messages: [{
       role: 'user',
-      content: `Extract program information from the following crawled .edu pages:\n\n${context}`,
+      content: `I have crawled ${context.split('=== PAGE:').length - 1} pages from a .edu site. Please extract ALL program information by reading EVERY page carefully.\n\n${context}`,
     }],
   });
 
   const text = resp.content[0].type === 'text' ? resp.content[0].text : '';
-  // Strip any markdown fences
   const clean = text.replace(/```json\s*|```/g, '').trim();
-  
+
   try {
     const data = JSON.parse(clean);
     return {
@@ -152,18 +253,48 @@ async function extractWithClaude(context: string, programUrl: string): Promise<P
   }
 }
 
-// ---- Step 3: Main orchestrator ----
+// ---- Step 3: Deadline cycle detection ----
+
+function detectDeadlineCycle(data: Partial<ExtractedProgram>): void {
+  const now = new Date();
+  const deadlineFields = ['deadlineEarly', 'deadlineRegular', 'deadlineFinal'] as const;
+  let allPast = true;
+  let hasAnyDeadline = false;
+
+  for (const field of deadlineFields) {
+    const dateStr = data[field];
+    if (dateStr) {
+      hasAnyDeadline = true;
+      const date = new Date(dateStr);
+      if (!isNaN(date.getTime()) && date > now) {
+        allPast = false;
+      }
+    }
+  }
+
+  if (hasAnyDeadline && allPast) {
+    const existingNotes = data.deadlineNotes || '';
+    const cycleNote = 'Deadlines appear to be from a previous application cycle. Next cycle dates likely similar, shifted +1 year. Please verify on the official website.';
+    data.deadlineNotes = existingNotes ? `${existingNotes} | ${cycleNote}` : cycleNote;
+  }
+}
+
+// ---- Step 4: Main orchestrator ----
 
 export interface SmartExtractResult {
   program: ExtractedProgram;
-  crawledPages: Array<{ url: string; pageType: string }>;
+  crawledPages: Array<{ url: string; pageType: string; score: number }>;
   confidence: number;
   missingFields: string[];
-  processingTime: number; // ms
+  warnings: string[];
+  processingTime: number;
+  schoolSlug: string;
+  programSlug: string;
+  cycle: string;
 }
 
 export interface SmartExtractProgress {
-  step: 'resolving' | 'crawling' | 'extracting' | 'complete' | 'error';
+  step: 'resolving' | 'crawling' | 'extracting' | 'validating' | 'complete' | 'error';
   message: string;
   messageZh: string;
 }
@@ -190,12 +321,12 @@ export async function smartExtract(
 
   // 2. Resolve school name from domain
   const school = resolveSchoolFromUrl(url);
-  
-  // 3. Multi-page crawl
+
+  // 3. Multi-page crawl (now up to 5 pages with two-pass discovery)
   progress({ step: 'crawling', message: 'Crawling program pages...', messageZh: '正在抓取项目页面...' });
   let pages: CrawlResult[];
   try {
-    pages = await crawlProgram(url, 4);
+    pages = await crawlProgram(url, 5);
   } catch (e) {
     throw new Error(`Failed to crawl ${url}: ${(e as Error).message}`);
   }
@@ -220,19 +351,35 @@ export async function smartExtract(
     }
   }
 
-  // 6. Calculate confidence
+  // 6. Deadline cycle detection
+  detectDeadlineCycle(extracted);
+
+  // 7. Post-extraction validation
+  progress({ step: 'validating', message: 'Validating extracted data...', messageZh: '正在验证提取的数据...' });
+  const warnings = validateExtraction(extracted);
+
+  // 8. Calculate confidence
   const { confidence, missingFields } = calculateConfidence(extracted);
   extracted.confidence = confidence;
   extracted.missingFields = missingFields;
   extracted.sourceUrls = pages.map(p => p.url);
 
+  // 9. Generate slugs for cache keying
+  const schoolSlug = toSlug(extracted.schoolName || school?.name || 'unknown');
+  const programSlug = toSlug(extracted.programName || 'unknown');
+  const cycle = getCurrentCycle();
+
   progress({ step: 'complete', message: 'Extraction complete', messageZh: '提取完成' });
 
   return {
     program: extracted as ExtractedProgram,
-    crawledPages: pages.map(p => ({ url: p.url, pageType: p.pageType })),
+    crawledPages: pages.map(p => ({ url: p.url, pageType: p.pageType, score: p.score })),
     confidence,
     missingFields,
+    warnings,
     processingTime: Date.now() - startTime,
+    schoolSlug,
+    programSlug,
+    cycle,
   };
 }

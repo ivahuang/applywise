@@ -1,32 +1,34 @@
 // ============================================================
 // EXTRACTION SCHEMA
 // Defines every field the system tries to extract from .edu pages.
-// Maps directly to Prisma Program model + extended fields.
+//
+// v2 (2026-04-09): Added plausibility validation, improved confidence calc
 // ============================================================
 
 export interface ExtractedProgram {
   // ---- Identity ----
-  schoolName: string;          // "Columbia University"
-  schoolNameZh?: string;       // "哥伦比亚大学"
-  programName: string;         // "M.S. in Strategic Communications"
+  schoolName: string;
+  schoolNameZh?: string;
+  programName: string;
   programNameZh?: string;
-  department?: string;         // "School of Professional Studies"
-  degree: string;              // "MS" | "MA" | "PhD" | "MBA"
-  field: string;               // "communications" | "data_science" | ...
+  department?: string;
+  degree: string;
+  field: string;
 
   // ---- Academics ----
-  duration?: string;           // "3 semesters" | "2 years"
+  duration?: string;
   totalCredits?: number;
-  format?: string;             // "full-time" | "part-time" | "hybrid"
-  curriculum?: string[];       // Key courses or tracks
+  format?: string;
+  curriculum?: string[];
   
   // ---- Cost ----
-  costPerCredit?: number;      // USD
+  costPerCredit?: number;
   estimatedTotalTuition?: number;
   applicationFee?: number;
-  livingCostEstimate?: number; // monthly, USD
+  livingCostEstimate?: number;
 
   // ---- Admissions requirements ----
+  toeflRequired?: boolean;     // false = waived/not required
   toeflMin?: number;
   toeflMedian?: number;
   ieltsMin?: number;
@@ -34,19 +36,19 @@ export interface ExtractedProgram {
   greMin?: number;
   gmatAccepted?: boolean;
   gpaMin?: number;
-  wesRequired?: boolean;       // WES credential evaluation
-  wesEvalType?: string;        // "course-by-course" | "document-by-document"
+  wesRequired?: boolean;
+  wesEvalType?: string;
   
   // ---- Recommendation letters ----
-  recsRequired?: number;       // typically 2-3
-  recsAcademicMin?: number;    // minimum academic recs
+  recsRequired?: number;
+  recsAcademicMin?: number;
   recsProfessionalOk?: boolean;
   
   // ---- Deadlines ----
-  deadlineEarly?: string;      // ISO date string
+  deadlineEarly?: string;
   deadlineRegular?: string;
   deadlineFinal?: string;
-  deadlineNotes?: string;      // "Rolling admissions" etc.
+  deadlineNotes?: string;
   
   // ---- Essays ----
   essays?: EssayPrompt[];
@@ -57,33 +59,33 @@ export interface ExtractedProgram {
   writingSampleDetails?: string;
   portfolioRequired?: boolean;
   interviewRequired?: boolean;
-  interviewFormat?: string;    // "video" | "in-person" | "optional"
+  interviewFormat?: string;
   videoEssayRequired?: boolean;
   videoEssayDetails?: string;
   transcriptsRequired?: boolean;
 
   // ---- Career & outcomes ----
-  careerOutcomes?: string;     // Brief description of what grads do
-  employmentRate?: number;     // percentage
+  careerOutcomes?: string;
+  employmentRate?: number;
   avgStartingSalary?: number;
   
-  // ---- URLs (critical for task generation) ----
-  programUrl: string;          // Main program page
-  admissionsUrl?: string;      // Admissions/how-to-apply page
-  portalUrl?: string;          // Application portal URL
+  // ---- URLs ----
+  programUrl: string;
+  admissionsUrl?: string;
+  portalUrl?: string;
   financialAidUrl?: string;
   
-  // ---- Institutional codes (for sending scores) ----
+  // ---- Institutional codes ----
   toeflInstitutionCode?: string;
   toeflDepartmentCode?: string;
   greInstitutionCode?: string;
   greDepartmentCode?: string;
   
   // ---- Meta ----
-  extractedAt: string;         // ISO timestamp
-  sourceUrls: string[];        // All URLs that were crawled
-  confidence: number;          // 0-1, how complete the extraction is
-  missingFields: string[];     // Fields we couldn't find
+  extractedAt: string;
+  sourceUrls: string[];
+  confidence: number;
+  missingFields: string[];
 }
 
 export interface EssayPrompt {
@@ -95,7 +97,7 @@ export interface EssayPrompt {
   required: boolean;
 }
 
-// Known .edu domain → school name mapping for fast resolution
+// Known .edu domain → school name mapping
 export const DOMAIN_TO_SCHOOL: Record<string, { name: string; nameZh: string }> = {
   'columbia.edu':     { name: 'Columbia University', nameZh: '哥伦比亚大学' },
   'harvard.edu':      { name: 'Harvard University', nameZh: '哈佛大学' },
@@ -140,11 +142,9 @@ export const DOMAIN_TO_SCHOOL: Record<string, { name: string; nameZh: string }> 
   'brandeis.edu':     { name: 'Brandeis University', nameZh: '布兰迪斯大学' },
 };
 
-// Resolve school name from any .edu URL
 export function resolveSchoolFromUrl(url: string): { name: string; nameZh: string } | null {
   try {
-    const hostname = new URL(url).hostname; // e.g. "sps.columbia.edu"
-    // Walk up subdomains: sps.columbia.edu → columbia.edu
+    const hostname = new URL(url).hostname;
     const parts = hostname.split('.');
     for (let i = 0; i < parts.length - 1; i++) {
       const domain = parts.slice(i).join('.');
@@ -156,7 +156,15 @@ export function resolveSchoolFromUrl(url: string): { name: string; nameZh: strin
   }
 }
 
-// Calculate extraction confidence based on filled fields
+// ---- Confidence calculation ----
+
+function hasValue(val: any): boolean {
+  if (val == null) return false;
+  if (typeof val === 'string' && val.trim() === '') return false;
+  if (Array.isArray(val) && val.length === 0) return false;
+  return true;
+}
+
 export function calculateConfidence(data: Partial<ExtractedProgram>): { confidence: number; missingFields: string[] } {
   const critical = [
     'schoolName', 'programName', 'degree', 'field', 'programUrl',
@@ -168,7 +176,8 @@ export function calculateConfidence(data: Partial<ExtractedProgram>): { confiden
   const nice = [
     'costPerCredit', 'wesRequired', 'interviewRequired', 'writingSampleRequired',
     'portalUrl', 'admissionsUrl', 'careerOutcomes', 'curriculum',
-    'toeflInstitutionCode', 'greInstitutionCode',
+    'toeflInstitutionCode', 'greInstitutionCode', 'ieltsMin', 'format',
+    'videoEssayRequired', 'resumeRequired', 'transcriptsRequired',
   ];
 
   const missing: string[] = [];
@@ -177,16 +186,114 @@ export function calculateConfidence(data: Partial<ExtractedProgram>): { confiden
 
   for (const f of critical) {
     total += 3;
-    if ((data as any)[f] != null) score += 3; else missing.push(f);
+    if (hasValue((data as any)[f])) score += 3; else missing.push(f);
   }
   for (const f of important) {
     total += 2;
-    if ((data as any)[f] != null) score += 2; else missing.push(f);
+    if (hasValue((data as any)[f])) score += 2; else missing.push(f);
   }
   for (const f of nice) {
     total += 1;
-    if ((data as any)[f] != null) score += 1; else missing.push(f);
+    if (hasValue((data as any)[f])) score += 1; else missing.push(f);
   }
 
   return { confidence: Math.round((score / total) * 100) / 100, missingFields: missing };
+}
+
+// ---- Plausibility validation ----
+
+export function validateExtraction(data: Partial<ExtractedProgram>): string[] {
+  const warnings: string[] = [];
+
+  if (data.toeflMin != null) {
+    if (data.toeflMin < 0 || data.toeflMin > 120) {
+      warnings.push(`TOEFL minimum ${data.toeflMin} is outside valid range (0-120). Likely extraction error.`);
+      data.toeflMin = undefined;
+    } else if (data.toeflMin < 60) {
+      warnings.push(`TOEFL minimum ${data.toeflMin} is unusually low. Please verify.`);
+    }
+  }
+
+  if (data.ieltsMin != null) {
+    if (data.ieltsMin < 0 || data.ieltsMin > 9) {
+      warnings.push(`IELTS minimum ${data.ieltsMin} is outside valid range (0-9).`);
+      data.ieltsMin = undefined;
+    }
+  }
+
+  if (data.greMin != null) {
+    if (data.greMin < 260 || data.greMin > 340) {
+      if (data.greMin >= 130 && data.greMin <= 170) {
+        warnings.push(`GRE minimum ${data.greMin} looks like a single-section score, not combined.`);
+      } else {
+        warnings.push(`GRE minimum ${data.greMin} is outside valid range.`);
+        data.greMin = undefined;
+      }
+    }
+  }
+
+  if (data.gpaMin != null) {
+    if (data.gpaMin < 0 || data.gpaMin > 4.0) {
+      if (data.gpaMin > 4.0 && data.gpaMin <= 100) {
+        warnings.push(`GPA minimum ${data.gpaMin} appears to be percentage scale, not 4.0.`);
+      } else {
+        data.gpaMin = undefined;
+      }
+    }
+  }
+
+  if (data.applicationFee != null && (data.applicationFee < 0 || data.applicationFee > 500)) {
+    warnings.push(`Application fee $${data.applicationFee} is unusual. Most programs charge $50-$150.`);
+  }
+
+  if (data.estimatedTotalTuition != null) {
+    if (data.estimatedTotalTuition < 5000) {
+      warnings.push(`Total tuition $${data.estimatedTotalTuition} seems too low. Might be per-semester.`);
+    } else if (data.estimatedTotalTuition > 300000) {
+      warnings.push(`Total tuition $${data.estimatedTotalTuition} seems too high.`);
+    }
+  }
+
+  if (data.costPerCredit != null && (data.costPerCredit < 100 || data.costPerCredit > 10000)) {
+    warnings.push(`Cost per credit $${data.costPerCredit} is outside typical range ($500-$5000).`);
+  }
+
+  if (data.recsRequired != null && (data.recsRequired < 0 || data.recsRequired > 5)) {
+    warnings.push(`${data.recsRequired} recommendation letters is unusual. Most require 2-3.`);
+  }
+
+  const now = new Date();
+  for (const field of ['deadlineEarly', 'deadlineRegular', 'deadlineFinal'] as const) {
+    const dateStr = data[field];
+    if (dateStr) {
+      try {
+        const date = new Date(dateStr);
+        if (isNaN(date.getTime())) {
+          warnings.push(`${field} "${dateStr}" is not a valid date.`);
+          (data as any)[field] = undefined;
+        }
+      } catch {
+        (data as any)[field] = undefined;
+      }
+    }
+  }
+
+  if (data.essays && Array.isArray(data.essays)) {
+    for (let i = 0; i < data.essays.length; i++) {
+      const essay = data.essays[i];
+      if (essay.prompt && essay.prompt.length < 20) {
+        warnings.push(`Essay ${i + 1} prompt is very short. May not be the full text.`);
+      }
+    }
+  }
+
+  if (data.employmentRate != null) {
+    if (data.employmentRate > 0 && data.employmentRate <= 1) {
+      data.employmentRate = Math.round(data.employmentRate * 100);
+    } else if (data.employmentRate < 0 || data.employmentRate > 100) {
+      data.employmentRate = undefined;
+    }
+  }
+
+  return warnings;
 }

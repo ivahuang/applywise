@@ -1,10 +1,15 @@
 // ============================================================
-// MULTI-PAGE CRAWLER
-// Given one .edu URL, discovers and fetches related pages.
+// MULTI-PAGE CRAWLER v6
+// Strategy: find admissions hub, follow its links.
+// Link discovery: brute-force URL extraction (split on delimiters,
+// filter for same-domain .edu URLs). No markdown regex.
 //
-// v3 (2026-04-09): Two-pass link discovery — discovers links
-// from pages 2+3 too (catches FAQ/tuition linked from admissions
-// page, not from main program page). Path-based sibling detection.
+// Why brute-force: Jina outputs nested markdown like
+//   [![Image](img.webp) Text](real-url)
+// which breaks any [text](url) regex. Splitting on ()[]" spaces
+// and filtering for .edu URLs catches everything reliably.
+//
+// 2026-04-16
 // ============================================================
 
 const JINA_PREFIX = 'https://r.jina.ai/';
@@ -16,100 +21,125 @@ export interface CrawlResult {
   score: number;
 }
 
-// ---- URL/text scoring ----
+// ---- Classify a URL by its last path segment ----
 
-const POSITIVE_PATTERNS: Array<{ pattern: RegExp; type: CrawlResult['pageType']; score: number }> = [
-  // Admissions / how to apply (highest priority)
-  { pattern: /\b(how[\s-]?to[\s-]?apply|application[\s-]?process|apply[\s-]?now|start[\s-]?your[\s-]?application)\b/i, type: 'admissions', score: 10 },
-  { pattern: /\/(apply|admissions?|how-to-apply|application)\b/i, type: 'admissions', score: 9 },
-  { pattern: /\b(admissions?[\s-]?requirements?|eligibility|qualifications?)\b/i, type: 'requirements', score: 9 },
-
-  // Requirements
-  { pattern: /\/(requirements|prerequisites|eligibility|checklist)\b/i, type: 'requirements', score: 8 },
-  { pattern: /\b(what[\s-]?you[\s-]?need|required[\s-]?materials?|application[\s-]?checklist)\b/i, type: 'requirements', score: 8 },
-  { pattern: /\bprospective[\s-]?students?\b/i, type: 'admissions', score: 7 },
-
-  // Deadlines
-  { pattern: /\/(deadlines?|dates|timeline|when-to-apply)\b/i, type: 'deadlines', score: 8 },
-  { pattern: /\b(application[\s-]?deadlines?|important[\s-]?dates|when[\s-]?to[\s-]?apply)\b/i, type: 'deadlines', score: 8 },
-
-  // FAQ — often contains TOEFL, GRE, WES details that main page omits
-  { pattern: /\/(faq|frequently[\s-]?asked|common[\s-]?questions?|ask[\s-]?us|q-?and-?a)\b/i, type: 'faq', score: 7 },
-  { pattern: /\b(frequently[\s-]?asked|common[\s-]?questions?|faq|q\s?(&|and)\s?a)\b/i, type: 'faq', score: 7 },
-
-  // Financial — tuition, fees, aid
-  { pattern: /\/(tuition|financial[\s-]?aid|cost|fees|funding|scholarships?)\b/i, type: 'financial', score: 7 },
-  { pattern: /\b(tuition[\s-]?(&|and)[\s-]?fees|cost[\s-]?of[\s-]?attendance|financial[\s-]?aid|scholarships?)\b/i, type: 'financial', score: 7 },
-
-  // Curriculum / program details
-  { pattern: /\/(curriculum|courses|academics|program[\s-]?overview|degree[\s-]?requirements|explore[\s-]?program)\b/i, type: 'program', score: 5 },
-  { pattern: /\b(curriculum|course[\s-]?listing|program[\s-]?overview|degree[\s-]?requirements)\b/i, type: 'program', score: 5 },
-];
-
-const NEGATIVE_PATTERNS: RegExp[] = [
-  /\/(news|events|blog|stories|press|media-coverage|announcements)\b/i,
-  /\/(faculty|staff|directory|people|profiles|our-team)\b/i,
-  /\/(research|labs?|publications?|projects)\b/i,
-  /\/(jobs?|careers?|employment|job-market|placement-data|alumni-spotlight|recruiting)\b/i,
-  /\/(contact|visit|tours?|info-session|webinar|open-house)\b/i,
-  /\/(login|portal|dashboard|account|password)\b/i,
-  /\/(student-life|campus|housing|dining|clubs|organizations)\b/i,
-  /\/(donate|giving|support-us|alumni-giving)\b/i,
-  /\/(diversity|dei|inclusion)\b/i,
-  /\/(history|about-us|mission|leadership)\b/i,
-  /\.(pdf|jpg|jpeg|png|gif|doc|docx|xlsx|pptx|zip)$/i,
-  /\.(webp|svg|ico|woff|woff2|ttf|eot|mp4|mp3)$/i,
-  /%22|%20%22|%27/i,
-];
-
-function scoreLink(url: string, linkText: string): { type: CrawlResult['pageType']; score: number } {
-  for (const neg of NEGATIVE_PATTERNS) {
-    if (neg.test(url)) return { type: 'unknown', score: -1 };
-  }
+function classifyUrl(url: string): { type: CrawlResult['pageType']; score: number } {
+  let path: string;
   try {
-    const parsed = new URL(url);
-    if (parsed.hash) return { type: 'unknown', score: -1 };
+    path = new URL(url).pathname.toLowerCase();
   } catch {
-    return { type: 'unknown', score: -1 };
+    return { type: 'unknown', score: 0 };
   }
 
-  const combined = url + ' ' + linkText;
-  let bestType: CrawlResult['pageType'] = 'unknown';
-  let bestScore = 0;
-  for (const { pattern, type, score } of POSITIVE_PATTERNS) {
-    if (pattern.test(combined) && score > bestScore) {
-      bestType = type;
-      bestScore = score;
-    }
-  }
-  return { type: bestType, score: bestScore };
+  const segments = path.split('/').filter(Boolean);
+  const last = segments[segments.length - 1] || '';
+  const full = path;
+
+  // Last segment is the most specific signal
+  if (/^(faq|frequently-asked|common-questions?|q-and-a)$/.test(last)) return { type: 'faq', score: 9 };
+  if (/^(tuition|fees|financial-aid|cost|funding|scholarships?|tuition-and-financial-aid|financing-your-education)$/.test(last)) return { type: 'financial', score: 9 };
+  if (/^(deadlines?|dates|timeline|when-to-apply|important-dates)$/.test(last)) return { type: 'deadlines', score: 9 };
+  if (/^(requirements|prerequisites|eligibility|checklist|application-requirements)$/.test(last)) return { type: 'requirements', score: 9 };
+  if (/^(apply|how-to-apply|application|application-process)$/.test(last)) return { type: 'admissions', score: 10 };
+  if (/^(admissions?|prospective-students?)$/.test(last)) return { type: 'admissions', score: 9 };
+  if (/^(curriculum|courses|program-overview|explore-program|degree-requirements|academics)$/.test(last)) return { type: 'program', score: 4 };
+
+  // Fall back to path-level patterns
+  if (/\/(admissions?|apply|how-to-apply)\//.test(full)) return { type: 'admissions', score: 6 };
+  if (/\/(tuition|financial|cost|fees)/.test(full)) return { type: 'financial', score: 6 };
+  if (/\/(faq|common-questions|frequently)/.test(full)) return { type: 'faq', score: 6 };
+
+  return { type: 'unknown', score: 2 };
 }
 
-// ---- Path-based sibling detection ----
+// ---- Reject junk URLs ----
 
-function getProgramRoot(startUrl: string): string | null {
+function isJunk(url: string): boolean {
   try {
-    const parsed = new URL(startUrl);
-    const segments = parsed.pathname.split('/').filter(Boolean);
-    if (segments.length >= 1) {
-      const root = '/' + segments.slice(0, Math.max(1, segments.length - 1)).join('/') + '/';
-      return root;
-    }
-    return null;
+    const path = new URL(url).pathname.toLowerCase();
+
+    // File extensions
+    if (/\.(pdf|jpg|jpeg|png|gif|webp|svg|ico|css|js|woff2?|mp4|doc|docx|zip|ttf|eot)\b/.test(path)) return true;
+
+    // CMS assets
+    if (/\/(files|sites\/default|images|assets|static|_next)\//.test(path)) return true;
+
+    // Non-content pages
+    if (/\/(login|portal|account|dashboard|password|create-your-profile|register|sign-in)\b/.test(path)) return true;
+    if (/\/(news|events|blog|press|announcements|stories|media-coverage)\b/.test(path)) return true;
+    if (/\/(faculty|staff|directory|people|profiles|our-team)\b/.test(path)) return true;
+    if (/\/(research|labs|publications|projects)\b/.test(path)) return true;
+    if (/\/(jobs?|careers?|employment|recruiting|job-market|alumni-spotlight|placement)\b/.test(path)) return true;
+    if (/\/(donate|giving|diversity|dei|about-us|history|mission|leadership)\b/.test(path)) return true;
+    if (/\/(student-life|campus|housing|clubs|organizations|dining)\b/.test(path)) return true;
+    if (/\/(contact|visit|tours?|info-session|webinar|open-house)\b/.test(path)) return true;
+
+    // Tracking / analytics
+    if (/bat\.bing\.com|analytics\.twitter|t\.co|facebook\.com|linkedin\.com/.test(url)) return true;
+
+    return false;
   } catch {
-    return null;
+    return true;
   }
 }
 
-// ---- Fetch ----
+// ---- Brute-force URL extraction ----
+// Split markdown on delimiter characters, filter for .edu URLs from same domain.
+// Catches every URL regardless of markdown nesting.
+
+function extractUrls(markdown: string, baseUrl: string, seen: Set<string>): Array<{ url: string; type: CrawlResult['pageType']; score: number }> {
+  const baseRoot = new URL(baseUrl).hostname.replace(/^www\./, '').split('.').slice(-2).join('.');
+
+  // Split on characters that surround URLs in markdown: () [] " ' space newline > <
+  const tokens = markdown.split(/[()[\]"'<>\s]+/);
+
+  const results: Array<{ url: string; type: CrawlResult['pageType']; score: number }> = [];
+
+  for (const token of tokens) {
+    // Must be a full https URL
+    if (!token.startsWith('https://')) continue;
+
+    // Clean trailing punctuation
+    const cleaned = token.replace(/[.,;:!?]+$/, '').split('#')[0].split('?')[0].replace(/\/$/, '');
+
+    // Must be .edu and same school
+    try {
+      const parsed = new URL(cleaned);
+      if (!parsed.hostname.endsWith('.edu')) continue;
+      const linkRoot = parsed.hostname.replace(/^www\./, '').split('.').slice(-2).join('.');
+      if (linkRoot !== baseRoot) continue;
+    } catch { continue; }
+
+    // Skip already seen
+    if (seen.has(cleaned)) continue;
+
+    // Skip junk
+    if (isJunk(cleaned)) continue;
+    // Must be under the same program root path
+    // /mfin/explore-program → only allow /mfin/*
+    try {
+      const programRoot = getProgramRoot(baseUrl);
+      const linkPath = new URL(cleaned).pathname;
+      if (!linkPath.startsWith(programRoot)) continue;
+    } catch { continue; }
+
+    seen.add(cleaned);
+    const { type, score } = classifyUrl(cleaned);
+    results.push({ url: cleaned, type, score });
+  }
+
+  // Sort by score descending
+  results.sort((a, b) => b.score - a.score);
+  return results;
+}
+
+// ---- Fetch a page via Jina ----
 
 async function fetchPage(url: string): Promise<string | null> {
   try {
     const resp = await fetch(JINA_PREFIX + url, {
-      headers: {
-        'Accept': 'text/markdown',
-        'X-Return-Format': 'markdown',
-      },
+      headers: { 'Accept': 'text/markdown', 'X-Return-Format': 'markdown' },
+      signal: AbortSignal.timeout(15000),
     });
     if (!resp.ok) return null;
     const text = await resp.text();
@@ -119,154 +149,166 @@ async function fetchPage(url: string): Promise<string | null> {
   }
 }
 
-// ---- Link extraction ----
+// ---- Fetch batch in parallel ----
 
-function extractRelatedLinks(
-  markdown: string,
-  baseUrl: string,
-  programRoot: string | null,
-  seen: Set<string>,
-): Array<{ url: string; text: string; type: CrawlResult['pageType']; score: number }> {
-  const baseDomain = new URL(baseUrl).hostname.replace(/^www\./, '');
-  const baseRoot = baseDomain.split('.').slice(-2).join('.');
-  const linkRegex = /\[([^\]]*)\]\((https?:\/\/[^)]+)\)/g;
-  const links: Array<{ url: string; text: string; type: CrawlResult['pageType']; score: number }> = [];
-
-  let match;
-  while ((match = linkRegex.exec(markdown)) !== null) {
-    const [, text, url] = match;
-    try {
-      const linkDomain = new URL(url).hostname.replace(/^www\./, '');
-      const linkRoot = linkDomain.split('.').slice(-2).join('.');
-      if (baseRoot !== linkRoot) continue;
-
-      const normalized = url.split('?')[0].split('#')[0].replace(/\/$/, '');
-      if (seen.has(normalized)) continue;
-      // Reject asset/media URLs and broken encoded URLs
-      // Reject broken/garbage URLs
-      if (/["'<>]/.test(normalized)) continue;
-      if (/%22|%27|%3C|%3E/.test(normalized)) continue;
-      if (/\.(webp|png|jpg|jpeg|gif|svg|ico|woff2?|css|js|mp4)\b/i.test(normalized)) continue;
-      if (/\/(files|sites\/default|images|assets|static)\//i.test(normalized)) continue;
-
-      let { type, score } = scoreLink(url, text);
-
-      // Sibling bonus: URL shares the same program root path → worth considering
-      if (score === 0 && programRoot) {
-        try {
-          const linkPath = new URL(url).pathname;
-          if (linkPath.startsWith(programRoot)) {
-            type = 'unknown';
-            score = 3;
-          }
-        } catch { /* skip */ }
-      }
-
-      if (score > 0) {
-        seen.add(normalized);
-        links.push({ url: normalized, text, type, score });
-      }
-    } catch { /* invalid URL, skip */ }
-  }
-
-  links.sort((a, b) => b.score - a.score);
-  return links;
-}
-
-// ---- Parallel fetch helper ----
-
-async function fetchLinks(
-  links: Array<{ url: string; text: string; type: CrawlResult['pageType']; score: number }>,
+async function fetchBatch(
+  links: Array<{ url: string; type: CrawlResult['pageType']; score: number }>,
   limit: number,
 ): Promise<CrawlResult[]> {
-  const toFetch = links.slice(0, limit);
   const results: CrawlResult[] = [];
-  const fetched = await Promise.allSettled(
-    toFetch.map(async (link) => {
+  const settled = await Promise.allSettled(
+    links.slice(0, limit).map(async (link) => {
       const md = await fetchPage(link.url);
-      if (!md) return null;
+      if (!md || md.length < 500) return null;
+      // Soft-404 check
+      if (/page\s*not\s*found|404|error/i.test(md.slice(0, 300))) return null;
       return { url: link.url, markdown: md, pageType: link.type, score: link.score } as CrawlResult;
     })
   );
-  for (const r of fetched) {
+  for (const r of settled) {
     if (r.status === 'fulfilled' && r.value) results.push(r.value);
   }
   return results;
 }
 
-// ---- Main crawl: two-pass discovery ----
+// ---- Get program root path ----
 
-export async function crawlProgram(startUrl: string, maxPages = 5): Promise<CrawlResult[]> {
+function getProgramRoot(url: string): string {
+  const segments = new URL(url).pathname.split('/').filter(Boolean);
+  if (segments.length <= 1) return '/' + (segments[0] || '');
+  return '/' + segments.slice(0, segments.length - 1).join('/');
+}
+
+// ---- Find admissions hub ----
+
+async function findAdmissionsHub(
+  startUrl: string,
+  startPageUrls: Array<{ url: string; type: CrawlResult['pageType']; score: number }>,
+  seen: Set<string>,
+): Promise<CrawlResult | null> {
+  // Strategy A: was an admissions URL found in the start page?
+  // Prefer the shortest admissions URL — it's the hub, not a sub-page
+  const admLinks = startPageUrls.filter(l => l.type === 'admissions');
+  admLinks.sort((a, b) => a.url.length - b.url.length);
+  const admLink = admLinks[0];
+  if (admLink) {
+    const md = await fetchPage(admLink.url);
+    if (md && md.length > 500) {
+      return { url: admLink.url, markdown: md, pageType: 'admissions', score: admLink.score };
+    }
+  }
+
+  // Strategy B: probe common paths from program root
+  const root = getProgramRoot(startUrl);
+  const origin = new URL(startUrl).origin;
+  const probes = [
+    root + '/admissions',
+    root + '/admission',
+    root + '/apply',
+    root + '/admissions/how-to-apply',
+    root + '/how-to-apply',
+  ];
+
+  for (const path of probes) {
+    const probeUrl = origin + path;
+    const normalized = probeUrl.replace(/\/$/, '');
+    if (seen.has(normalized)) continue;
+
+    const md = await fetchPage(probeUrl);
+    if (md && md.length > 500 && !/page\s*not\s*found|404/i.test(md.slice(0, 300))) {
+      seen.add(normalized);
+      return { url: normalized, markdown: md, pageType: 'admissions', score: 12 };
+    }
+  }
+
+  return null;
+}
+
+// ---- Pick best links, one per type ----
+
+function pickBest(
+  links: Array<{ url: string; type: CrawlResult['pageType']; score: number }>,
+  limit: number,
+  typesHave: Set<string>,
+): Array<{ url: string; type: CrawlResult['pageType']; score: number }> {
+  const picked: typeof links = [];
+  const typeCount: Record<string, number> = {};
+  for (const link of links) {
+    if (picked.length >= limit) break;
+    const count = typeCount[link.type] || 0;
+    // Allow up to 2 admissions pages (hub + how-to-apply with essays)
+    const maxPerType = link.type === 'admissions' ? 2 : 1;
+    if (typesHave.has(link.type) && count >= maxPerType && link.type !== 'unknown' && link.type !== 'program') continue;
+    typesHave.add(link.type);
+    typeCount[link.type] = count + 1;
+    picked.push(link);
+  }
+  return picked;
+}
+
+// ---- Main crawl ----
+
+export async function crawlProgram(startUrl: string, maxPages = 6): Promise<CrawlResult[]> {
   const results: CrawlResult[] = [];
   const seen = new Set<string>();
   seen.add(startUrl.split('?')[0].split('#')[0].replace(/\/$/, ''));
+  const typesHave = new Set<string>();
 
-  const programRoot = getProgramRoot(startUrl);
+  // Step 1: Fetch start page
+  const startMd = await fetchPage(startUrl);
+  if (!startMd) throw new Error(`Failed to fetch: ${startUrl}`);
 
-  // === Pass 1: Fetch start page, discover links, fetch top 2 ===
-  const mainMarkdown = await fetchPage(startUrl);
-  if (!mainMarkdown) {
-    throw new Error(`Failed to fetch: ${startUrl}`);
+  const startPath = new URL(startUrl).pathname.toLowerCase();
+  const startIsAdmissions = /admissions?|apply|how-to-apply/.test(startPath);
+  const startType = startIsAdmissions ? 'admissions' : 'program';
+
+  results.push({ url: startUrl, markdown: startMd, pageType: startType, score: 100 });
+  typesHave.add(startType);
+
+  // Extract all URLs from start page
+  const startUrls = extractUrls(startMd, startUrl, seen);
+
+  // Step 2: Find admissions hub (if start page isn't already it)
+  let hubPage: CrawlResult | null = null;
+  if (!startIsAdmissions) {
+    hubPage = await findAdmissionsHub(startUrl, startUrls, seen);
+    if (hubPage) {
+      results.push(hubPage);
+      typesHave.add('admissions');
+    }
   }
-  results.push({ url: startUrl, markdown: mainMarkdown, pageType: 'program', score: 100 });
 
-  const pass1Links = extractRelatedLinks(mainMarkdown, startUrl, programRoot, seen);
-
-  // Deduplicate by type — one page per type in pass 1
-  const typesSeen = new Set<string>();
-  const pass1Pick: typeof pass1Links = [];
-  for (const link of pass1Links) {
-    if (pass1Pick.length >= 2) break;
-    if (typesSeen.has(link.type) && link.type !== 'program' && link.type !== 'unknown') continue;
-    typesSeen.add(link.type);
-    pass1Pick.push(link);
+  // Step 3: Extract URLs from admissions hub — this is where the gold is
+  const hub = hubPage || (startIsAdmissions ? results[0] : null);
+  let hubUrls: typeof startUrls = [];
+  if (hub) {
+    hubUrls = extractUrls(hub.markdown, startUrl, seen);
   }
 
-  const pass1Results = await fetchLinks(pass1Pick, 2);
-  results.push(...pass1Results);
+  // Step 4: Merge all discovered URLs, pick the best
+  const allUrls = [...hubUrls, ...startUrls];
+  allUrls.sort((a, b) => b.score - a.score);
 
-  // === Pass 2: Discover NEW links from pages fetched in pass 1 ===
   const remaining = maxPages - results.length;
-  if (remaining > 0) {
-    const allNewLinks: typeof pass1Links = [];
-    for (const page of results.slice(1)) {
-      const newLinks = extractRelatedLinks(page.markdown, startUrl, programRoot, seen);
-      allNewLinks.push(...newLinks);
-    }
-    allNewLinks.sort((a, b) => b.score - a.score);
-
-    // Track types we already have
-    for (const page of results) {
-      if (page.pageType !== 'unknown' && page.pageType !== 'program') {
-        typesSeen.add(page.pageType);
-      }
-    }
-
-    const pass2Pick: typeof pass1Links = [];
-    for (const link of allNewLinks) {
-      if (pass2Pick.length >= remaining) break;
-      // Prefer types we haven't seen yet; allow duplicates only for high scores
-      if (typesSeen.has(link.type) && link.type !== 'unknown' && link.type !== 'program') {
-        if (link.score < 7) continue;
-      }
-      typesSeen.add(link.type);
-      pass2Pick.push(link);
-    }
-
-    const pass2Results = await fetchLinks(pass2Pick, remaining);
-    results.push(...pass2Results);
-  }
+  const toPick = pickBest(allUrls, remaining, typesHave);
+  const fetched = await fetchBatch(toPick, remaining);
+  results.push(...fetched);
 
   return results;
 }
 
-// Combine all crawled pages into context for Claude
+// ---- Build context for Claude ----
+
 export function buildExtractionContext(pages: CrawlResult[]): string {
-  let context = '';
-  const sorted = [...pages].sort((a, b) => b.score - a.score);
+  const priority: Record<string, number> = {
+    admissions: 5, requirements: 4, faq: 3, financial: 3, deadlines: 3, program: 2, unknown: 1,
+  };
+  const sorted = [...pages].sort((a, b) => (priority[b.pageType] || 0) - (priority[a.pageType] || 0));
+
+  let ctx = '';
   for (const page of sorted) {
-    context += `\n\n=== PAGE: ${page.url} (type: ${page.pageType}, relevance: ${page.score}) ===\n\n`;
-    context += page.markdown;
+    ctx += `\n\n=== PAGE: ${page.url} (type: ${page.pageType}) ===\n\n`;
+    ctx += page.markdown;
   }
-  return context;
+  return ctx;
 }

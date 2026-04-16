@@ -207,8 +207,8 @@ export default function SmartExtract({ lang, onProgramExtracted }: SmartExtractP
 
           {/* Key fields grid */}
           <div className="result-grid">
-            <ResultField label={t.deadline} value={result.program.deadlineRegular || result.program.deadlineFinal} />
-            <ResultField label={t.toefl} value={result.program.toeflMin ? `≥${result.program.toeflMin}` : null} />
+            <ResultField label={t.deadline} value={result.program.deadlineRegular || result.program.deadlineFinal || result.program.deadlineEarly || result.program.deadlineNotes || null} />
+            <ResultField label={t.toefl} value={result.program.toeflMin ? `≥${result.program.toeflMin}` : result.program.toeflRequired === false ? (lang === 'zh' ? '不需要' : 'Not required') : null} />
             <ResultField label="GRE" value={result.program.greRequired === true ? t.required : result.program.greRequired === false ? t.notRequired : null} />
             <ResultField label={t.tuition} value={result.program.estimatedTotalTuition ? `$${result.program.estimatedTotalTuition.toLocaleString()}` : null} />
             <ResultField label={t.recs} value={result.program.recsRequired ? `${result.program.recsRequired} ${t.letters}` : null} />

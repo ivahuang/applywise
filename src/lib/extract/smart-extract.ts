@@ -131,7 +131,7 @@ Return ONLY valid JSON matching this structure:
   "costPerCredit": number | null,
   "estimatedTotalTuition": number | null,
   "applicationFee": number | null,
-  "toeflRequired": boolean | null (false if explicitly waived or not required),
+  "toeflRequired": boolean | null (IMPORTANT: set to false if the program says TOEFL/IELTS is "not required", "waived", "optional", or "not needed". Only set true if explicitly required. null if not mentioned at all.),
   "toeflMin": number | null (the minimum score, typically 79-110),
   "toeflMedian": number | null,
   "ieltsMin": number | null (typically 6.0-7.5),

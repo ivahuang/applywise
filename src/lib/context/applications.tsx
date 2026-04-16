@@ -28,9 +28,11 @@ export interface AppProgram {
   portalUrl: string | null;
   programUrl: string | null;
   toeflMin: number | null;
+  toeflRequired?: boolean | null;
   greRequired: boolean;
   applicationFee: number | null;
   tasksState: TasksState;
+  extractedData?: any;  // full extraction result, used by detail page
 }
 
 interface ApplicationsContextValue {

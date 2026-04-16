@@ -26,6 +26,7 @@ export interface ProgramForTasks {
 
   // Admissions
   toeflMin?: number;
+  toeflRequired?: boolean;
   toeflMedian?: number;
   greRequired: boolean;
   greMin?: number;
@@ -117,8 +118,8 @@ export function extractedToProgram(ep: ExtractedProgram): ProgramForTasks {
     totalCredits: ep.totalCredits || undefined,
     costPerCredit: ep.costPerCredit || undefined,
     estimatedTotal: ep.estimatedTotalTuition || undefined,
-
     toeflMin: ep.toeflMin || undefined,
+    toeflRequired: ep.toeflRequired,
     toeflMedian: ep.toeflMedian || undefined,
     greRequired: ep.greRequired ?? false,
     greMin: ep.greMin || undefined,

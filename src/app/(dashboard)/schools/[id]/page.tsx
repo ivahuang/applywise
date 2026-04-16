@@ -396,31 +396,140 @@ function TaskRow({
 // ── Requirements Tab ──
 
 function RequirementsTab({ app, lang }: { app: AppProgram; lang: Lang }) {
-  const fields: Array<{ label: string; labelZh: string; value: string | null }> = [
-    { label: "TOEFL minimum", labelZh: "托福最低分", value: app.toeflMin ? `${app.toeflMin}` : null },
-    { label: "GRE", labelZh: "GRE", value: app.greRequired ? (lang === "zh" ? "需要" : "Required") : (lang === "zh" ? "不需要" : "Not required") },
-    { label: "Application fee", labelZh: "申请费", value: app.applicationFee ? `$${app.applicationFee}` : null },
-    { label: "Deadline", labelZh: "截止日期", value: app.deadline },
-    { label: "Degree", labelZh: "学位", value: app.degree },
+  const d = app.extractedData || {};
+
+  // Build fields dynamically from extracted data
+  const sections: Array<{ title: string; titleZh: string; fields: Array<{ label: string; labelZh: string; value: string | null }> }> = [
+    {
+      title: "Test scores", titleZh: "标化成绩",
+      fields: [
+        { label: "TOEFL", labelZh: "托福",
+          value: d.toeflMin ? `Min: ${d.toeflMin}${d.toeflMedian ? ` / Median: ${d.toeflMedian}` : ''}`
+            : d.toeflRequired === false ? (lang === "zh" ? "不需要" : "Not required")
+            : null },
+        { label: "IELTS", labelZh: "雅思",
+          value: d.ieltsMin ? `Min: ${d.ieltsMin}` : null },
+        { label: "GRE", labelZh: "GRE",
+          value: d.greRequired === true ? (d.greMin ? `Required (min: ${d.greMin})` : (lang === "zh" ? "需要" : "Required"))
+            : d.greRequired === false ? (lang === "zh" ? "不需要" : "Not required")
+            : null },
+        { label: "GMAT", labelZh: "GMAT",
+          value: d.gmatAccepted === true ? (lang === "zh" ? "接受" : "Accepted")
+            : d.gmatAccepted === false ? (lang === "zh" ? "不接受" : "Not accepted")
+            : null },
+        { label: "GPA minimum", labelZh: "最低GPA", value: d.gpaMin ? `${d.gpaMin}` : null },
+      ],
+    },
+    {
+      title: "Application materials", titleZh: "申请材料",
+      fields: [
+        { label: "Recommendation letters", labelZh: "推荐信",
+          value: d.recsRequired ? `${d.recsRequired} letters${d.recsAcademicMin ? ` (${d.recsAcademicMin} academic)` : ''}${d.recsProfessionalOk ? ' · professional OK' : ''}` : null },
+        { label: "Resume", labelZh: "简历",
+          value: d.resumeRequired === true ? (lang === "zh" ? "需要" : "Required") : d.resumeRequired === false ? (lang === "zh" ? "不需要" : "Not required") : null },
+        { label: "Writing sample", labelZh: "写作样本",
+          value: d.writingSampleRequired === true ? (d.writingSampleDetails || (lang === "zh" ? "需要" : "Required"))
+            : d.writingSampleRequired === false ? (lang === "zh" ? "不需要" : "Not required") : null },
+        { label: "Portfolio", labelZh: "作品集",
+          value: d.portfolioRequired === true ? (lang === "zh" ? "需要" : "Required") : d.portfolioRequired === false ? (lang === "zh" ? "不需要" : "Not required") : null },
+        { label: "Transcripts", labelZh: "成绩单",
+          value: d.transcriptsRequired === true ? (lang === "zh" ? "需要" : "Required") : null },
+        { label: "WES evaluation", labelZh: "WES认证",
+          value: d.wesRequired === true ? (d.wesEvalType ? `Required (${d.wesEvalType})` : (lang === "zh" ? "需要" : "Required"))
+            : d.wesRequired === false ? (lang === "zh" ? "不需要" : "Not required") : null },
+      ],
+    },
+    {
+      title: "Interview", titleZh: "面试",
+      fields: [
+        { label: "Interview", labelZh: "面试",
+          value: d.interviewRequired === true ? (d.interviewFormat || (lang === "zh" ? "需要" : "Required"))
+            : d.interviewRequired === false ? (lang === "zh" ? "不需要" : "Not required") : null },
+        { label: "Video essay", labelZh: "视频文书",
+          value: d.videoEssayRequired === true ? (d.videoEssayDetails || (lang === "zh" ? "需要" : "Required"))
+            : d.videoEssayRequired === false ? (lang === "zh" ? "不需要" : "Not required") : null },
+      ],
+    },
+    {
+      title: "Cost & deadlines", titleZh: "费用与截止日期",
+      fields: [
+        { label: "Total tuition", labelZh: "总学费",
+          value: d.estimatedTotalTuition ? `$${d.estimatedTotalTuition.toLocaleString()}` : null },
+        { label: "Cost per credit", labelZh: "每学分费用",
+          value: d.costPerCredit ? `$${d.costPerCredit.toLocaleString()}` : null },
+        { label: "Application fee", labelZh: "申请费",
+          value: d.applicationFee ? `$${d.applicationFee}` : null },
+        { label: "Deadline (priority)", labelZh: "截止日期（优先）", value: d.deadlineEarly || null },
+        { label: "Deadline (regular)", labelZh: "截止日期（常规）", value: d.deadlineRegular || null },
+        { label: "Deadline (final)", labelZh: "截止日期（最终）", value: d.deadlineFinal || null },
+        { label: "Deadline notes", labelZh: "截止日期备注", value: d.deadlineNotes || null },
+      ],
+    },
+    {
+      title: "Program details", titleZh: "项目信息",
+      fields: [
+        { label: "Degree", labelZh: "学位", value: d.degree || app.degree || null },
+        { label: "Duration", labelZh: "学制", value: d.duration || null },
+        { label: "Format", labelZh: "形式", value: d.format || null },
+        { label: "Total credits", labelZh: "总学分", value: d.totalCredits ? `${d.totalCredits}` : null },
+        { label: "Department", labelZh: "院系", value: d.department || null },
+        { label: "Career outcomes", labelZh: "就业去向", value: d.careerOutcomes || null },
+      ],
+    },
   ];
 
   return (
-    <div style={{ background: theme.card, borderRadius: 10, border: `1px solid ${theme.border}`, overflow: "hidden" }}>
-      {fields.map((f, i) => (
-        <div key={i} style={{
-          display: "flex", justifyContent: "space-between", padding: "10px 16px",
-          borderBottom: i < fields.length - 1 ? `1px solid ${theme.muted}` : "none",
-        }}>
-          <span style={{ fontSize: 13, color: theme.textSecondary }}>{lang === "zh" ? f.labelZh : f.label}</span>
-          <span style={{ fontSize: 13, fontWeight: 500, color: f.value ? theme.text : theme.textMuted }}>
-            {f.value || "—"}
-          </span>
-        </div>
-      ))}
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      {sections.map((section, si) => {
+        // Only show sections that have at least one non-null field
+        const filledFields = section.fields.filter(f => f.value !== null);
+        if (filledFields.length === 0) return null;
 
-      {/* Source link */}
+        return (
+          <div key={si} style={{ background: theme.card, borderRadius: 10, border: `1px solid ${theme.border}`, overflow: "hidden" }}>
+            <div style={{ padding: "8px 16px", background: theme.muted, borderBottom: `1px solid ${theme.border}` }}>
+              <span style={{ fontSize: 12, fontWeight: 600, color: theme.textSecondary, textTransform: "uppercase", letterSpacing: 0.5 }}>
+                {lang === "zh" ? section.titleZh : section.title}
+              </span>
+            </div>
+            {filledFields.map((f, i) => (
+              <div key={i} style={{
+                display: "flex", justifyContent: "space-between", padding: "10px 16px",
+                borderBottom: i < filledFields.length - 1 ? `1px solid ${theme.muted}` : "none",
+              }}>
+                <span style={{ fontSize: 13, color: theme.textSecondary }}>{lang === "zh" ? f.labelZh : f.label}</span>
+                <span style={{ fontSize: 13, fontWeight: 500, color: theme.text, maxWidth: "60%", textAlign: "right" }}>
+                  {f.value}
+                </span>
+              </div>
+            ))}
+          </div>
+        );
+      })}
+
+      {/* Curriculum */}
+      {d.curriculum && d.curriculum.length > 0 && (
+        <div style={{ background: theme.card, borderRadius: 10, border: `1px solid ${theme.border}`, overflow: "hidden" }}>
+          <div style={{ padding: "8px 16px", background: theme.muted, borderBottom: `1px solid ${theme.border}` }}>
+            <span style={{ fontSize: 12, fontWeight: 600, color: theme.textSecondary, textTransform: "uppercase", letterSpacing: 0.5 }}>
+              {lang === "zh" ? "课程设置" : "Curriculum"}
+            </span>
+          </div>
+          <div style={{ padding: "10px 16px", display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {d.curriculum.map((course: string, i: number) => (
+              <span key={i} style={{
+                fontSize: 12, padding: "3px 10px", background: theme.muted, borderRadius: 12, color: theme.textSecondary,
+              }}>
+                {course}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Source links */}
       {app.programUrl && (
-        <div style={{ padding: "10px 16px", borderTop: `1px solid ${theme.border}`, background: theme.muted }}>
+        <div style={{ padding: "10px 16px", background: theme.muted, borderRadius: 10 }}>
           <a href={app.programUrl} target="_blank" rel="noopener noreferrer"
             style={{ fontSize: 12, color: theme.accent, textDecoration: "none", display: "flex", alignItems: "center", gap: 4 }}>
             <Globe size={12} />

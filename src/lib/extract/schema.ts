@@ -190,6 +190,10 @@ export function calculateConfidence(data: Partial<ExtractedProgram>): { confiden
   }
   for (const f of important) {
     total += 2;
+    // Don't penalize for missing toeflMin when TOEFL is not required
+    if (f === 'toeflMin' && data.toeflRequired === false) { score += 2; continue; }
+    // Don't penalize for missing deadline when notes explain why
+    if (f === 'deadlineRegular' && hasValue(data.deadlineNotes)) { score += 2; continue; }
     if (hasValue((data as any)[f])) score += 2; else missing.push(f);
   }
   for (const f of nice) {

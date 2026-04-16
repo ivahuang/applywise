@@ -91,6 +91,7 @@ export default function SchoolsPage() {
               greRequired: program.greRequired,
               applicationFee: program.applicationFee ?? null,
               tasksState,
+              extractedData: program,
             };
             // Use addExtractedProgram if available, otherwise we need to expose it
             addRawApp(newApp);

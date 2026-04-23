@@ -1,12 +1,8 @@
-// ============================================================
 // POST /api/smart-extract
-// 
-// Body: { input: string } — either a .edu URL or a keyword
-// Returns: Server-Sent Events stream with progress + final result
-//
-// Now with caching: checks ProgramIntelligence table first.
-// If cache hit → returns instantly. If miss → extracts + saves.
-// ============================================================
+// Extracts program data from .edu URL or keyword.
+// Checks cache first → if hit, returns instantly with programIntelligenceId.
+// If miss → extracts → saves → returns with programIntelligenceId.
+// 2026-04-22
 
 import { NextRequest } from 'next/server';
 import { smartExtract, type SmartExtractProgress } from '@/lib/extract/smart-extract';
@@ -32,28 +28,34 @@ export async function POST(req: NextRequest) {
       };
 
       try {
-        // Quick cache check for .edu URLs
         const trimmed = input.trim();
+
+        // Quick cache check for .edu URLs
         if (trimmed.startsWith('https://') && trimmed.includes('.edu')) {
           const school = resolveSchoolFromUrl(trimmed);
           if (school) {
             const schoolSlug = toSlug(school.name);
-            // Use URL path as program slug for cache lookup
             try {
               const urlPath = new URL(trimmed).pathname.replace(/\//g, '-').replace(/^-|-$/g, '');
               const programSlug = toSlug(urlPath);
               const cycle = getCurrentCycle();
 
-              send({ type: 'progress', step: 'resolving', message: 'Checking cache...', messageZh: '检查缓存...' });
+              send({ type: 'progress', step: 'resolving', message: 'Checking library...', messageZh: '检查项目库...' });
               const cached = await checkCache(schoolSlug, programSlug, cycle);
 
               if (cached) {
-                send({ type: 'progress', step: 'complete', message: 'Found cached result', messageZh: '找到缓存结果' });
-                send({ type: 'result', ...cached });
+                send({ type: 'progress', step: 'complete', message: 'Found in library', messageZh: '已在项目库中找到' });
+                // Look up the programIntelligenceId
+                const { default: prisma } = await import('@/lib/prisma');
+                const record = await prisma.programIntelligence.findUnique({
+                  where: { schoolSlug_programSlug_cycle: { schoolSlug, programSlug, cycle } },
+                  select: { id: true },
+                });
+                send({ type: 'result', ...cached, programIntelligenceId: record?.id, fromCache: true });
                 controller.close();
                 return;
               }
-            } catch { /* cache miss, continue to extract */ }
+            } catch { /* cache miss, continue */ }
           }
         }
 
@@ -62,10 +64,15 @@ export async function POST(req: NextRequest) {
           send({ type: 'progress', ...p });
         });
 
-        send({ type: 'result', ...result });
+        // Save to cache and get the record ID
+        const programIntelligenceId = await saveCache(result, trimmed);
 
-        // Save to cache in background (don't block response)
-        saveCache(result).catch(e => console.error('Cache save error:', e));
+        send({
+          type: 'result',
+          ...result,
+          programIntelligenceId,
+          fromCache: false,
+        });
 
       } catch (e) {
         send({ type: 'error', message: (e as Error).message });
